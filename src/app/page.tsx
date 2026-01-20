@@ -73,6 +73,7 @@ export default function HomePage() {
               <h3 className="text-xl font-semibold mb-3">Post Your Event</h3>
               <p className="text-gray-600">
                   Describe your event requirements, budget, and timeline. It is free and takes just a few minutes.
+                  </p>
             </div>
 
             <div className="text-center">
