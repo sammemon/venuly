@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Input, Select } from '@/components/ui';
@@ -10,11 +10,11 @@ import toast from 'react-hot-toast';
 
 export const dynamic = 'force-dynamic';
 
-export default function SignUpPage() {
+function SignUpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const roleParam = searchParams.get('role');
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -22,7 +22,10 @@ export default function SignUpPage() {
     confirmPassword: '',
     firstName: '',
     lastName: '',
-    role: roleParam === 'organizer' ? UserRole.ORGANIZER : UserRole.CLIENT,
+    role:
+      roleParam === 'organizer'
+        ? UserRole.ORGANIZER
+        : UserRole.CLIENT,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +65,9 @@ export default function SignUpPage() {
       toast.success('Account created successfully!');
       router.push('/auth/signin');
     } catch (error: any) {
-      toast.error(error.message || 'An error occurred. Please try again.');
+      toast.error(
+        error.message || 'An error occurred. Please try again.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -74,10 +79,17 @@ export default function SignUpPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
             <Calendar className="w-10 h-10 text-accent" />
-            <span className="font-display text-3xl font-bold text-dark">Venuly</span>
+            <span className="font-display text-3xl font-bold text-dark">
+              Venuly
+            </span>
           </Link>
-          <h1 className="text-3xl font-display font-bold text-dark mb-2">Create Account</h1>
-          <p className="text-gray-600">Join the Venuly community today</p>
+
+          <h1 className="text-3xl font-display font-bold text-dark mb-2">
+            Create Account
+          </h1>
+          <p className="text-gray-600">
+            Join the Venuly community today
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-soft-lg p-8">
@@ -89,15 +101,26 @@ export default function SignUpPage() {
                 placeholder="John"
                 icon={<User className="w-5 h-5" />}
                 value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    firstName: e.target.value,
+                  })
+                }
                 required
               />
+
               <Input
                 label="Last Name"
                 type="text"
                 placeholder="Doe"
                 value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    lastName: e.target.value,
+                  })
+                }
                 required
               />
             </div>
@@ -108,18 +131,34 @@ export default function SignUpPage() {
               placeholder="you@example.com"
               icon={<Mail className="w-5 h-5" />}
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  email: e.target.value,
+                })
+              }
               required
             />
 
             <Select
               label="I want to"
               options={[
-                { value: UserRole.CLIENT, label: 'Organize an Event (Client)' },
-                { value: UserRole.ORGANIZER, label: 'Offer Event Services (Organizer)' },
+                {
+                  value: UserRole.CLIENT,
+                  label: 'Organize an Event (Client)',
+                },
+                {
+                  value: UserRole.ORGANIZER,
+                  label: 'Offer Event Services (Organizer)',
+                },
               ]}
               value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  role: e.target.value as UserRole,
+                })
+              }
             />
 
             <Input
@@ -128,7 +167,12 @@ export default function SignUpPage() {
               placeholder="••••••••"
               icon={<Lock className="w-5 h-5" />}
               value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  password: e.target.value,
+                })
+              }
               helperText="Minimum 8 characters"
               required
             />
@@ -139,34 +183,67 @@ export default function SignUpPage() {
               placeholder="••••••••"
               icon={<Lock className="w-5 h-5" />}
               value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  confirmPassword: e.target.value,
+                })
+              }
               required
             />
 
             <div className="text-sm text-gray-600">
               By signing up, you agree to our{' '}
-              <Link href="/terms" className="text-accent hover:underline">
+              <Link
+                href="/terms"
+                className="text-accent hover:underline"
+              >
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-accent hover:underline">
+              <Link
+                href="/privacy"
+                className="text-accent hover:underline"
+              >
                 Privacy Policy
               </Link>
             </div>
 
-            <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+            <Button
+              type="submit"
+              className="w-full"
+              size="lg"
+              isLoading={isLoading}
+            >
               Create Account
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-600">
             Already have an account?{' '}
-            <Link href="/auth/signin" className="text-accent hover:underline font-medium">
+            <Link
+              href="/auth/signin"
+              className="text-accent hover:underline font-medium"
+            >
               Sign in
             </Link>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          Loading…
+        </div>
+      }
+    >
+      <SignUpContent />
+    </Suspense>
   );
 }

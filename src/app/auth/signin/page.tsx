@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -10,9 +10,10 @@ import toast from 'react-hot-toast';
 
 export const dynamic = 'force-dynamic';
 
-export default function SignInPage() {
+function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -34,11 +35,12 @@ export default function SignInPage() {
         toast.error(result.error);
       } else {
         toast.success('Signed in successfully!');
-        const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+        const callbackUrl =
+          searchParams.get('callbackUrl') || '/dashboard';
         router.push(callbackUrl);
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -51,10 +53,17 @@ export default function SignInPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
             <Calendar className="w-10 h-10 text-accent" />
-            <span className="font-display text-3xl font-bold text-dark">Venuly</span>
+            <span className="font-display text-3xl font-bold text-dark">
+              Venuly
+            </span>
           </Link>
-          <h1 className="text-3xl font-display font-bold text-dark mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your account to continue</p>
+
+          <h1 className="text-3xl font-display font-bold text-dark mb-2">
+            Welcome Back
+          </h1>
+          <p className="text-gray-600">
+            Sign in to your account to continue
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-soft-lg p-8">
@@ -65,7 +74,9 @@ export default function SignInPage() {
               placeholder="you@example.com"
               icon={<Mail className="w-5 h-5" />}
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
             />
 
@@ -75,33 +86,66 @@ export default function SignInPage() {
               placeholder="••••••••"
               icon={<Lock className="w-5 h-5" />}
               value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               required
             />
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-accent focus:ring-accent" />
-                <span className="ml-2 text-gray-600">Remember me</span>
+                <input
+                  type="checkbox"
+                  className="rounded border-gray-300 text-accent focus:ring-accent"
+                />
+                <span className="ml-2 text-gray-600">
+                  Remember me
+                </span>
               </label>
-              <Link href="/auth/reset" className="text-accent hover:underline">
+
+              <Link
+                href="/auth/reset"
+                className="text-accent hover:underline"
+              >
                 Forgot password?
               </Link>
             </div>
 
-            <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+            <Button
+              type="submit"
+              className="w-full"
+              size="lg"
+              isLoading={isLoading}
+            >
               Sign In
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-600">
             Do not have an account?{' '}
-            <Link href="/auth/signup" className="text-accent hover:underline font-medium">
+            <Link
+              href="/auth/signup"
+              className="text-accent hover:underline font-medium"
+            >
               Sign up
             </Link>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          Loading…
+        </div>
+      }
+    >
+      <SignInContent />
+    </Suspense>
   );
 }
