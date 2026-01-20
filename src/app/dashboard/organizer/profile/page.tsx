@@ -111,201 +111,231 @@ export default function OrganizerProfilePage() {
   };
 
   return (
-    <div className="p-6 lg:p-10 bg-[#f7f7f5] min-h-screen">
-      {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0B4F6C] via-[#0E7490] to-[#18A4B8] text-white mb-8 shadow-md">
-        <div className="p-8 lg:p-10 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <p className="uppercase tracking-[0.3rem] text-xs text-white/80">Organizer Profile</p>
-            <h1 className="text-3xl lg:text-4xl font-bold mt-2">Stand out to clients on Venuly</h1>
-            <p className="mt-3 text-white/85 max-w-2xl">
-              Keep your details polished like an Upwork profile: strong bio, clear rates, and a complete portfolio.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3 backdrop-blur">
-            <Star className="w-8 h-8 text-amber-300 fill-amber-300" />
-            <div>
-              <p className="text-sm text-white/80">Profile strength</p>
-              <p className="text-xl font-semibold">Getting Started</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white">
+      {/* Cover Photo Area */}
+      <div className="h-48 bg-gradient-to-r from-[#0E7490] to-[#18A4B8]"></div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left column */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e0] p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-16 h-16 rounded-full bg-[#0E7490] text-white flex items-center justify-center text-xl font-semibold overflow-hidden">
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  initials || <User className="w-6 h-6" />
-                )}
+      {/* Profile Header */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="-mt-20 sm:-mt-24 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:space-x-5">
+            <div className="relative group">
+              <div className="h-32 w-32 rounded-full bg-white p-2 shadow-xl">
+                <div className="h-full w-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                  {avatarUrl ? (
+                    <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-3xl font-bold text-gray-400">{initials}</span>
+                  )}
+                </div>
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-semibold text-[#111827]">
+            </div>
+
+            <div className="mt-6 sm:mt-0 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-between sm:pb-6">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3">
+                  <h1 className="text-2xl font-bold text-gray-900 truncate">
                     {session?.user.firstName} {session?.user.lastName}
-                  </h3>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-700 px-2 py-1 text-xs font-medium">
-                    <Star className="w-3 h-3 fill-emerald-500 text-emerald-500" />
+                  </h1>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <Star className="w-3 h-3 fill-green-600" />
                     New
                   </span>
                 </div>
-                <p className="text-sm text-gray-600">Event Organizer</p>
-                <p className="text-xs text-gray-500 mt-1">Last updated: just now</p>
+                <p className="mt-1 text-sm text-gray-500">Event Organizer • {session?.user.email}</p>
+              </div>
+              <div className="mt-5 sm:mt-0">
+                <button
+                  onClick={() => setShowProfileModal(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  Edit profile
+                </button>
               </div>
             </div>
-
-            <button
-              onClick={() => setShowProfileModal(true)}
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#0E7490] text-white py-2.5 font-semibold hover:bg-[#0b5f74] transition-colors"
-            >
-              <Edit2 className="w-4 h-4" /> Edit profile details
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[{
-              label: 'Jobs applied',
-              value: '0',
-              icon: Briefcase,
-            }, {
-              label: 'Invites received',
-              value: '0',
-              icon: Award,
-            }].map(({ label, value, icon: Icon }) => (
-              <div key={label} className="bg-white rounded-xl border border-[#e5e5e0] p-4 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#0E7490]/10 text-[#0E7490] flex items-center justify-center">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-gray-500">{label}</p>
-                    <p className="text-lg font-semibold text-[#111827]">{value}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
-        {/* Right column */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e0] p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-semibold text-[#111827]">Profile completion</h3>
-                <p className="text-sm text-gray-500">Boost your chances by completing each section.</p>
-              </div>
-              <span className="text-sm font-medium text-[#0E7490]">Start with bio and contact info</span>
-            </div>
-
-            <div className="space-y-4">
-              {[{
-                label: 'Basic info',
-                value: '100%',
-                color: 'bg-emerald-500',
-              }, {
-                label: 'Skills & experience',
-                value: '0%',
-                color: 'bg-[#0E7490]',
-              }, {
-                label: 'Portfolio',
-                value: '0%',
-                color: 'bg-[#0E7490]',
-              }].map(({ label, value, color }) => (
-                <div key={label}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-700 font-medium">{label}</span>
-                    <span className="text-sm text-gray-600">{value}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-gray-100">
-                    <div className={`h-2 rounded-full ${color}`} style={{ width: value }} />
-                  </div>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Briefcase className="h-6 w-6 text-gray-400" />
                 </div>
-              ))}
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">Jobs applied</dt>
+                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                  </dl>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e0] p-6">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#111827]">About</h3>
-                <p className="text-sm text-gray-500">Craft a short, client-friendly bio (like Upwork profiles).</p>
+          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Award className="h-6 w-6 text-gray-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">Invites received</dt>
+                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                  </dl>
+                </div>
               </div>
-              <button
-                onClick={() => setShowBioModal(true)}
-                className="text-sm inline-flex items-center gap-2 text-[#0E7490] hover:text-[#0b5f74] font-semibold"
-              >
-                <Edit2 className="w-4 h-4" />
-                {bio ? 'Edit bio' : 'Add bio'}
-              </button>
             </div>
-
-            {bio ? (
-              <p className="text-gray-700 leading-7 whitespace-pre-wrap">{bio}</p>
-            ) : (
-              <div className="rounded-lg border border-dashed border-[#0E7490]/40 bg-[#0E7490]/3 p-4 text-sm text-gray-700">
-                Add a punchy intro about your niche, top skills, and what makes you reliable. Keep it 3-5 sentences.
-              </div>
-            )}
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e0] p-6">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#111827]">Skills</h3>
-                <p className="text-sm text-gray-500">Add the specialties you want clients to see.</p>
+          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Star className="h-6 w-6 text-gray-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">Profile views</dt>
+                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                  </dl>
+                </div>
               </div>
-              <button
-                onClick={() => setShowProfileModal(true)}
-                className="text-sm inline-flex items-center gap-2 text-[#0E7490] hover:text-[#0b5f74] font-semibold"
-              >
-                <Edit2 className="w-4 h-4" /> Manage
-              </button>
             </div>
-            {formData.skills.length ? (
-              <div className="flex flex-wrap gap-2">
-                {formData.skills.map((skill) => (
-                  <span key={skill} className="inline-flex items-center gap-2 rounded-full bg-[#0E7490]/10 text-[#0E7490] px-3 py-1 text-sm font-medium">
-                    {skill}
-                  </span>
+          </div>
+
+          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <User className="h-6 w-6 text-gray-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">Connections</dt>
+                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* About Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">About</h2>
+                <button
+                  onClick={() => setShowBioModal(true)}
+                  className="text-sm text-[#0E7490] hover:text-[#0b5f74] font-medium flex items-center gap-1"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  {bio ? 'Edit' : 'Add'}
+                </button>
+              </div>
+              {bio ? (
+                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{bio}</p>
+              ) : (
+                <p className="text-gray-500 text-sm italic">Add a compelling bio to showcase your experience and expertise</p>
+              )}
+            </div>
+
+            {/* Skills Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Skills</h2>
+                <button
+                  onClick={() => setShowProfileModal(true)}
+                  className="text-sm text-[#0E7490] hover:text-[#0b5f74] font-medium flex items-center gap-1"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  {formData.skills.length ? 'Edit' : 'Add'}
+                </button>
+              </div>
+              {formData.skills.length ? (
+                <div className="flex flex-wrap gap-2">
+                  {formData.skills.map((skill) => (
+                    <span key={skill} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-sm italic">Add skills to showcase your expertise</p>
+              )}
+            </div>
+
+            {/* Portfolio Section */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900">Portfolio</h2>
+                <button
+                  onClick={() => setShowProfileModal(true)}
+                  className="text-sm text-[#0E7490] hover:text-[#0b5f74] font-medium flex items-center gap-1"
+                >
+                  <Edit2 className="w-4 h-4" />
+                  {formData.portfolioLinks.length ? 'Edit' : 'Add'}
+                </button>
+              </div>
+              {formData.portfolioLinks.length ? (
+                <ul className="space-y-2">
+                  {formData.portfolioLinks.map((link) => (
+                    <li key={link}>
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm text-[#0E7490] hover:underline break-all"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500 text-sm italic">Add portfolio links to showcase your work</p>
+              )}
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Profile Completion */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 className="text-base font-semibold text-gray-900 mb-4">Profile strength</h3>
+              <div className="space-y-4">
+                {[{
+                  label: 'Basic info',
+                  value: 100,
+                  color: 'bg-green-500',
+                }, {
+                  label: 'Skills',
+                  value: formData.skills.length > 0 ? 100 : 0,
+                  color: 'bg-blue-500',
+                }, {
+                  label: 'Portfolio',
+                  value: formData.portfolioLinks.length > 0 ? 100 : 0,
+                  color: 'bg-blue-500',
+                }].map(({ label, value, color }) => (
+                  <div key={label}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-gray-600">{label}</span>
+                      <span className="text-sm font-medium text-gray-900">{value}%</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className={`h-2 ${color} transition-all duration-300`} style={{ width: `${value}%` }} />
+                    </div>
+                  </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-sm text-gray-600">No skills added yet.</p>
-            )}
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-[#e5e5e0] p-6">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#111827]">Portfolio</h3>
-                <p className="text-sm text-gray-500">Link to case studies, event galleries, or decks.</p>
-              </div>
-              <button
-                onClick={() => setShowProfileModal(true)}
-                className="text-sm inline-flex items-center gap-2 text-[#0E7490] hover:text-[#0b5f74] font-semibold"
-              >
-                <Edit2 className="w-4 h-4" /> Manage
-              </button>
             </div>
-            {formData.portfolioLinks.length ? (
-              <ul className="space-y-2">
-                {formData.portfolioLinks.map((link) => (
-                  <li key={link}>
-                    <a href={link} target="_blank" rel="noreferrer" className="text-[#0E7490] hover:underline break-words text-sm">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-sm text-gray-600">No portfolio links yet.</p>
-            )}
           </div>
         </div>
       </div>
