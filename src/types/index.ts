@@ -71,6 +71,8 @@ export interface IUser {
   phone?: string;
   isEmailVerified: boolean;
   isActive: boolean;
+  passwordResetToken?: string | null;
+  passwordResetExpires?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -82,7 +82,7 @@ export default function SignInPage() {
                 <input type="checkbox" className="rounded border-gray-300 text-accent focus:ring-accent" />
                 <span className="ml-2 text-gray-600">Remember me</span>
               </label>
-              <Link href="/auth/forgot-password" className="text-accent hover:underline">
+              <Link href="/auth/reset" className="text-accent hover:underline">
                 Forgot password?
               </Link>
             </div>
