@@ -142,7 +142,7 @@ export default function OrganizerProfilePage() {
                     New
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-white/90">Event Organizer • {session?.user.email}</p>
+                <p className="mt-1 text-sm text-white/90 truncate">Event Organizer • {session?.user.email}</p>
               </div>
               <div className="mt-5 sm:mt-0">
                 <button
