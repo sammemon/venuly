@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { EventType } from '@/types';
 import DatePicker from 'react-datepicker';
+import { Upload, X } from 'lucide-react';
 
 interface FormState {
   title: string;
@@ -36,11 +37,14 @@ interface FormState {
     services: string[];
     additionalNotes?: string;
   };
+  images?: string[];
 }
 
 export default function CreateEventPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
 
   // Guard: only CLIENT can access
   useEffect(() => {
@@ -70,10 +74,56 @@ export default function CreateEventPage() {
     guestCount: { min: 50, max: 150 },
     budget: { min: 1000, max: 5000, currency: 'USD' },
     requirements: { services: [] },
+    images: [],
   });
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploading(true);
+    try {
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('folder', 'events');
+
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Upload failed');
+        }
+
+        const { url } = await res.json();
+        return url;
+      });
+
+      const uploadedUrls = await Promise.all(uploadPromises);
+      setForm((prev) => ({
+        ...prev,
+        images: [...(prev.images || []), ...uploadedUrls],
+      }));
+      toast.success(`${uploadedUrls.length} image(s) uploaded`);
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to upload images');
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function removeImage(index: number) {
+    setForm((prev) => ({
+      ...prev,
+      images: prev.images?.filter((_, i) => i !== index) || [],
+    }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -365,6 +415,55 @@ export default function CreateEventPage() {
                 rows={4}
               />
             </div>
+          </div>
+        </div>
+
+        {/* Event Images */}
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC]">
+          <div className="p-6 border-b border-[#DCDCDC]">
+            <h2 className="text-xl font-semibold text-[#222222]">Event Images</h2>
+          </div>
+          <div className="p-6">
+            <div className="mb-4">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#1E93AB] text-[#1E93AB] rounded-lg hover:bg-[#1E93AB] hover:text-white transition-colors disabled:opacity-50"
+              >
+                <Upload className="w-5 h-5" />
+                {uploading ? 'Uploading...' : 'Upload Images'}
+              </button>
+              <p className="text-sm text-gray-500 mt-2">Upload up to 10 images. JPG, PNG or GIF. Max 10MB each.</p>
+            </div>
+            {form.images && form.images.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {form.images.map((url, index) => (
+                  <div key={index} className="relative group">
+                    <img
+                      src={url}
+                      alt={`Event image ${index + 1}`}
+                      className="w-full h-32 object-cover rounded-lg border-2 border-[#DCDCDC]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
