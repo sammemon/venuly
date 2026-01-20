@@ -3,14 +3,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
 import { uploadImage } from '@/lib/upload/cloudinary';
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-};
-
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
