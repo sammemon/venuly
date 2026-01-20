@@ -134,20 +134,20 @@ export default function OrganizerProfilePage() {
             <div className="mt-6 sm:mt-0 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-between sm:pb-6">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3">
-                  <h1 className="text-2xl font-bold text-gray-900 truncate">
+                  <h1 className="text-2xl font-bold text-white truncate">
                     {session?.user.firstName} {session?.user.lastName}
                   </h1>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    <Star className="w-3 h-3 fill-green-600" />
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm">
+                    <Star className="w-3 h-3 fill-white" />
                     New
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-gray-500">Event Organizer • {session?.user.email}</p>
+                <p className="mt-1 text-sm text-white/90">Event Organizer • {session?.user.email}</p>
               </div>
               <div className="mt-5 sm:mt-0">
                 <button
                   onClick={() => setShowProfileModal(true)}
-                  className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                  className="inline-flex items-center gap-2 px-4 py-2 border-2 border-white rounded-lg shadow-sm text-sm font-medium text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit profile
