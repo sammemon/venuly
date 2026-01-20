@@ -1,0 +1,173 @@
+'use client';
+
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import { Settings, Bell, Lock, User, Save } from 'lucide-react';
+
+export default function ClientSettingsPage() {
+  const { data: session } = useSession();
+  const [notifications, setNotifications] = useState({
+    emailProposals: true,
+    emailMessages: true,
+    emailUpdates: false,
+    pushNotifications: true,
+  });
+
+  if (!session || session.user.role !== 'CLIENT') {
+    redirect('/auth/signin');
+  }
+
+  const handleSaveNotifications = () => {
+    console.log('Saving notifications:', notifications);
+    // TODO: Save to API
+  };
+
+  return (
+    <div className="p-6 lg:p-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-[#222222] mb-2">Settings</h1>
+        <p className="text-gray-600">Manage your account preferences</p>
+      </div>
+
+      <div className="space-y-6">
+        {/* Account Settings */}
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
+              <User className="w-5 h-5 text-[#1E93AB]" />
+            </div>
+            <h2 className="text-xl font-semibold text-[#222222]">Account Information</h2>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input
+                type="email"
+                value={session.user.email}
+                disabled
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <input
+                  type="text"
+                  value={session.user.firstName}
+                  disabled
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <input
+                  type="text"
+                  value={session.user.lastName}
+                  disabled
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Notification Settings */}
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
+              <Bell className="w-5 h-5 text-[#1E93AB]" />
+            </div>
+            <h2 className="text-xl font-semibold text-[#222222]">Notification Preferences</h2>
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-gray-900">Email - New Proposals</p>
+                <p className="text-sm text-gray-500">Get notified when organizers submit proposals</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.emailProposals}
+                  onChange={(e) => setNotifications({ ...notifications, emailProposals: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+              </label>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-gray-900">Email - Messages</p>
+                <p className="text-sm text-gray-500">Get notified when you receive new messages</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.emailMessages}
+                  onChange={(e) => setNotifications({ ...notifications, emailMessages: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+              </label>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-gray-900">Email - Platform Updates</p>
+                <p className="text-sm text-gray-500">Receive updates about new features and tips</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.emailUpdates}
+                  onChange={(e) => setNotifications({ ...notifications, emailUpdates: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+              </label>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-gray-900">Push Notifications</p>
+                <p className="text-sm text-gray-500">Receive browser push notifications</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={notifications.pushNotifications}
+                  onChange={(e) => setNotifications({ ...notifications, pushNotifications: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+              </label>
+            </div>
+          </div>
+          <div className="mt-6">
+            <button
+              onClick={handleSaveNotifications}
+              className="bg-[#1E93AB] text-white px-6 py-2 rounded-lg hover:bg-[#197A8F] transition-colors flex items-center gap-2"
+            >
+              <Save className="w-4 h-4" />
+              Save Preferences
+            </button>
+          </div>
+        </div>
+
+        {/* Security */}
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-[#1E93AB]" />
+            </div>
+            <h2 className="text-xl font-semibold text-[#222222]">Security</h2>
+          </div>
+          <div className="space-y-4">
+            <button className="w-full md:w-auto bg-[#1E93AB] text-white px-6 py-2 rounded-lg hover:bg-[#197A8F] transition-colors">
+              Change Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
