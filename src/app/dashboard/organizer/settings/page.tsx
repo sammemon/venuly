@@ -2,15 +2,12 @@
 
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { useState, useRef } from 'react';
-import { Settings, Bell, Lock, CreditCard, User, Save, Camera } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useState } from 'react';
+import { Settings, Bell, Lock, User, Save } from 'lucide-react';
 
 export default function OrganizerSettingsPage() {
   const { data: session } = useSession();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(session?.user?.avatar || '');
+  const [avatarUrl] = useState(session?.user?.avatar || '');
   const [notifications, setNotifications] = useState({
     emailProposals: true,
     emailMessages: true,
@@ -21,37 +18,6 @@ export default function OrganizerSettingsPage() {
   if (!session || session.user.role !== 'ORGANIZER') {
     redirect('/auth/signin');
   }
-
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', 'avatars');
-
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Upload failed');
-      }
-
-      const { url } = await res.json();
-      setAvatarUrl(url);
-      toast.success('Avatar uploaded successfully');
-      // TODO: Update user profile with new avatar URL via API
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to upload avatar');
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleSaveNotifications = () => {
     console.log('Saving notifications:', notifications);
@@ -66,45 +32,24 @@ export default function OrganizerSettingsPage() {
       </div>
 
       <div className="space-y-6">
-        {/* Profile Picture */}
+        {/* Profile Display */}
         <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <Camera className="w-5 h-5 text-[#1E93AB]" />
-            </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Profile Picture</h2>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-[#DCDCDC] overflow-hidden flex items-center justify-center">
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <User className="w-12 h-12 text-gray-400" />
-                )}
-              </div>
-              {uploading && (
-                <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-[#1E93AB] overflow-hidden flex items-center justify-center">
+              {avatarUrl ? (
+                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <div className="text-white text-xl font-semibold">
+                  {session?.user.firstName?.[0]}{session?.user.lastName?.[0]}
                 </div>
               )}
             </div>
             <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarUpload}
-                className="hidden"
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-                className="px-4 py-2 bg-[#1E93AB] text-white rounded-lg hover:bg-[#197A8F] transition-colors disabled:opacity-50"
-              >
-                {uploading ? 'Uploading...' : 'Upload Photo'}
-              </button>
-              <p className="text-sm text-gray-500 mt-2">JPG, PNG or GIF. Max 10MB.</p>
+              <h3 className="text-lg font-semibold text-[#222222]">
+                {session?.user.firstName} {session?.user.lastName}
+              </h3>
+              <p className="text-sm text-gray-600">{session?.user.email}</p>
+              <p className="text-xs text-[#1E93AB] font-medium mt-1">Event Organizer</p>
             </div>
           </div>
         </div>

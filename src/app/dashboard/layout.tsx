@@ -132,8 +132,15 @@ export default function DashboardLayout({
 
         <div className="p-4 border-t border-[#DCDCDC]">
           <div className="flex items-center gap-3 px-4 py-3 mb-2">
-            <div className="w-10 h-10 rounded-full bg-[#1E93AB] flex items-center justify-center text-white font-bold">
-              {session?.user.firstName?.[0]}{session?.user.lastName?.[0]}
+            <div className="w-10 h-10 rounded-full bg-[#1E93AB] flex items-center justify-center text-white font-bold overflow-hidden">
+              {session?.user.avatar ? (
+                <img src={session.user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <span>
+                  {session?.user.firstName?.[0]}
+                  {session?.user.lastName?.[0]}
+                </span>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">
