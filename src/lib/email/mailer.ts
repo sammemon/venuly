@@ -1,26 +1,12 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const smtpHost = process.env.SMTP_HOST;
-const smtpPort = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
-const smtpUser = process.env.SMTP_USER;
-const smtpPass = process.env.SMTP_PASSWORD;
+const resendApiKey = process.env.RESEND_API_KEY;
 
-if (!smtpHost || !smtpUser || !smtpPass) {
-  // In production this should be set; we guard to avoid runtime crashes on missing envs
-  console.warn('SMTP credentials not fully configured; email sending will be skipped.');
+if (!resendApiKey) {
+  console.warn('RESEND_API_KEY not configured; email sending will be skipped.');
 }
 
-export const mailer = smtpHost && smtpUser && smtpPass
-  ? nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465, // true for 465, false for 587/STARTTLS
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    })
-  : null;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function sendMail(options: {
   to: string;
@@ -28,17 +14,22 @@ export async function sendMail(options: {
   html: string;
   from?: string;
 }) {
-  if (!mailer) {
-    console.warn('Mailer not configured; skipping email send.');
+  if (!resend) {
+    console.warn('Resend not configured; skipping email send.');
     return;
   }
 
-  const fromAddress = options.from || process.env.SMTP_FROM || smtpUser;
+  const fromAddress = options.from || process.env.RESEND_FROM || 'noreply@venuly.dev';
 
-  await mailer.sendMail({
-    from: fromAddress,
-    to: options.to,
-    subject: options.subject,
-    html: options.html,
-  });
+  try {
+    await resend.emails.send({
+      from: fromAddress,
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+    });
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    throw error;
+  }
 }

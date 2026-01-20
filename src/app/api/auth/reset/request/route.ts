@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { connectDB } from '@/lib/db/connect';
 import User from '@/models/User';
 import { sendMail } from '@/lib/email/mailer';
+import { passwordResetEmailTemplate } from '@/lib/email/templates';
 
 const APP_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
@@ -29,14 +30,7 @@ export async function POST(request: NextRequest) {
     await user.save();
 
     const resetLink = `${APP_URL}/auth/reset?token=${token}`;
-
-    const html = `
-      <h2>Reset your password</h2>
-      <p>We received a request to reset your password. Click the link below to set a new password:</p>
-      <p><a href="${resetLink}">Reset Password</a></p>
-      <p>This link will expire in 1 hour.</p>
-      <p>If you did not request this, you can safely ignore this email.</p>
-    `;
+    const html = passwordResetEmailTemplate(resetLink, 1);
 
     await sendMail({
       to: user.email,
