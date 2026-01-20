@@ -8,6 +8,8 @@ import { Calendar, Mail, Lock, User } from 'lucide-react';
 import { UserRole } from '@/types';
 import toast from 'react-hot-toast';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignUpPage() {
   const router = useRouter();
   const searchParams = useSearchParams();

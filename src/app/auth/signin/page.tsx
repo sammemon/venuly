@@ -8,6 +8,8 @@ import { Button, Input } from '@/components/ui';
 import { Calendar, Mail, Lock } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
