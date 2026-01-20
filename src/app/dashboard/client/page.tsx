@@ -26,7 +26,7 @@ export default async function ClientDashboard() {
         <h1 className="text-3xl font-bold text-[#222222] mb-2">
           Welcome back, {session.user.firstName}!
         </h1>
-        <p className="text-gray-600">Here's what's happening with your events today.</p>
+        <p className="text-gray-600">Here is what is happening with your events today.</p>
       </div>
 
       {/* Quick Actions */}

@@ -131,7 +131,7 @@ export default async function OrganizerDashboard() {
           <div className="p-6">
             <div className="text-center py-12">
               <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-600">You haven't submitted any proposals yet</p>
+              <p className="text-gray-600">You have not submitted any proposals yet</p>
             </div>
           </div>
         </div>

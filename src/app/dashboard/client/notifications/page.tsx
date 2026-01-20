@@ -24,7 +24,7 @@ export default async function ClientNotificationsPage() {
               <Bell className="w-10 h-10 text-[#1E93AB]" />
             </div>
             <h3 className="text-lg font-semibold text-[#222222] mb-2">No notifications</h3>
-            <p className="text-gray-600">You're all caught up!</p>
+            <p className="text-gray-600">You are all caught up!</p>
           </div>
         </div>
       </div>
