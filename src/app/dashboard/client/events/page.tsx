@@ -5,7 +5,7 @@ import { Calendar, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { connectDB } from '@/lib/db/connect';
 import Event from '@/models/Event';
-import { EventStatus } from '@/types';
+import ClientEventsList from '@/components/dashboard/ClientEventsList';
 
 export default async function ClientEventsPage() {
   const session = await getServerSession(authOptions);
@@ -18,6 +18,17 @@ export default async function ClientEventsPage() {
   const events = await Event.find({ clientId: session.user.id })
     .sort({ createdAt: -1 })
     .lean();
+
+  const serializedEvents = events.map((event: any) => ({
+    ...event,
+    _id: event._id.toString(),
+    createdAt: event.createdAt?.toISOString?.(),
+    updatedAt: event.updatedAt?.toISOString?.(),
+    eventDate: {
+      start: event.eventDate?.start?.toISOString?.(),
+      end: event.eventDate?.end?.toISOString?.(),
+    },
+  }));
 
   return (
     <div className="p-6 lg:p-8">
@@ -36,7 +47,7 @@ export default async function ClientEventsPage() {
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC]">
-        {events.length === 0 ? (
+        {serializedEvents.length === 0 ? (
           <div className="p-12">
             <div className="text-center max-w-sm mx-auto">
               <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
@@ -54,35 +65,7 @@ export default async function ClientEventsPage() {
             </div>
           </div>
         ) : (
-          <div className="p-6 lg:p-8 space-y-4">
-            {events.map((event: any) => (
-              <div key={event._id.toString()} className="border border-[#DCDCDC] rounded-lg p-4 hover:shadow-sm transition-shadow">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
-                  <div>
-                    <h3 className="text-xl font-bold text-[#222222]">{event.title}</h3>
-                    <p className="text-sm text-gray-600">{event.location?.city}, {event.location?.state}</p>
-                  </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                    event.status === EventStatus.OPEN ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                  }`}>
-                    {event.status === EventStatus.OPEN ? 'Published' : 'Draft'}
-                  </span>
-                </div>
-                <p className="text-gray-700 mb-3 line-clamp-2">{event.description}</p>
-                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                  <div>
-                    <span className="font-semibold text-gray-800">Budget:</span> {event.budget?.currency || 'USD'} {event.budget?.min} - {event.budget?.max}
-                  </div>
-                  <div>
-                    <span className="font-semibold text-gray-800">Guests:</span> {event.guestCount?.min} - {event.guestCount?.max}
-                  </div>
-                  <div>
-                    <span className="font-semibold text-gray-800">Dates:</span> {new Date(event.eventDate?.start).toLocaleDateString()} - {new Date(event.eventDate?.end).toLocaleDateString()}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ClientEventsList events={serializedEvents} />
         )}
       </div>
     </div>
