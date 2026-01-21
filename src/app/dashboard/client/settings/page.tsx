@@ -100,17 +100,17 @@ export default function ClientSettingsPage() {
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="px-4 py-2 bg-[#1E93AB] text-white rounded-lg hover:bg-[#197A8F] transition-colors disabled:opacity-50"
+                  className="px-6 py-2 bg-[#1E93AB] text-white rounded-lg hover:bg-[#197A8F] transition-colors disabled:opacity-50 font-semibold"
               >
                 {uploading ? 'Uploading...' : 'Upload Photo'}
               </button>
-              <p className="text-sm text-gray-500 mt-2">JPG, PNG or GIF. Max 10MB.</p>
+                <p className="text-sm text-gray-500 mt-3">JPG, PNG or GIF. Max 10MB.</p>
             </div>
           </div>
         </div>
 
         {/* Account Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
               <User className="w-5 h-5 text-[#1E93AB]" />
@@ -119,111 +119,112 @@ export default function ClientSettingsPage() {
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
               <input
                 type="email"
                 value={session.user.email}
                 disabled
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
                 <input
                   type="text"
                   value={session.user.firstName}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
                 <input
                   type="text"
                   value={session.user.lastName}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
                 />
               </div>
             </div>
+            <p className="text-sm text-gray-500">Your account information is read-only. Contact support to make changes.</p>
           </div>
         </div>
 
         {/* Notification Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
               <Bell className="w-5 h-5 text-[#1E93AB]" />
             </div>
             <h2 className="text-xl font-semibold text-[#222222]">Notification Preferences</h2>
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="space-y-5">
+            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
               <div>
-                <p className="font-medium text-gray-900">Email - New Proposals</p>
-                <p className="text-sm text-gray-500">Get notified when organizers submit proposals</p>
+                <p className="font-semibold text-gray-900">Email - New Proposals</p>
+                <p className="text-sm text-gray-500 mt-1">Get notified when organizers submit proposals</p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer ml-4">
                 <input
                   type="checkbox"
                   checked={notifications.emailProposals}
                   onChange={(e) => setNotifications({ ...notifications, emailProposals: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
               </label>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
               <div>
-                <p className="font-medium text-gray-900">Email - Messages</p>
-                <p className="text-sm text-gray-500">Get notified when you receive new messages</p>
+                <p className="font-semibold text-gray-900">Email - Messages</p>
+                <p className="text-sm text-gray-500 mt-1">Get notified when you receive new messages</p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer ml-4">
                 <input
                   type="checkbox"
                   checked={notifications.emailMessages}
                   onChange={(e) => setNotifications({ ...notifications, emailMessages: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
               </label>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
               <div>
-                <p className="font-medium text-gray-900">Email - Platform Updates</p>
-                <p className="text-sm text-gray-500">Receive updates about new features and tips</p>
+                <p className="font-semibold text-gray-900">Email - Platform Updates</p>
+                <p className="text-sm text-gray-500 mt-1">Receive updates about new features and tips</p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer ml-4">
                 <input
                   type="checkbox"
                   checked={notifications.emailUpdates}
                   onChange={(e) => setNotifications({ ...notifications, emailUpdates: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
               </label>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
               <div>
-                <p className="font-medium text-gray-900">Push Notifications</p>
-                <p className="text-sm text-gray-500">Receive browser push notifications</p>
+                <p className="font-semibold text-gray-900">Push Notifications</p>
+                <p className="text-sm text-gray-500 mt-1">Receive browser push notifications</p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
+              <label className="relative inline-flex items-center cursor-pointer ml-4">
                 <input
                   type="checkbox"
                   checked={notifications.pushNotifications}
                   onChange={(e) => setNotifications({ ...notifications, pushNotifications: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
               </label>
             </div>
           </div>
-          <div className="mt-6">
+          <div className="mt-6 pt-6 border-t border-[#DCDCDC]">
             <button
               onClick={handleSaveNotifications}
-              className="bg-[#1E93AB] text-white px-6 py-2 rounded-lg hover:bg-[#197A8F] transition-colors flex items-center gap-2"
+              className="bg-[#1E93AB] text-white px-6 py-3 rounded-lg hover:bg-[#197A8F] transition-colors flex items-center gap-2 font-semibold shadow-sm"
             >
               <Save className="w-4 h-4" />
               Save Preferences
@@ -232,7 +233,7 @@ export default function ClientSettingsPage() {
         </div>
 
         {/* Security */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+          <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
               <Lock className="w-5 h-5 text-[#1E93AB]" />
@@ -240,7 +241,8 @@ export default function ClientSettingsPage() {
             <h2 className="text-xl font-semibold text-[#222222]">Security</h2>
           </div>
           <div className="space-y-4">
-            <button className="w-full md:w-auto bg-[#1E93AB] text-white px-6 py-2 rounded-lg hover:bg-[#197A8F] transition-colors">
+              <p className="text-gray-600">Manage your password and security settings</p>
+              <button className="w-full sm:w-auto bg-[#1E93AB] text-white px-6 py-3 rounded-lg hover:bg-[#197A8F] transition-colors font-semibold shadow-sm">
               Change Password
             </button>
           </div>

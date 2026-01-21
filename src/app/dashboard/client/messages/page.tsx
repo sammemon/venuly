@@ -14,19 +14,20 @@ export default async function ClientMessagesPage() {
     <div className="p-6 lg:p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#222222] mb-2">Messages</h1>
-        <p className="text-gray-600">Communicate with event organizers</p>
+        <h1 className="text-4xl font-bold text-[#222222] mb-2">Messages</h1>
+        <p className="text-lg text-gray-600">Communicate with professional event organizers</p>
       </div>
 
       {/* Messages Interface */}
-      <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] h-[600px]">
+      <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC]">
         <div className="p-12 flex items-center justify-center h-full">
           <div className="text-center max-w-sm mx-auto">
-            <div className="w-20 h-20 rounded-full bg-[#F3F2EC] flex items-center justify-center mx-auto mb-4">
-              <MessageSquare className="w-10 h-10 text-[#1E93AB]" />
+            <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+              <MessageSquare className="w-12 h-12 text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold text-[#222222] mb-2">No messages yet</h3>
-            <p className="text-gray-600">Messages will appear here when organizers respond to your events</p>
+            <h3 className="text-2xl font-bold text-[#222222] mb-3">No messages yet</h3>
+            <p className="text-gray-600 mb-2">Messages will appear here when organizers respond to your events.</p>
+            <p className="text-sm text-gray-500">Post an event to start receiving proposals and direct messages from organizers.</p>
           </div>
         </div>
       </div>
