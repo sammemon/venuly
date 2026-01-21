@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
 import { connectDB } from '@/lib/db/connect';
 import User from '@/models/User';
+import bcrypt from 'bcryptjs';
 
 export async function POST(
   request: Request,
@@ -43,8 +44,9 @@ export async function POST(
       });
     }
 
-    // Set new password (will be hashed by pre-save hook)
-    user.password = newPassword;
+    // Hash password explicitly
+    const salt = await bcrypt.genSalt(12);
+    user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
 
     return new Response(
