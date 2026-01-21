@@ -382,3 +382,9 @@ function UserDetailView({ user, onBack }: { user: User; onBack: () => void }) {
                 {user.password}
               </p>
             </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
