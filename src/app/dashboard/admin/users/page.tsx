@@ -241,57 +241,7 @@ function UserDetailView({ user, onBack }: { user: User; onBack: () => void }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-  const [showResetModal, setShowResetModal] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [resetSuccess, setResetSuccess] = useState(false);
-  const [copied, setCopied] = useState(false);
 
-  const generateTempPassword = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-    let password = '';
-    for (let i = 0; i < 12; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setNewPassword(password);
-  };
-
-  const handleResetPassword = async () => {
-    if (!newPassword.trim()) {
-      alert('Please enter a password');
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/admin/users/${user._id}/reset-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newPassword }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to reset password');
-      }
-
-      setResetSuccess(true);
-      setTimeout(() => {
-        setShowResetModal(false);
-        setResetSuccess(false);
-        setNewPassword('');
-      }, 2000);
-    } catch (error) {
-      alert(error instanceof Error ? error.message : 'Failed to reset password');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(newPassword);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
   return (
     <div className="min-h-screen bg-[#F3F2EC]">
       {/* Header */}
