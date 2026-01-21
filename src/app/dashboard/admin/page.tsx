@@ -1,6 +1,9 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
+import { connectDB } from '@/lib/db/connect';
+import User from '@/models/User';
+import Event from '@/models/Event';
 import { 
   Users, 
   Calendar, 
@@ -16,6 +19,14 @@ export default async function AdminDashboard() {
   if (!session || session.user.role !== 'ADMIN') {
     redirect('/auth/signin');
   }
+
+  // Fetch real dashboard data
+  await connectDB();
+  
+  const [totalUsers, totalEvents] = await Promise.all([
+    User.countDocuments(),
+    Event.countDocuments(),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#F3F2EC]">
@@ -40,7 +51,7 @@ export default async function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">1</p>
+                <p className="text-3xl font-bold text-[#222222] mt-1">{totalUsers}</p>
               </div>
               <Users className="w-10 h-10 text-[#1E93AB]" />
             </div>
@@ -50,7 +61,7 @@ export default async function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Events</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">0</p>
+                <p className="text-3xl font-bold text-[#222222] mt-1">{totalEvents}</p>
               </div>
               <Calendar className="w-10 h-10 text-[#1E93AB]" />
             </div>

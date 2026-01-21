@@ -17,9 +17,8 @@ export async function GET(request: Request) {
     // Connect to database
     await connectDB();
 
-    // Fetch all users sorted by creation date
+    // Fetch all users sorted by creation date - include password for admin
     const users = await User.find()
-      .select('-password') // Don't include hashed password
       .sort({ createdAt: -1 })
       .lean();
 

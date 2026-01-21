@@ -12,6 +12,7 @@ interface User {
   phone: string | null;
   avatar: string | null;
   role: string;
+  password: string;
   isEmailVerified: boolean;
   isActive: boolean;
   createdAt: string;
@@ -371,9 +372,13 @@ function UserDetailView({ user, onBack }: { user: User; onBack: () => void }) {
                 <p className="font-medium text-[#222222]">{user.phone}</p>
               </div>
             )}
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-}
+            <div>
+              <p className="text-sm text-gray-600">Email</p>
+              <p className="font-medium text-[#222222]">{user.email}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Password (Encrypted)</p>
+              <p className="font-mono text-xs text-[#222222] break-all bg-gray-100 p-2 rounded border border-gray-300 max-h-24 overflow-y-auto">
+                {user.password}
+              </p>
+            </div>
