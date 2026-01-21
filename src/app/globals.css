@@ -1,10 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Variables for Theme System */
+:root {
+  /* Light Mode (Default) */
+  --bg-light: 0 0% 100%;
+  --bg-light-secondary: 240 10% 97%;
+  --fg-light: 240 10% 6%;
+  --fg-light-muted: 240 6% 36%;
+
+  /* Dark Mode */
+  --bg-dark: 240 14% 7%;
+  --bg-dark-secondary: 240 13% 14%;
+  --fg-dark: 240 10% 90%;
+  --fg-dark-muted: 240 5% 65%;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Accent Colors */
+  --accent-primary: #2563EB;
+  --accent-primary-light: #38BDF8;
+  --accent-primary-dark: #1E40AF;
+}
+
+html.dark {
+  --bg-light: 240 14% 7%;
+  --bg-light-secondary: 240 13% 14%;
+  --fg-light: 240 10% 90%;
+  --fg-light-muted: 240 5% 65%;
+}
+
 @layer base {
+  * {
+    @apply transition-colors;
+  }
+
   body {
-    @apply bg-primary-bg text-dark antialiased;
+    @apply bg-white dark:bg-[#0B1220] text-gray-900 dark:text-gray-100 antialiased;
   }
 
   h1 {
@@ -22,11 +59,97 @@
   h4 {
     @apply font-display text-xl font-semibold;
   }
+
+  a {
+    @apply text-accent-primary hover:text-accent-primary-dark dark:hover:text-accent-primary-light transition-colors;
+  }
+
+  button {
+    @apply transition-all duration-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary-dark hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed transition-all;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-accent-primary hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all;
+  }
+
+  .card {
+    @apply bg-white dark:bg-[#111827] rounded-xl shadow-soft dark:shadow-dark-soft border border-gray-200 dark:border-gray-800 p-6 transition-all hover:shadow-soft-lg;
+  }
+
+  .card-interactive {
+    @apply card hover:scale-105 hover:shadow-lg cursor-pointer;
+  }
+
+  .input-base {
+    @apply w-full px-4 py-2 bg-white dark:bg-[#1F2937] border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-primary dark:focus:ring-accent-primary-light transition-all;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200;
+  }
+
+  .badge-error {
+    @apply badge bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold font-display text-gray-900 dark:text-gray-100;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-gray-600 dark:text-gray-400;
+  }
+
+  .container-bounded {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-r from-accent-primary to-accent-primary-light;
+  }
+
+  .gradient-dark {
+    @apply dark:bg-gradient-to-r dark:from-[#1E40AF] dark:to-[#0369A1];
+  }
+
+  .glass {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50;
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 dark:focus:ring-offset-[#0B1220];
   }
 }
 
@@ -37,16 +160,30 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #DCDCDC;
+  background: #F3F4F6;
+  background-color: hsl(var(--bg-light-secondary));
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #1F2937;
+  background-color: hsl(var(--bg-dark-secondary));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E93AB;
+  background: #2563EB;
   border-radius: 4px;
 }
 
+html.dark ::-webkit-scrollbar-thumb {
+  background: #3B82F6;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #1A7A8F;
+  background: #1E40AF;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #60A5FA;
 }
 
 /* Calendar Picker Styling */
