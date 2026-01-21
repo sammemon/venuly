@@ -32,6 +32,7 @@ export default function DashboardLayout({
     { name: 'Proposals', href: '/dashboard/client/proposals', icon: FileText },
     { name: 'Messages', href: '/dashboard/client/messages', icon: MessageSquare },
     { name: 'Notifications', href: '/dashboard/client/notifications', icon: Bell },
+    { name: 'Profile', href: '/dashboard/client/profile', icon: User },
     { name: 'Settings', href: '/dashboard/client/settings', icon: Settings },
   ];
 

@@ -95,8 +95,9 @@ export async function POST(request: NextRequest) {
         start: new Date(validatedData.eventDate.start),
         end: new Date(validatedData.eventDate.end),
       },
-      status: EventStatus.DRAFT,
-      isPublished: false,
+      status: EventStatus.OPEN,
+      isPublished: true,
+      publishedAt: new Date(),
     });
 
     return NextResponse.json(
