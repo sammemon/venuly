@@ -1,11 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { motion, MotionProps } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/utils/helpers';
 import { Loader2 } from 'lucide-react';
 
-export interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface AnimatedButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   isLoading?: boolean;
@@ -13,6 +13,7 @@ export interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButt
   iconPosition?: 'left' | 'right';
   fullWidth?: boolean;
   glow?: boolean;
+  children?: React.ReactNode;
 }
 
 const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(

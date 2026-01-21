@@ -1,11 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/utils/helpers';
 import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 
-export interface AnimatedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface AnimatedInputProps extends HTMLMotionProps<'input'> {
   label?: string;
   error?: string;
   success?: string;

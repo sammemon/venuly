@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/utils/helpers';
 
-export interface AnimatedCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AnimatedCardProps extends HTMLMotionProps<'div'> {
   variant?: 'default' | 'bordered' | 'elevated' | 'glass';
   padding?: 'none' | 'sm' | 'md' | 'lg';
   hoverable?: boolean;
