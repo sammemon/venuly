@@ -46,7 +46,6 @@ const config: Config = {
           bg: '#F8FAFC',
           DEFAULT: '#38BDF8',
         },
-        accent: '#2563EB',
         brand: '#2563EB',
         danger: '#EF4444',
         surface: '#F8FAFC',
