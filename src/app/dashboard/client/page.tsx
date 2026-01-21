@@ -11,6 +11,10 @@ import {
   TrendingUp,
   Eye
 } from 'lucide-react';
+import { connectDB } from '@/lib/db/connect';
+import Event from '@/models/Event';
+import Proposal from '@/models/Proposal';
+import { EventStatus } from '@/types';
 
 export default async function ClientDashboard() {
   const session = await getServerSession(authOptions);
@@ -18,6 +22,15 @@ export default async function ClientDashboard() {
   if (!session || session.user.role !== 'CLIENT') {
     redirect('/auth/signin');
   }
+
+  await connectDB();
+  const [activeEvents, totalProposals, allEvents] = await Promise.all([
+    Event.countDocuments({ clientId: session.user.id, status: EventStatus.OPEN, isPublished: true }),
+    Proposal.countDocuments({ eventId: { $in: await Event.find({ clientId: session.user.id }).distinct('_id') } }),
+    Event.find({ clientId: session.user.id }).select('views').lean(),
+  ]);
+  
+  const totalViews = allEvents.reduce((sum, event) => sum + (event.views || 0), 0);
 
   return (
     <div className="p-6 lg:p-8">
@@ -46,7 +59,7 @@ export default async function ClientDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 mb-1">Active Events</p>
-                <p className="text-3xl font-bold text-[#222222]">0</p>
+                <p className="text-3xl font-bold text-[#222222]">{activeEvents}</p>
                 <p className="text-xs text-gray-500 mt-2">Currently active</p>
               </div>
               <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
@@ -59,7 +72,7 @@ export default async function ClientDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 mb-1">Proposals</p>
-                <p className="text-3xl font-bold text-[#222222]">0</p>
+                <p className="text-3xl font-bold text-[#222222]">{totalProposals}</p>
                 <p className="text-xs text-gray-500 mt-2">Pending responses</p>
               </div>
               <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center">
@@ -85,7 +98,7 @@ export default async function ClientDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 mb-1">Total Views</p>
-                <p className="text-3xl font-bold text-[#222222]">0</p>
+                <p className="text-3xl font-bold text-[#222222]">{totalViews}</p>
                 <p className="text-xs text-gray-500 mt-2">This month</p>
               </div>
               <div className="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center">
