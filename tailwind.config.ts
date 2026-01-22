@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,50 +10,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Original redgreyblueretro theme
-        primary: {
-          bg: '#F3F2EC',
-          light: '#F9F8F5',
-          DEFAULT: '#1E93AB',
-          dark: '#197A8F',
-        },
-        secondary: {
-          bg: '#DCDCDC',
-          DEFAULT: '#E62727',
-        },
-        accent: '#1E93AB',
-        brand: '#1E93AB',
-        danger: '#E62727',
-        surface: '#DCDCDC',
-        dark: '#222222',
-        gray: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EB',
-          300: '#D1D5DB',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937',
-          900: '#111827',
-        },
+        bg: 'var(--bg)',
+        card: 'var(--card)',
+        primary: 'var(--primary)',
+        'primary-strong': 'var(--primary-strong)',
+        secondary: 'var(--secondary)',
+        text: 'var(--text)',
+        muted: 'var(--muted)',
+        border: 'var(--border)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
         display: ['var(--font-display)', 'Playfair Display', 'serif'],
       },
       boxShadow: {
-        'soft': '0 2px 15px rgba(0, 0, 0, 0.05)',
+        soft: '0 2px 15px rgba(0, 0, 0, 0.05)',
         'soft-lg': '0 10px 40px rgba(0, 0, 0, 0.08)',
-        'elegant': '0 4px 20px rgba(30, 147, 171, 0.15)',
+        elegant: '0 10px 45px rgba(37, 99, 235, 0.25)',
       },
       borderRadius: {
-        'xs': '0.375rem',
-        'sm': '0.5rem',
-        'md': '0.75rem',
-        'lg': '1rem',
-        'xl': '1.25rem',
+        xs: '0.375rem',
+        sm: '0.5rem',
+        md: '0.75rem',
+        lg: '1rem',
+        xl: '1.25rem',
         '2xl': '1.5rem',
       },
     },

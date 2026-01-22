@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Lock, Bell, User, Save } from 'lucide-react';
 import { AnimatedButton, AnimatedInput } from '@/components/ui';
@@ -28,6 +28,17 @@ export default function ClientSettingsPage() {
     emailUpdates: false,
     pushNotifications: true,
   });
+
+  useEffect(() => {
+    const storedPrefs = localStorage.getItem('venuly-notifications');
+    if (storedPrefs) {
+      try {
+        setNotifications(JSON.parse(storedPrefs));
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+  }, []);
 
   if (!session || session.user.role !== 'CLIENT') {
     redirect('/auth/signin');
@@ -104,6 +115,7 @@ export default function ClientSettingsPage() {
 
   const handleSaveNotifications = async () => {
     try {
+      localStorage.setItem('venuly-notifications', JSON.stringify(notifications));
       success('Notification preferences saved');
     } catch (err) {
       error('Failed to save preferences');

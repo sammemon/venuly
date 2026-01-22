@@ -13,14 +13,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-
     // Check if theme is stored in localStorage
     const storedTheme = localStorage.getItem('theme') as Theme | null;
-    
+
     if (storedTheme) {
       setTheme(storedTheme);
       applyTheme(storedTheme);
@@ -31,6 +28,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setTheme(initialTheme);
       applyTheme(initialTheme);
     }
+
   }, []);
 
   const applyTheme = (newTheme: Theme) => {
@@ -49,13 +47,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     applyTheme(newTheme);
   };
 
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {/* Wrap even before mounted to ensure useTheme has a provider during SSR */}
       {children}
     </ThemeContext.Provider>
   );

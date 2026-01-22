@@ -4,24 +4,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Original Theme CSS Variables */
+/* Theme CSS Variables (Light / Dark) */
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Original Theme Colors */
-  --color-primary: #1E93AB;
-  --color-primary-dark: #197A8F;
-  --color-accent: #E62727;
-  --color-bg: #F3F2EC;
-  --color-surface: #DCDCDC;
-  --color-text: #222222;
+  /* Light Theme */
+  --bg: #ffffff;
+  --card: #f8fafc;
+  --primary: #2563eb;
+  --primary-strong: #1d4ed8;
+  --secondary: #38bdf8;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e2e8f0;
+  --glow: 0 10px 45px rgba(37, 99, 235, 0.25);
+}
+
+:root.dark {
+  --bg: #0b1220;
+  --card: #111827;
+  --primary: #2563eb;
+  --primary-strong: #1d4ed8;
+  --secondary: #38bdf8;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: #1f2937;
+  --glow: 0 10px 45px rgba(56, 189, 248, 0.35);
 }
 
 @layer base {
   body {
-    @apply bg-primary-bg text-dark antialiased;
+    background-color: var(--bg);
+    color: var(--text);
+    @apply antialiased transition-colors duration-300 ease-in-out;
   }
 
   h1 {
@@ -63,7 +80,10 @@
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-soft border border-gray-200 p-6 transition-all hover:shadow-soft-lg;
+    background-color: var(--card);
+    color: var(--text);
+    @apply rounded-xl shadow-soft border p-6 transition-all hover:shadow-soft-lg;
+    border-color: var(--border);
   }
 
   .card-interactive {
@@ -129,6 +149,41 @@
   }
 }
 
+/* Theme overrides for common Tailwind utility combos */
+.dark .bg-white {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+}
+
+.dark .text-gray-700,
+.dark .text-gray-800,
+.dark .text-gray-900 {
+  color: var(--text) !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-600 {
+  color: var(--muted) !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+.dark .shadow-soft,
+.dark .shadow-soft-lg,
+.dark .shadow-lg {
+  box-shadow: var(--glow) !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-gray-200 {
+  background-color: #0f172a !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -141,6 +196,7 @@
 }
 
 html.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {

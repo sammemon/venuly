@@ -5,6 +5,8 @@ import Event from '@/models/Event';
 import { requireOrganizer, getCurrentUser } from '@/lib/auth/session';
 import { createProposalSchema } from '@/lib/validation/schemas';
 
+export const dynamic = 'force-dynamic';
+
 // GET proposals (with filtering)
 export async function GET(request: NextRequest) {
   try {
