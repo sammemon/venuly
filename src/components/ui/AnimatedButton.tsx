@@ -33,12 +33,12 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group';
     
     const variants = {
-      primary: 'bg-accent-primary dark:bg-accent-primary text-white hover:bg-accent-primary-dark dark:hover:bg-accent-primary-light focus:ring-accent-primary shadow-md hover:shadow-elegant dark:shadow-dark-soft',
-      secondary: 'bg-accent-secondary dark:bg-accent-secondary text-white hover:bg-accent-primary dark:hover:bg-accent-primary focus:ring-accent-secondary shadow-md hover:shadow-elegant',
-      outline: 'border-2 border-accent-primary dark:border-accent-secondary text-accent-primary dark:text-accent-secondary hover:bg-accent-primary dark:hover:bg-accent-secondary hover:text-white focus:ring-accent-primary',
-      ghost: 'text-foreground-light dark:text-foreground-dark hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-300 dark:focus:ring-gray-700',
-      danger: 'bg-status-error text-white hover:bg-red-700 focus:ring-status-error shadow-md',
-      success: 'bg-status-success text-white hover:bg-green-700 focus:ring-status-success shadow-md',
+      primary: 'bg-accent text-white hover:bg-primary-dark focus:ring-accent shadow-md hover:shadow-elegant',
+      secondary: 'bg-secondary-bg text-dark hover:bg-gray-300 focus:ring-secondary-bg shadow-md',
+      outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent',
+      ghost: 'text-dark hover:bg-gray-100 focus:ring-gray-300',
+      danger: 'bg-danger text-white hover:bg-red-700 focus:ring-danger shadow-md',
+      success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-md',
     };
     
     const sizes = {

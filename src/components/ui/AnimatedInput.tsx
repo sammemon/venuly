@@ -28,19 +28,19 @@ const AnimatedInput = React.forwardRef<HTMLInputElement, AnimatedInputProps>(
     const [isFocused, setIsFocused] = React.useState(false);
     const inputType = type === 'password' && showPassword ? 'text' : type;
 
-    const baseStyles = 'w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none bg-white dark:bg-background-dark-secondary text-foreground-light dark:text-foreground-dark';
+    const baseStyles = 'w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none bg-white text-dark';
     
     const stateStyles = error 
-      ? 'border-status-error focus:border-status-error focus:ring-2 focus:ring-status-error/20'
+      ? 'border-danger focus:border-danger focus:ring-2 focus:ring-danger/20'
       : success
-      ? 'border-status-success focus:border-status-success focus:ring-2 focus:ring-status-success/20'
-      : 'border-gray-300 dark:border-gray-700 focus:border-accent-primary dark:focus:border-accent-secondary focus:ring-2 focus:ring-accent-primary/20 dark:focus:ring-accent-secondary/20';
+      ? 'border-green-600 focus:border-green-600 focus:ring-2 focus:ring-green-600/20'
+      : 'border-gray-300 focus:border-accent focus:ring-2 focus:ring-accent/20';
 
     return (
       <div className={cn('flex flex-col gap-2', fullWidth && 'w-full')}>
         {label && (
           <motion.label 
-            className="text-sm font-medium text-foreground-light dark:text-foreground-dark"
+            className="text-sm font-medium text-dark"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -51,7 +51,7 @@ const AnimatedInput = React.forwardRef<HTMLInputElement, AnimatedInputProps>(
         
         <div className="relative">
           {icon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-600">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
               {icon}
             </div>
           )}
@@ -87,13 +87,13 @@ const AnimatedInput = React.forwardRef<HTMLInputElement, AnimatedInputProps>(
 
           {error && (
             <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <AlertCircle className="w-5 h-5 text-status-error" />
+              <AlertCircle className="w-5 h-5 text-danger" />
             </div>
           )}
 
           {success && !error && (
             <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <CheckCircle className="w-5 h-5 text-status-success" />
+              <CheckCircle className="w-5 h-5 text-green-600" />
             </div>
           )}
         </div>
@@ -102,7 +102,7 @@ const AnimatedInput = React.forwardRef<HTMLInputElement, AnimatedInputProps>(
           <motion.p
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-sm text-status-error flex items-center gap-1"
+            className="text-sm text-danger flex items-center gap-1"
           >
             <AlertCircle className="w-4 h-4" />
             {error}
@@ -113,7 +113,7 @@ const AnimatedInput = React.forwardRef<HTMLInputElement, AnimatedInputProps>(
           <motion.p
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-sm text-status-success flex items-center gap-1"
+            className="text-sm text-green-600 flex items-center gap-1"
           >
             <CheckCircle className="w-4 h-4" />
             {success}

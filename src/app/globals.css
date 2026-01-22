@@ -4,44 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for Theme System */
+/* Original Theme CSS Variables */
 :root {
-  /* Light Mode (Default) */
-  --bg-light: 0 0% 100%;
-  --bg-light-secondary: 240 10% 97%;
-  --fg-light: 240 10% 6%;
-  --fg-light-muted: 240 6% 36%;
-
-  /* Dark Mode */
-  --bg-dark: 240 14% 7%;
-  --bg-dark-secondary: 240 13% 14%;
-  --fg-dark: 240 10% 90%;
-  --fg-dark-muted: 240 5% 65%;
-
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Accent Colors */
-  --accent-primary: #2563EB;
-  --accent-primary-light: #38BDF8;
-  --accent-primary-dark: #1E40AF;
-}
-
-html.dark {
-  --bg-light: 240 14% 7%;
-  --bg-light-secondary: 240 13% 14%;
-  --fg-light: 240 10% 90%;
-  --fg-light-muted: 240 5% 65%;
+  /* Original Theme Colors */
+  --color-primary: #1E93AB;
+  --color-primary-dark: #197A8F;
+  --color-accent: #E62727;
+  --color-bg: #F3F2EC;
+  --color-surface: #DCDCDC;
+  --color-text: #222222;
 }
 
 @layer base {
-  * {
-    @apply transition-colors;
-  }
-
   body {
-    @apply bg-white dark:bg-[#0B1220] text-gray-900 dark:text-gray-100 antialiased;
+    @apply bg-primary-bg text-dark antialiased;
   }
 
   h1 {

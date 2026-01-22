@@ -24,10 +24,10 @@ const AnimatedCard = React.forwardRef<HTMLDivElement, AnimatedCardProps>(
     const baseStyles = 'rounded-xl transition-all duration-300 relative overflow-hidden';
     
     const variants = {
-      default: 'bg-white dark:bg-background-dark-secondary border border-gray-200 dark:border-gray-800',
-      bordered: 'bg-white dark:bg-background-dark-secondary border-2 border-accent-primary dark:border-accent-secondary',
-      elevated: 'bg-white dark:bg-background-dark-secondary shadow-soft-lg dark:shadow-dark-soft',
-      glass: 'bg-white/80 dark:bg-background-dark-secondary/80 backdrop-blur-lg border border-white/20 dark:border-gray-800/50',
+      default: 'bg-white border border-gray-200',
+      bordered: 'bg-white border-2 border-accent',
+      elevated: 'bg-white shadow-soft-lg',
+      glass: 'bg-white/90 backdrop-blur-lg border border-gray-200',
     };
     
     const paddings = {
@@ -37,7 +37,7 @@ const AnimatedCard = React.forwardRef<HTMLDivElement, AnimatedCardProps>(
       lg: 'p-8',
     };
 
-    const hoverStyles = hoverable ? 'hover:shadow-elegant dark:hover:shadow-dark-soft hover:-translate-y-1 cursor-pointer' : '';
+    const hoverStyles = hoverable ? 'hover:shadow-elegant hover:-translate-y-1 cursor-pointer' : '';
 
     return (
       <motion.div
