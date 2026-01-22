@@ -88,44 +88,6 @@ export default function MarketplacePage() {
 
   return (
     <div className="min-h-screen bg-primary-bg">
-      {/* Header */}
-      <header className="bg-white shadow-soft sticky top-0 z-40">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <Calendar className="w-8 h-8 text-accent" />
-            <span className="font-display text-2xl font-bold text-dark">Venuly</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            {session ? (
-              <>
-                <Link href="/dashboard">
-                  <Button variant="ghost" className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    {session.user.firstName}
-                  </Button>
-                </Link>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-                >
-                  <LogOut className="w-4 h-4" />
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <>
-                <Link href="/auth/signin">
-                  <Button variant="ghost">Sign In</Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button>Post Event</Button>
-                </Link>
-              </>
-            )}
-          </div>
-        </nav>
-      </header>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">

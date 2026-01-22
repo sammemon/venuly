@@ -64,18 +64,13 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
   return (
     <div className="min-h-screen bg-primary-bg">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link href="/browse-events" className="inline-flex items-center gap-2 text-accent hover:text-primary-dark font-medium mb-4">
-            <ArrowLeft className="w-5 h-5" />
-            Back to Events
-          </Link>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Link href="/browse-events" className="inline-flex items-center gap-2 text-accent hover:text-primary-dark font-medium mb-8">
+          <ArrowLeft className="w-5 h-5" />
+          Back to Events
+        </Link>
+        
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Event Details */}
           <div className="lg:col-span-2">

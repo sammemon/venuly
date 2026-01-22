@@ -5,27 +5,6 @@ import { ArrowRight, Calendar, Users, Star, Shield } from 'lucide-react';
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-white shadow-soft sticky top-0 z-40">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <Calendar className="w-8 h-8 text-accent" />
-            <span className="font-display text-2xl font-bold text-dark">Venuly</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/marketplace" className="text-dark hover:text-accent font-medium">
-              Browse Events
-            </Link>
-            <Link href="/auth/signin" className="text-dark hover:text-accent font-medium">
-              Sign In
-            </Link>
-            <Link href="/auth/signup">
-              <Button>Get Started</Button>
-            </Link>
-          </div>
-        </nav>
-      </header>
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-light py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
