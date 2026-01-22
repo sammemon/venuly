@@ -27,12 +27,21 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      // TODO: Implement contact form submission
-      console.log('Form data:', formData);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to send message');
+      }
+
       success('Thank you for reaching out. We\'ll get back to you soon.');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
-      error('Failed to send message. Please try again.');
+      error(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
     } finally {
       setLoading(false);
     }

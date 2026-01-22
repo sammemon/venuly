@@ -2,8 +2,36 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db/connect';
 import Proposal from '@/models/Proposal';
 import Event from '@/models/Event';
-import { requireOrganizer } from '@/lib/auth/session';
+import { requireOrganizer, getCurrentUser } from '@/lib/auth/session';
 import { createProposalSchema } from '@/lib/validation/schemas';
+
+// GET proposals (with filtering)
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const eventId = searchParams.get('eventId');
+    const organizerId = searchParams.get('organizerId');
+
+    await connectDB();
+
+    const filter: any = {};
+    if (eventId) filter.eventId = eventId;
+    if (organizerId) filter.organizerId = organizerId;
+
+    const proposals = await Proposal.find(filter)
+      .populate('eventId', 'title eventDate budget')
+      .populate('organizerId', 'firstName lastName avatar companyName')
+      .sort({ createdAt: -1 });
+
+    return NextResponse.json({ proposals });
+  } catch (error: any) {
+    console.error('Get proposals error:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch proposals' },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
