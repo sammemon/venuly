@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
 import { connectDB } from '@/lib/db/connect';
@@ -90,32 +91,32 @@ export default async function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
+          <Link href="/dashboard/admin/users" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
             <Users className="w-12 h-12 text-[#1E93AB] mb-4" />
             <h3 className="text-lg font-semibold text-[#222222] mb-2">Manage Users</h3>
             <p className="text-sm text-gray-600 mb-4">View, edit, and manage user accounts</p>
-            <button className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
+            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
               View Users →
-            </button>
-          </div>
+            </span>
+          </Link>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
+          <Link href="/dashboard/admin/events" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
             <Calendar className="w-12 h-12 text-[#1E93AB] mb-4" />
             <h3 className="text-lg font-semibold text-[#222222] mb-2">Manage Events</h3>
             <p className="text-sm text-gray-600 mb-4">Monitor and moderate event listings</p>
-            <button className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
+            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
               View Events →
-            </button>
-          </div>
+            </span>
+          </Link>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
+          <Link href="/dashboard/admin/settings" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
             <AlertCircle className="w-12 h-12 text-[#1E93AB] mb-4" />
-            <h3 className="text-lg font-semibold text-[#222222] mb-2">Reports</h3>
-            <p className="text-sm text-gray-600 mb-4">Handle user reports and disputes</p>
-            <button className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
-              View Reports →
-            </button>
-          </div>
+            <h3 className="text-lg font-semibold text-[#222222] mb-2">Settings</h3>
+            <p className="text-sm text-gray-600 mb-4">Manage platform configuration</p>
+            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
+              View Settings →
+            </span>
+          </Link>
         </div>
 
         {/* Recent Activity */}
