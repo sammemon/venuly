@@ -41,7 +41,7 @@
   }
 
   a {
-    @apply text-accent-primary hover:text-accent-primary-dark dark:hover:text-accent-primary-light transition-colors;
+    @apply transition-colors;
   }
 
   button {
@@ -51,19 +51,19 @@
 
 @layer components {
   .btn-primary {
-    @apply px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-accent-primary-dark hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed transition-all;
+    @apply px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-all;
+    @apply px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-all;
   }
 
   .btn-ghost {
-    @apply px-4 py-2 text-accent-primary hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all;
+    @apply px-4 py-2 text-primary hover:bg-gray-100 rounded-lg transition-all;
   }
 
   .card {
-    @apply bg-white dark:bg-[#111827] rounded-xl shadow-soft dark:shadow-dark-soft border border-gray-200 dark:border-gray-800 p-6 transition-all hover:shadow-soft-lg;
+    @apply bg-white rounded-xl shadow-soft border border-gray-200 p-6 transition-all hover:shadow-soft-lg;
   }
 
   .card-interactive {
@@ -71,7 +71,7 @@
   }
 
   .input-base {
-    @apply w-full px-4 py-2 bg-white dark:bg-[#1F2937] border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-primary dark:focus:ring-accent-primary-light transition-all;
+    @apply w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-all;
   }
 
   .badge {
@@ -79,27 +79,27 @@
   }
 
   .badge-primary {
-    @apply badge bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200;
+    @apply badge bg-blue-100 text-blue-800;
   }
 
   .badge-success {
-    @apply badge bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
+    @apply badge bg-green-100 text-green-800;
   }
 
   .badge-warning {
-    @apply badge bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200;
+    @apply badge bg-yellow-100 text-yellow-800;
   }
 
   .badge-error {
-    @apply badge bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200;
+    @apply badge bg-red-100 text-red-800;
   }
 
   .section-title {
-    @apply text-3xl font-bold font-display text-gray-900 dark:text-gray-100;
+    @apply text-3xl font-bold font-display text-gray-900;
   }
 
   .section-subtitle {
-    @apply text-lg text-gray-600 dark:text-gray-400;
+    @apply text-lg text-gray-600;
   }
 
   .container-bounded {
@@ -113,15 +113,11 @@
   }
 
   .gradient-primary {
-    @apply bg-gradient-to-r from-accent-primary to-accent-primary-light;
-  }
-
-  .gradient-dark {
-    @apply dark:bg-gradient-to-r dark:from-[#1E40AF] dark:to-[#0369A1];
+    @apply bg-gradient-to-r from-primary to-primary-dark;
   }
 
   .glass {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50;
+    @apply bg-white/80 backdrop-blur-md border border-gray-200/50;
   }
 
   .smooth-transition {
@@ -129,7 +125,7 @@
   }
 
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 dark:focus:ring-offset-[#0B1220];
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
   }
 }
 
@@ -145,48 +141,38 @@
 }
 
 html.dark ::-webkit-scrollbar-track {
-  background: #1F2937;
-  background-color: hsl(var(--bg-dark-secondary));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2563EB;
+  background: #1E93AB;
   border-radius: 4px;
 }
 
-html.dark ::-webkit-scrollbar-thumb {
-  background: #3B82F6;
-}
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #1E40AF;
-}
-
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #60A5FA;
+  background: #197A8F;
 }
 
 /* Calendar Picker Styling */
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+input[type='datetime-local']::-webkit-calendar-picker-indicator {
   cursor: pointer;
   filter: invert(0.5) brightness(1.2);
 }
 
 /* Calendar popup background and borders */
-input[type="datetime-local"] {
+input[type='datetime-local'] {
   accent-color: #1E93AB;
 }
 
 /* Chrome/Edge calendar picker styling */
 @supports (-webkit-appearance: none) {
-  input[type="datetime-local"] {
+  input[type='datetime-local'] {
     -webkit-appearance: none;
     appearance: none;
   }
 }
 
 /* Firefox calendar picker */
-input[type="datetime-local"]::picker-icon {
+input[type='datetime-local']::picker-icon {
   filter: brightness(0) sepia(1) hue-rotate(187deg) saturate(1.5);
 }
 
@@ -205,7 +191,7 @@ input[type="datetime-local"]::picker-icon {
 }
 
 /* Selected date background (current date highlight) */
-input[type="datetime-local"]::selection {
+input[type='datetime-local']::selection {
   background-color: #1E93AB !important;
   color: white !important;
 }
