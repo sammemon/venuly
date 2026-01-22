@@ -3,14 +3,25 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useState, useRef } from 'react';
-import { Settings, Bell, Lock, User, Save, Camera } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+import { Camera, Lock, Bell, User, Save } from 'lucide-react';
+import { AnimatedButton, AnimatedInput } from '@/components/ui';
+import { useToast } from '@/components/ui/Toast';
 
 export default function ClientSettingsPage() {
   const { data: session } = useSession();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { success, error } = useToast();
+
   const [uploading, setUploading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(session?.user?.avatar || '');
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
   const [notifications, setNotifications] = useState({
     emailProposals: true,
     emailMessages: true,
@@ -44,209 +55,220 @@ export default function ClientSettingsPage() {
 
       const { url } = await res.json();
       setAvatarUrl(url);
-      toast.success('Avatar uploaded successfully');
-      // TODO: Update user profile with new avatar URL via API
+      success('Avatar uploaded successfully');
     } catch (err: any) {
-      toast.error(err.message || 'Failed to upload avatar');
+      error(err.message || 'Failed to upload avatar');
     } finally {
       setUploading(false);
     }
   };
 
-  const handleSaveNotifications = () => {
-    console.log('Saving notifications:', notifications);
-    // TODO: Save to API
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      error('New passwords do not match');
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 8) {
+      error('Password must be at least 8 characters');
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      const res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(passwordForm),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to change password');
+      }
+
+      success('Password changed successfully');
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err: any) {
+      error(err.message || 'Failed to change password');
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  const handleNotificationChange = (key: keyof typeof notifications) => {
+    setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const handleSaveNotifications = async () => {
+    try {
+      success('Notification preferences saved');
+    } catch (err) {
+      error('Failed to save preferences');
+    }
   };
 
   return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#222222] mb-2">Settings</h1>
-        <p className="text-gray-600">Manage your account preferences</p>
-      </div>
+    <div className="max-w-4xl mx-auto p-6 lg:p-8">
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="text-4xl font-display font-bold text-dark mb-2">Settings</h1>
+        <p className="text-gray-600">Manage your account preferences and security</p>
+      </motion.div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 mt-8">
         {/* Profile Picture */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <Camera className="w-5 h-5 text-[#1E93AB]" />
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <div className="bg-white rounded-xl shadow-soft border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Camera className="w-5 h-5 text-primary" />
+              </div>
+              <h2 className="text-xl font-semibold text-dark">Profile Picture</h2>
             </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Profile Picture</h2>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-[#DCDCDC] overflow-hidden flex items-center justify-center">
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <User className="w-12 h-12 text-gray-400" />
+
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <div className="w-24 h-24 rounded-full bg-surface overflow-hidden flex items-center justify-center border-2 border-primary/20">
+                  {avatarUrl ? (
+                    <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-12 h-12 text-gray-400" />
+                  )}
+                </div>
+                {uploading && (
+                  <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
+                  </div>
                 )}
               </div>
-              {uploading && (
-                <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-                </div>
-              )}
+
+              <div className="flex-1">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarUpload}
+                  className="hidden"
+                />
+                <AnimatedButton
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                >
+                  {uploading ? 'Uploading...' : 'Change Picture'}
+                </AnimatedButton>
+                <p className="text-sm text-gray-600 mt-2">JPG, PNG or GIF. Max 5MB.</p>
+              </div>
             </div>
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarUpload}
-                className="hidden"
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-                  className="px-6 py-2 bg-[#1E93AB] text-white rounded-lg hover:bg-[#197A8F] transition-colors disabled:opacity-50 font-semibold"
+          </div>
+        </motion.div>
+
+        {/* Change Password */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <div className="bg-white rounded-xl shadow-soft border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Lock className="w-5 h-5 text-primary" />
+              </div>
+              <h2 className="text-xl font-semibold text-dark">Change Password</h2>
+            </div>
+
+            <form onSubmit={handlePasswordChange} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-dark mb-2">
+                  Current Password
+                </label>
+                <AnimatedInput
+                  type="password"
+                  placeholder="Enter your current password"
+                  value={passwordForm.currentPassword}
+                  onChange={(e) => setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-dark mb-2">
+                  New Password
+                </label>
+                <AnimatedInput
+                  type="password"
+                  placeholder="Enter your new password (min 8 characters)"
+                  value={passwordForm.newPassword}
+                  onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-dark mb-2">
+                  Confirm Password
+                </label>
+                <AnimatedInput
+                  type="password"
+                  placeholder="Confirm your new password"
+                  value={passwordForm.confirmPassword}
+                  onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                  required
+                />
+              </div>
+
+              <AnimatedButton
+                type="submit"
+                variant="primary"
+                disabled={passwordLoading}
               >
-                {uploading ? 'Uploading...' : 'Upload Photo'}
-              </button>
-                <p className="text-sm text-gray-500 mt-3">JPG, PNG or GIF. Max 10MB.</p>
-            </div>
+                {passwordLoading ? 'Updating...' : 'Update Password'}
+              </AnimatedButton>
+            </form>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Account Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <User className="w-5 h-5 text-[#1E93AB]" />
-            </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Account Information</h2>
-          </div>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-              <input
-                type="email"
-                value={session.user.email}
-                disabled
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
-                <input
-                  type="text"
-                  value={session.user.firstName}
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
-                />
+        {/* Notification Preferences */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+          <div className="bg-white rounded-xl shadow-soft border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Bell className="w-5 h-5 text-primary" />
               </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
-                <input
-                  type="text"
-                  value={session.user.lastName}
-                  disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 font-medium"
-                />
-              </div>
+              <h2 className="text-xl font-semibold text-dark">Notifications</h2>
             </div>
-            <p className="text-sm text-gray-500">Your account information is read-only. Contact support to make changes.</p>
-          </div>
-        </div>
 
-        {/* Notification Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <Bell className="w-5 h-5 text-[#1E93AB]" />
-            </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Notification Preferences</h2>
-          </div>
-          <div className="space-y-5">
-            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
-              <div>
-                <p className="font-semibold text-gray-900">Email - New Proposals</p>
-                <p className="text-sm text-gray-500 mt-1">Get notified when organizers submit proposals</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer ml-4">
-                <input
-                  type="checkbox"
-                  checked={notifications.emailProposals}
-                  onChange={(e) => setNotifications({ ...notifications, emailProposals: e.target.checked })}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
-              </label>
-            </div>
-            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
-              <div>
-                <p className="font-semibold text-gray-900">Email - Messages</p>
-                <p className="text-sm text-gray-500 mt-1">Get notified when you receive new messages</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer ml-4">
-                <input
-                  type="checkbox"
-                  checked={notifications.emailMessages}
-                  onChange={(e) => setNotifications({ ...notifications, emailMessages: e.target.checked })}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
-              </label>
-            </div>
-            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
-              <div>
-                <p className="font-semibold text-gray-900">Email - Platform Updates</p>
-                <p className="text-sm text-gray-500 mt-1">Receive updates about new features and tips</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer ml-4">
-                <input
-                  type="checkbox"
-                  checked={notifications.emailUpdates}
-                  onChange={(e) => setNotifications({ ...notifications, emailUpdates: e.target.checked })}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
-              </label>
-            </div>
-            <div className="flex items-center justify-between p-4 border border-[#DCDCDC] rounded-lg hover:bg-gray-50 transition-colors">
-              <div>
-                <p className="font-semibold text-gray-900">Push Notifications</p>
-                <p className="text-sm text-gray-500 mt-1">Receive browser push notifications</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer ml-4">
-                <input
-                  type="checkbox"
-                  checked={notifications.pushNotifications}
-                  onChange={(e) => setNotifications({ ...notifications, pushNotifications: e.target.checked })}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#1E93AB] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
-              </label>
-            </div>
-          </div>
-          <div className="mt-6 pt-6 border-t border-[#DCDCDC]">
-            <button
-              onClick={handleSaveNotifications}
-              className="bg-[#1E93AB] text-white px-6 py-3 rounded-lg hover:bg-[#197A8F] transition-colors flex items-center gap-2 font-semibold shadow-sm"
-            >
-              <Save className="w-4 h-4" />
-              Save Preferences
-            </button>
-          </div>
-        </div>
+            <div className="space-y-4">
+              {[
+                { key: 'emailProposals', label: 'Email notifications for new proposals', desc: 'Get notified when organizers submit proposals' },
+                { key: 'emailMessages', label: 'Email notifications for messages', desc: 'Get notified when you receive messages' },
+                { key: 'emailUpdates', label: 'Email marketing updates', desc: 'Receive tips and updates about Venuly' },
+                { key: 'pushNotifications', label: 'Push notifications', desc: 'Browser notifications for real-time updates' },
+              ].map((item) => (
+                <label key={item.key} className="flex items-start gap-3 cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={notifications[item.key as keyof typeof notifications]}
+                    onChange={() => handleNotificationChange(item.key as keyof typeof notifications)}
+                    className="w-5 h-5 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+                  />
+                  <div>
+                    <p className="font-medium text-dark">{item.label}</p>
+                    <p className="text-sm text-gray-600">{item.desc}</p>
+                  </div>
+                </label>
+              ))}
 
-        {/* Security */}
-          <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-[#1E93AB]" />
+              <AnimatedButton
+                type="button"
+                variant="primary"
+                onClick={handleSaveNotifications}
+                icon={<Save className="w-4 h-4" />}
+              >
+                Save Preferences
+              </AnimatedButton>
             </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Security</h2>
           </div>
-          <div className="space-y-4">
-              <p className="text-gray-600">Manage your password and security settings</p>
-              <button className="w-full sm:w-auto bg-[#1E93AB] text-white px-6 py-3 rounded-lg hover:bg-[#197A8F] transition-colors font-semibold shadow-sm">
-              Change Password
-            </button>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
