@@ -2,26 +2,39 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, MapPin, DollarSign, Users, Search, Filter } from 'lucide-react';
+import { Calendar, MapPin, DollarSign, Users, Search, Filter, Calendar as CalendarIcon } from 'lucide-react';
 import { AnimatedCard, AnimatedButton, Skeleton } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 
-interface Event {
+interface EventData {
   _id: string;
   title: string;
   description: string;
-  eventDate: string;
-  venue: string;
-  city: string;
-  budget: number;
-  guestCount: number;
+  eventDate: {
+    start: string;
+    end: string;
+  };
+  location: {
+    city: string;
+    state: string;
+    venue?: string;
+  };
+  budget: {
+    min: number;
+    max: number;
+  };
+  guestCount: {
+    min: number;
+    max: number;
+  };
   status: string;
   eventType: string;
+  clientId?: any;
 }
 
 export default function BrowseEventsPage() {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
@@ -30,7 +43,7 @@ export default function BrowseEventsPage() {
     maxBudget: 100000,
     city: '',
   });
-  const { error } = useToast();
+  const { success, error } = useToast();
 
   useEffect(() => {
     fetchEvents();
@@ -39,11 +52,11 @@ export default function BrowseEventsPage() {
   const fetchEvents = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/events?status=OPEN&isPublished=true');
+      const response = await fetch('/api/events');
       if (!response.ok) throw new Error('Failed to fetch events');
       const data = await response.json();
-      setEvents(data);
-      setFilteredEvents(data);
+      setEvents(data.events || []);
+      setFilteredEvents(data.events || []);
     } catch (err) {
       error(err instanceof Error ? err.message : 'Failed to load events');
     } finally {
@@ -67,12 +80,12 @@ export default function BrowseEventsPage() {
 
     if (filters.city) {
       filtered = filtered.filter(event =>
-        event.city.toLowerCase().includes(filters.city.toLowerCase())
+        event.location.city.toLowerCase().includes(filters.city.toLowerCase())
       );
     }
 
     filtered = filtered.filter(
-      event => event.budget >= filters.minBudget && event.budget <= filters.maxBudget
+      event => event.budget.min >= filters.minBudget && event.budget.max <= filters.maxBudget
     );
 
     setFilteredEvents(filtered);
@@ -199,7 +212,7 @@ export default function BrowseEventsPage() {
               <div className="space-y-4">
                 {filteredEvents.map((event, index) => (
                   <Link key={event._id} href={`/events/${event._id}`}>
-                    <AnimatedCard delay={index * 0.1} hoverable variant="elevated">
+                    <AnimatedCard delay={index * 0.1} hoverable>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
                           <h3 className="text-xl font-semibold text-dark mb-2">{event.title}</h3>
@@ -207,19 +220,19 @@ export default function BrowseEventsPage() {
                           <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4 text-accent" />
-                              {new Date(event.eventDate).toLocaleDateString()}
+                              {new Date(event.eventDate.start).toLocaleDateString()}
                             </div>
                             <div className="flex items-center gap-1">
                               <MapPin className="w-4 h-4 text-accent" />
-                              {event.city}
+                              {event.location.city}, {event.location.state}
                             </div>
                             <div className="flex items-center gap-1">
                               <Users className="w-4 h-4 text-accent" />
-                              {event.guestCount} guests
+                              {event.guestCount.min}-{event.guestCount.max} guests
                             </div>
                             <div className="flex items-center gap-1">
                               <DollarSign className="w-4 h-4 text-accent" />
-                              ${event.budget.toLocaleString()}
+                              ${event.budget.min.toLocaleString()}-${event.budget.max.toLocaleString()}
                             </div>
                           </div>
                         </div>

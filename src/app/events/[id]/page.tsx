@@ -60,16 +60,16 @@ export default async function EventDetailPage({ params }: { params: { id: string
     return diffDays;
   };
 
-  const daysUntil = calculateDaysUntil(event.eventDate);
+  const daysUntil = calculateDaysUntil(event.eventDate.start);
 
   return (
     <div className="min-h-screen bg-primary-bg">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link href="/marketplace" className="inline-flex items-center gap-2 text-accent hover:text-primary-dark font-medium mb-4">
+          <Link href="/browse-events" className="inline-flex items-center gap-2 text-accent hover:text-primary-dark font-medium mb-4">
             <ArrowLeft className="w-5 h-5" />
-            Back to Marketplace
+            Back to Events
           </Link>
         </div>
       </header>
@@ -90,11 +90,11 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <div>
                     <h1 className="text-4xl font-display font-bold text-dark mb-2">{event.title}</h1>
                     <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-                      event.status === 'OPEN' ? 'bg-green-100 text-green-800' :
-                      event.status === 'CLOSED' ? 'bg-red-100 text-red-800' :
-                      'bg-gray-100 text-gray-800'
+                      event.status === 'BOOKED' ? 'bg-red-100 text-red-800' :
+                      event.status === 'IN_DISCUSSION' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-green-100 text-green-800'
                     }`}>
-                      {event.status === 'OPEN' ? '✓ Accepting Proposals' : event.status === 'CLOSED' ? 'Closed' : 'Draft'}
+                      {event.status === 'BOOKED' ? 'Booked' : event.status === 'IN_DISCUSSION' ? 'In Discussion' : '✓ Accepting Proposals'}
                     </div>
                   </div>
                   {daysUntil > 0 && (
@@ -114,8 +114,8 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <Calendar className="w-5 h-5 text-accent" />
                   <span className="text-sm text-gray-600">Event Date</span>
                 </div>
-                <p className="font-semibold text-dark">{formatDate(event.eventDate)}</p>
-                <p className="text-sm text-gray-600">{formatTime(event.eventDate)}</p>
+                <p className="font-semibold text-dark">{formatDate(event.eventDate.start)}</p>
+                <p className="text-sm text-gray-600">{formatTime(event.eventDate.start)}</p>
               </div>
 
               <div className="bg-white rounded-lg p-4 border border-gray-200">
@@ -123,8 +123,8 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <MapPin className="w-5 h-5 text-accent" />
                   <span className="text-sm text-gray-600">Location</span>
                 </div>
-                <p className="font-semibold text-dark">{event.venue}</p>
-                <p className="text-sm text-gray-600">{event.city}, {event.state}</p>
+                <p className="font-semibold text-dark">{event.location.venue || 'TBD'}</p>
+                <p className="text-sm text-gray-600">{event.location.city}, {event.location.state}</p>
               </div>
 
               <div className="bg-white rounded-lg p-4 border border-gray-200">
@@ -132,7 +132,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <DollarSign className="w-5 h-5 text-accent" />
                   <span className="text-sm text-gray-600">Budget</span>
                 </div>
-                <p className="font-semibold text-dark">${event.budget?.toLocaleString()}</p>
+                <p className="font-semibold text-dark">${event.budget.min.toLocaleString()}-${event.budget.max.toLocaleString()}</p>
               </div>
 
               <div className="bg-white rounded-lg p-4 border border-gray-200">
@@ -140,7 +140,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
                   <Users className="w-5 h-5 text-accent" />
                   <span className="text-sm text-gray-600">Guest Count</span>
                 </div>
-                <p className="font-semibold text-dark">{event.guestCount} Guests</p>
+                <p className="font-semibold text-dark">{event.guestCount.min}-{event.guestCount.max} Guests</p>
               </div>
             </div>
 
@@ -151,12 +151,12 @@ export default async function EventDetailPage({ params }: { params: { id: string
             </div>
 
             {/* Services Needed */}
-            {event.servicesNeeded && event.servicesNeeded.length > 0 && (
+            {event.requirements?.services && event.requirements.services.length > 0 && (
               <div className="bg-white rounded-lg p-6 border border-gray-200 mb-8">
                 <h2 className="text-xl font-semibold mb-4 text-dark">Services Needed</h2>
                 <div className="flex flex-wrap gap-2">
-                  {event.servicesNeeded.map((service: string) => (
-                    <span key={service} className="bg-secondary-bg text-dark px-3 py-1 rounded-full text-sm font-medium">
+                  {event.requirements.services.map((service: string) => (
+                    <span key={service} className="bg-surface text-dark px-3 py-1 rounded-full text-sm font-medium">
                       {service}
                     </span>
                   ))}
@@ -165,13 +165,13 @@ export default async function EventDetailPage({ params }: { params: { id: string
             )}
 
             {/* Additional Notes */}
-            {event.additionalNotes && (
+            {event.requirements?.additionalNotes && (
               <div className="bg-white rounded-lg p-6 border border-gray-200">
                 <h2 className="text-xl font-semibold mb-4 text-dark flex items-center gap-2">
                   <FileText className="w-5 h-5 text-accent" />
                   Additional Notes
                 </h2>
-                <p className="text-gray-700 whitespace-pre-wrap">{event.additionalNotes}</p>
+                <p className="text-gray-700 whitespace-pre-wrap">{event.requirements.additionalNotes}</p>
               </div>
             )}
           </div>
@@ -181,46 +181,46 @@ export default async function EventDetailPage({ params }: { params: { id: string
             {/* Client Info Card */}
             <div className="bg-white rounded-lg p-6 border border-gray-200 mb-6 sticky top-20">
               <h3 className="text-lg font-semibold mb-4 text-dark">Posted By</h3>
-              {event.clientId && (
+              {event.clientId && typeof event.clientId === 'object' && (
                 <div className="mb-4">
                   <div className="flex items-center gap-3 mb-4">
-                    {event.clientId.avatar ? (
+                    {(event.clientId as any)?.avatar ? (
                       <img
-                        src={event.clientId.avatar}
-                        alt={event.clientId.firstName}
+                        src={(event.clientId as any).avatar}
+                        alt={(event.clientId as any).firstName}
                         className="w-12 h-12 rounded-full object-cover"
                       />
                     ) : (
                       <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-semibold">
-                        {event.clientId.firstName[0]}{event.clientId.lastName[0]}
+                        {(event.clientId as any).firstName?.[0]}{(event.clientId as any).lastName?.[0]}
                       </div>
                     )}
                     <div>
-                      <p className="font-semibold text-dark">{event.clientId.firstName} {event.clientId.lastName}</p>
+                      <p className="font-semibold text-dark">{(event.clientId as any).firstName} {(event.clientId as any).lastName}</p>
                       <p className="text-sm text-gray-600">Client</p>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{event.clientId.email}</p>
-                  {event.clientId.phone && (
-                    <p className="text-sm text-gray-600 mb-4">{event.clientId.phone}</p>
+                  <p className="text-sm text-gray-600 mb-4">{(event.clientId as any).email}</p>
+                  {(event.clientId as any)?.phone && (
+                    <p className="text-sm text-gray-600 mb-4">{(event.clientId as any).phone}</p>
                   )}
                 </div>
               )}
 
               {/* CTA Button */}
               {session && session.user.role === 'ORGANIZER' ? (
-                <Link href={`/dashboard/organizer/proposals?eventId=${event._id}`} className="w-full block">
-                  <Button fullWidth variant="primary">
+                <Link href={`/dashboard/organizer/proposals/create?eventId=${event._id}`} className="w-full block">
+                  <Button className="w-full" variant="primary">
                     Submit Proposal
                   </Button>
                 </Link>
               ) : session ? (
-                <Button fullWidth variant="outline" disabled>
+                <Button className="w-full" variant="outline" disabled>
                   Sign in as Organizer to Submit
                 </Button>
               ) : (
                 <Link href="/auth/signup?role=organizer" className="w-full block">
-                  <Button fullWidth variant="primary">
+                  <Button className="w-full" variant="primary">
                     Become an Organizer
                   </Button>
                 </Link>
@@ -242,7 +242,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
                 {event.budget && (
                   <div>
                     <span className="text-sm text-gray-600">Budget Range</span>
-                    <p className="font-semibold text-dark">${event.budget?.toLocaleString()}</p>
+                    <p className="font-semibold text-dark">${event.budget.min.toLocaleString()}-${event.budget.max.toLocaleString()}</p>
                   </div>
                 )}
               </div>

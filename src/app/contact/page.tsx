@@ -6,7 +6,7 @@ import { AnimatedButton, AnimatedInput, Textarea } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 
 export default function ContactPage() {
-  const { toast } = useToast();
+  const { success, error } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,18 +29,10 @@ export default function ContactPage() {
     try {
       // TODO: Implement contact form submission
       console.log('Form data:', formData);
-      toast({
-        title: 'Message Sent',
-        description: 'Thank you for reaching out. We\'ll get back to you soon.',
-        type: 'success',
-      });
+      success('Thank you for reaching out. We\'ll get back to you soon.');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to send message. Please try again.',
-        type: 'error',
-      });
+    } catch (err) {
+      error('Failed to send message. Please try again.');
     } finally {
       setLoading(false);
     }
