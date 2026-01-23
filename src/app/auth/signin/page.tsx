@@ -49,17 +49,17 @@ function SignInContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-blue-700 to-blue-900 flex items-center justify-center p-4 relative overflow-hidden">
       {/* Animated background orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/15 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/15 rounded-full blur-3xl animate-pulse" />
       </div>
 
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <Calendar className="w-10 h-10 text-white" />
+            <Calendar className="w-10 h-10 text-accent" />
             <span className="font-display text-3xl font-bold text-white">
               Venuly
             </span>
@@ -79,8 +79,8 @@ function SignInContent() {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary opacity-20 rounded-2xl blur-xl" />
-          <div className="relative bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-primary/30 glow-pulse p-8">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-secondary to-primary opacity-15 rounded-2xl blur-xl" />
+          <div className="relative bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-accent/40 glow-pulse p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               label="Email Address"

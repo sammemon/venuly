@@ -8,18 +8,18 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       <div className="flex-1">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary via-secondary to-accent py-24 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 py-24 relative overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/30 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight slide-in-up">
               Plan Your{' '}
-              <span className="text-yellow-300">Perfect Event</span>
+              <span className="text-accent">Perfect Event</span>
               {' '}Today
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed slide-in-up">
@@ -27,12 +27,12 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center slide-in-up">
               <Link href="/auth/signup?role=client">
-                <Button size="lg" icon={<Calendar className="w-5 h-5" />} className="bg-white text-primary hover:bg-yellow-300">
+                <Button size="lg" icon={<Calendar className="w-5 h-5" />} className="bg-secondary text-white hover:bg-secondary/90 shadow-lg">
                   Post an Event
                 </Button>
               </Link>
               <Link href="/auth/signup?role=organizer">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
+                <Button size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent hover:text-primary">
                   Join as Organizer
                 </Button>
               </Link>
