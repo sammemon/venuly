@@ -8,14 +8,14 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       <div className="flex-1">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-light py-20">
+      <section className="bg-gradient-to-br from-primary to-primary-strong via-accent py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-dark mb-6">
+            <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">
               Your Perfect Event,{' '}
-              <span className="text-accent">Professionally Organized</span>
+              <span className="text-secondary">Professionally Organized</span>
             </h1>
-            <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Connect with verified event organizers and vendors. From intimate gatherings to grand celebrations, find the perfect team for your special occasion.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -35,44 +35,44 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold text-dark mb-4">
+            <h2 className="text-4xl font-display font-bold text-text mb-4">
               How Venuly Works
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-muted">
               Simple, transparent, and designed for success
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-accent" />
+              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-8 h-8 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Post Your Event</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 text-text">Post Your Event</h3>
+              <p className="text-muted">
                   Describe your event requirements, budget, and timeline. It is free and takes just a few minutes.
                   </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-accent" />
+              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Receive Proposals</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 text-text">Receive Proposals</h3>
+              <p className="text-muted">
                 Professional organizers submit detailed proposals. Compare prices, portfolios, and reviews.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-accent" />
+              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Star className="w-8 h-8 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Create Magic</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 text-text">Create Magic</h3>
+              <p className="text-muted">
                 Work with your chosen organizer through our secure platform. Make your event unforgettable.
               </p>
             </div>

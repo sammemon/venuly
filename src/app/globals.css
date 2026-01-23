@@ -4,26 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme CSS Variables (Light / Dark) - Elegant Event Marketplace */
+/* Theme CSS Variables (Light / Dark) - Premium Event Marketplace */
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Light Theme - Sophisticated & Clean */
-  --bg: #fafbfc;
+  /* Light Theme - Elegant & Luxury */
+  --bg: #faf9f7;
   --card: #ffffff;
-  --primary: #6b21a8;
-  --primary-strong: #581c87;
-  --secondary: #f59e0b;
-  --accent: #ec4899;
+  --primary: #1e3a8a;
+  --primary-strong: #1e40af;
+  --secondary: #d97706;
+  --accent: #be123c;
   --text: #1f2937;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --glow: 0 10px 45px rgba(107, 33, 168, 0.15);
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --glow: 0 10px 45px rgba(30, 58, 138, 0.12);
   --button-text: #ffffff;
 }
 
@@ -31,18 +31,18 @@
 html.dark {
   --bg: #0f172a;
   --card: #1e293b;
-  --primary: #a855f7;
-  --primary-strong: #9333ea;
-  --secondary: #f59e0b;
-  --accent: #f472b6;
+  --primary: #fbbf24;
+  --primary-strong: #f59e0b;
+  --secondary: #f97316;
+  --accent: #fb7185;
   --text: #f1f5f9;
   --muted: #cbd5e1;
   --border: #334155;
-  --success: #34d399;
-  --warning: #fbbf24;
-  --error: #f87171;
-  --glow: 0 10px 45px rgba(168, 85, 247, 0.25);
-  --button-text: #ffffff;
+  --success: #4ade80;
+  --warning: #facc15;
+  --error: #ff6b6b;
+  --glow: 0 10px 45px rgba(251, 191, 36, 0.2);
+  --button-text: #0f172a;
 }
 
 @layer base {

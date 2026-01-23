@@ -63,12 +63,12 @@ export default function Navbar() {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-secondary rounded-xl blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
-                <div className="relative bg-gradient-to-br from-primary via-accent to-secondary p-2 rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl blur-md opacity-70 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-gradient-to-br from-primary via-secondary to-accent p-2 rounded-xl">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
               </motion.div>
-              <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Venuly
               </span>
             </Link>
