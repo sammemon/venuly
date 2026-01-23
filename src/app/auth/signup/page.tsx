@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Input, Select } from '@/components/ui';
@@ -74,25 +75,38 @@ function SignUpContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-light flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+      </div>
+
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <Calendar className="w-10 h-10 text-accent" />
-            <span className="font-display text-3xl font-bold text-dark">
+            <Calendar className="w-10 h-10 text-white" />
+            <span className="font-display text-3xl font-bold text-white">
               Venuly
             </span>
           </Link>
 
-          <h1 className="text-3xl font-display font-bold text-dark mb-2">
+          <h1 className="text-3xl font-display font-bold text-white mb-2">
             Create Account
           </h1>
-          <p className="text-gray-600">
+          <p className="text-white/80">
             Join the Venuly community today
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-soft-lg p-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary opacity-20 rounded-2xl blur-xl" />
+          <div className="relative bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-primary/30 glow-pulse p-8 max-h-[90vh] overflow-y-auto">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <Input
@@ -223,12 +237,13 @@ function SignUpContent() {
             Already have an account?{' '}
             <Link
               href="/auth/signin"
-              className="text-accent hover:underline font-medium"
+              className="text-secondary hover:text-accent transition-colors font-medium"
             >
               Sign in
             </Link>
           </div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

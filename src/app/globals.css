@@ -4,26 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme CSS Variables (Light / Dark) - Premium Event Marketplace */
+/* Theme CSS Variables (Light / Dark) - Modern Event Marketplace */
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Light Theme - Elegant & Luxury */
-  --bg: #faf9f7;
+  /* Light Theme - Modern & Vibrant */
+  --bg: #f0f9ff;
   --card: #ffffff;
-  --primary: #1e3a8a;
-  --primary-strong: #1e40af;
-  --secondary: #d97706;
-  --accent: #be123c;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --success: #059669;
-  --warning: #d97706;
-  --error: #dc2626;
-  --glow: 0 10px 45px rgba(30, 58, 138, 0.12);
+  --primary: #0891b2;
+  --primary-strong: #0e7490;
+  --secondary: #a855f7;
+  --accent: #ec4899;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --glow: 0 10px 45px rgba(8, 145, 178, 0.2);
   --button-text: #ffffff;
 }
 
@@ -31,17 +31,17 @@
 html.dark {
   --bg: #0f172a;
   --card: #1e293b;
-  --primary: #fbbf24;
-  --primary-strong: #f59e0b;
-  --secondary: #f97316;
-  --accent: #fb7185;
+  --primary: #06b6d4;
+  --primary-strong: #0891b2;
+  --secondary: #d946ef;
+  --accent: #ec4899;
   --text: #f1f5f9;
   --muted: #cbd5e1;
   --border: #334155;
   --success: #4ade80;
   --warning: #facc15;
   --error: #ff6b6b;
-  --glow: 0 10px 45px rgba(251, 191, 36, 0.2);
+  --glow: 0 10px 45px rgba(6, 182, 212, 0.3);
   --button-text: #0f172a;
 }
 
@@ -174,11 +174,11 @@ html.dark {
   }
 
   .gradient-primary {
-    @apply bg-gradient-to-r from-primary to-primary-dark;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent;
   }
 
   .glass {
-    @apply bg-white/80 backdrop-blur-md border border-gray-200/50;
+    @apply bg-white/80 backdrop-blur-md border border-white/50;
   }
 
   .smooth-transition {
@@ -187,6 +187,69 @@ html.dark {
 
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Flip Card Animation */
+  @keyframes flip-in {
+    0% {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+    100% {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes flip-out {
+    0% {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: rotateY(-90deg);
+      opacity: 0;
+    }
+  }
+
+  .flip-in {
+    animation: flip-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    perspective: 1000px;
+  }
+
+  .flip-out {
+    animation: flip-out 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    perspective: 1000px;
+  }
+
+  /* Glow Animation */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: var(--glow);
+    }
+    50% {
+      box-shadow: 0 15px 60px rgba(8, 145, 178, 0.4);
+    }
+  }
+
+  .glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* Slide In Animation */
+  @keyframes slide-in-up {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .slide-in-up {
+    animation: slide-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 

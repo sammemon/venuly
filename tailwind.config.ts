@@ -30,8 +30,8 @@ const config: Config = {
       boxShadow: {
         soft: '0 2px 15px rgba(0, 0, 0, 0.05)',
         'soft-lg': '0 10px 40px rgba(0, 0, 0, 0.08)',
-        elegant: '0 10px 45px rgba(30, 58, 138, 0.12)',
-        premium: '0 20px 60px rgba(30, 58, 138, 0.15)',
+        elegant: '0 10px 45px rgba(8, 145, 178, 0.2)',
+        premium: '0 20px 60px rgba(8, 145, 178, 0.25)',
       },
       borderRadius: {
         xs: '0.375rem',

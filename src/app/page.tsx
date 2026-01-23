@@ -8,24 +8,31 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       <div className="flex-1">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary-strong via-accent py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-primary via-secondary to-accent py-24 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/30 rounded-full blur-3xl animate-pulse" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">
-              Your Perfect Event,{' '}
-              <span className="text-secondary">Professionally Organized</span>
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight slide-in-up">
+              Plan Your{' '}
+              <span className="text-yellow-300">Perfect Event</span>
+              {' '}Today
             </h1>
-            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Connect with verified event organizers and vendors. From intimate gatherings to grand celebrations, find the perfect team for your special occasion.
+            <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed slide-in-up">
+              Connect with top-rated event organizers and create unforgettable moments. From intimate gatherings to grand celebrations.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center slide-in-up">
               <Link href="/auth/signup?role=client">
-                <Button size="lg" icon={<Calendar className="w-5 h-5" />}>
+                <Button size="lg" icon={<Calendar className="w-5 h-5" />} className="bg-white text-primary hover:bg-yellow-300">
                   Post an Event
                 </Button>
               </Link>
               <Link href="/auth/signup?role=organizer">
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10">
                   Join as Organizer
                 </Button>
               </Link>
