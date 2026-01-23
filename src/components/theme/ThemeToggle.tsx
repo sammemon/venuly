@@ -11,7 +11,7 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="relative inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors focus-ring"
+      className="relative inline-flex items-center justify-center w-11 h-11 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors focus-ring"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
@@ -23,9 +23,9 @@ export function ThemeToggle() {
         transition={{ duration: 0.3 }}
       >
         {theme === 'light' ? (
-          <Sun className="w-5 h-5 text-yellow-500" />
+          <Sun className="w-5 h-5" />
         ) : (
-          <Moon className="w-5 h-5 text-blue-400" />
+          <Moon className="w-5 h-5" />
         )}
       </motion.div>
     </motion.button>

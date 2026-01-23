@@ -4,34 +4,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme CSS Variables (Light / Dark) */
+/* Theme CSS Variables (Light / Dark) - Elegant Event Marketplace */
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Light Theme */
-  --bg: #ffffff;
-  --card: #f8fafc;
-  --primary: #2563eb;
-  --primary-strong: #1d4ed8;
-  --secondary: #38bdf8;
-  --text: #0f172a;
-  --muted: #475569;
-  --border: #e2e8f0;
-  --glow: 0 10px 45px rgba(37, 99, 235, 0.25);
+  /* Light Theme - Sophisticated & Clean */
+  --bg: #fafbfc;
+  --card: #ffffff;
+  --primary: #6b21a8;
+  --primary-strong: #581c87;
+  --secondary: #f59e0b;
+  --accent: #ec4899;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --glow: 0 10px 45px rgba(107, 33, 168, 0.15);
+  --button-text: #ffffff;
 }
 
-:root.dark {
-  --bg: #0b1220;
-  --card: #111827;
-  --primary: #2563eb;
-  --primary-strong: #1d4ed8;
-  --secondary: #38bdf8;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --border: #1f2937;
-  --glow: 0 10px 45px rgba(56, 189, 248, 0.35);
+:root.dark,
+html.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --primary: #a855f7;
+  --primary-strong: #9333ea;
+  --secondary: #f59e0b;
+  --accent: #f472b6;
+  --text: #f1f5f9;
+  --muted: #cbd5e1;
+  --border: #334155;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --glow: 0 10px 45px rgba(168, 85, 247, 0.25);
+  --button-text: #ffffff;
 }
 
 @layer base {
@@ -68,15 +79,36 @@
 
 @layer components {
   .btn-primary {
-    @apply px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all;
+    background-color: var(--primary);
+    color: var(--button-text);
+    @apply px-5 py-2.5 rounded-lg font-semibold transition-all hover:shadow-lg;
+    box-shadow: var(--glow);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-strong);
+    transform: translateY(-2px);
   }
 
   .btn-secondary {
-    @apply px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-all;
+    background-color: var(--secondary);
+    color: #ffffff;
+    @apply px-5 py-2.5 rounded-lg font-semibold transition-all hover:shadow-lg;
+  }
+
+  .btn-secondary:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
   }
 
   .btn-ghost {
-    @apply px-4 py-2 text-primary hover:bg-gray-100 rounded-lg transition-all;
+    color: var(--primary);
+    @apply px-4 py-2 hover:bg-opacity-10 rounded-lg transition-all;
+    background-color: rgba(107, 33, 168, 0.05);
+  }
+
+  .btn-ghost:hover {
+    background-color: rgba(107, 33, 168, 0.1);
   }
 
   .card {
@@ -91,7 +123,10 @@
   }
 
   .input-base {
-    @apply w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary transition-all;
+    background-color: var(--card);
+    color: var(--text);
+    border-color: var(--border);
+    @apply w-full px-4 py-2 border rounded-lg placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary transition-all;
   }
 
   .badge {
@@ -115,11 +150,13 @@
   }
 
   .section-title {
-    @apply text-3xl font-bold font-display text-gray-900;
+    color: var(--text);
+    @apply text-3xl font-bold font-display;
   }
 
   .section-subtitle {
-    @apply text-lg text-gray-600;
+    color: var(--muted);
+    @apply text-lg;
   }
 
   .container-bounded {
@@ -150,38 +187,46 @@
 }
 
 /* Theme overrides for common Tailwind utility combos */
-.dark .bg-white {
+/* Light and Dark - Use CSS Variables */
+.bg-white {
+  background-color: var(--card) !important;
+}
+
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
+  color: var(--text) !important;
+}
+
+.text-gray-500,
+.text-gray-600 {
+  color: var(--muted) !important;
+}
+
+.border-gray-100,
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+.shadow-soft,
+.shadow-soft-lg,
+.shadow-lg {
+  box-shadow: var(--glow) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100,
+.bg-gray-200 {
   background-color: var(--card) !important;
   color: var(--text) !important;
 }
 
-.dark .text-gray-700,
-.dark .text-gray-800,
-.dark .text-gray-900 {
-  color: var(--text) !important;
-}
-
-.dark .text-gray-500,
-.dark .text-gray-600 {
-  color: var(--muted) !important;
-}
-
-.dark .border-gray-100,
-.dark .border-gray-200,
-.dark .border-gray-300 {
-  border-color: var(--border) !important;
-}
-
+/* Dark theme specific shadows */
 .dark .shadow-soft,
 .dark .shadow-soft-lg,
 .dark .shadow-lg {
   box-shadow: var(--glow) !important;
-}
-
-.dark .bg-gray-50,
-.dark .bg-gray-100,
-.dark .bg-gray-200 {
-  background-color: #0f172a !important;
 }
 
 /* Custom scrollbar */

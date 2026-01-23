@@ -50,7 +50,7 @@ export default function Navbar() {
         transition={{ duration: 0.3 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-card/90 backdrop-blur-md shadow-lg border-b border-border'
+            ? 'bg-card/95 backdrop-blur-xl shadow-soft border-b border-border'
             : 'bg-card'
         }`}
       >
@@ -63,12 +63,12 @@ export default function Navbar() {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-xl blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
-                <div className="relative bg-gradient-to-br from-primary to-secondary p-2 rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-secondary rounded-xl blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-gradient-to-br from-primary via-accent to-secondary p-2 rounded-xl">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
               </motion.div>
-              <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
                 Venuly
               </span>
             </Link>
@@ -113,7 +113,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 w-64 bg-card rounded-xl shadow-2xl border border-border overflow-hidden"
                     >
                       {servicesLinks.map((link) => {
                         const Icon = link.icon;
@@ -191,7 +191,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden border-t border-gray-100 bg-white"
+              className="lg:hidden border-t border-border bg-card"
             >
               <div className="px-4 py-6 space-y-3">
                 {navLinks.map((link) => (
@@ -202,7 +202,7 @@ export default function Navbar() {
                     className={`block px-4 py-3 rounded-lg font-medium transition-all ${
                       pathname === link.href
                         ? 'bg-primary/10 text-primary'
-                        : 'text-gray-700 hover:bg-gray-50'
+                        : 'text-text hover:bg-card-hover'
                     }`}
                   >
                     {link.label}
@@ -220,7 +220,7 @@ export default function Navbar() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-text hover:bg-primary/5 transition-colors"
                       >
                         <Icon className="w-5 h-5 text-primary" />
                         <span className="font-medium">{link.label}</span>
@@ -230,7 +230,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="pt-2 pb-2">
-                  <p className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  <p className="px-4 text-xs font-semibold text-muted uppercase tracking-wider mb-2">
                     Company
                   </p>
                   {companyLinks.map((link) => (
@@ -238,7 +238,7 @@ export default function Navbar() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="block px-4 py-3 rounded-lg font-medium text-text hover:bg-primary/5 transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -250,7 +250,7 @@ export default function Navbar() {
                     <ThemeToggle />
                   </div>
                   <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
-                    <button className="w-full px-4 py-3 rounded-lg font-semibold text-gray-700 border-2 border-gray-200 hover:border-primary transition-colors">
+                    <button className="w-full px-4 py-3 rounded-lg font-semibold text-text border-2 border-border hover:border-primary transition-colors">
                       Sign In
                     </button>
                   </Link>

@@ -15,9 +15,13 @@ const config: Config = {
         primary: 'var(--primary)',
         'primary-strong': 'var(--primary-strong)',
         secondary: 'var(--secondary)',
+        accent: 'var(--accent)',
         text: 'var(--text)',
         muted: 'var(--muted)',
         border: 'var(--border)',
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        error: 'var(--error)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
@@ -26,7 +30,7 @@ const config: Config = {
       boxShadow: {
         soft: '0 2px 15px rgba(0, 0, 0, 0.05)',
         'soft-lg': '0 10px 40px rgba(0, 0, 0, 0.08)',
-        elegant: '0 10px 45px rgba(37, 99, 235, 0.25)',
+        elegant: '0 10px 45px rgba(107, 33, 168, 0.15)',
       },
       borderRadius: {
         xs: '0.375rem',

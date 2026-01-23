@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { ArrowRight, Calendar, Users, Star, Shield } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-light py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -201,6 +203,8 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      </div>
+      <Footer />
     </div>
   );
 }

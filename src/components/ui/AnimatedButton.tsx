@@ -33,12 +33,12 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group';
     
     const variants = {
-      primary: 'bg-accent text-white hover:bg-primary-dark focus:ring-accent shadow-md hover:shadow-elegant',
-      secondary: 'bg-secondary-bg text-dark hover:bg-gray-300 focus:ring-secondary-bg shadow-md',
-      outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white focus:ring-accent',
-      ghost: 'text-dark hover:bg-gray-100 focus:ring-gray-300',
-      danger: 'bg-danger text-white hover:bg-red-700 focus:ring-danger shadow-md',
-      success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-md',
+      primary: 'bg-primary text-white hover:bg-primary-strong focus:ring-primary shadow-elegant',
+      secondary: 'bg-secondary text-white hover:opacity-90 focus:ring-secondary shadow-md',
+      outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary',
+      ghost: 'text-primary hover:bg-primary/10 focus:ring-primary/50',
+      danger: 'bg-error text-white hover:opacity-90 focus:ring-error shadow-md',
+      success: 'bg-success text-white hover:opacity-90 focus:ring-success shadow-md',
     };
     
     const sizes = {
