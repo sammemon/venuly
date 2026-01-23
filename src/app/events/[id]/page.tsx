@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
 import { connectDB } from '@/lib/db/connect';
 import Event from '@/models/Event';
-import { ArrowLeft, Calendar, MapPin, Users, DollarSign, Clock, FileText } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Users, DollarSign, Clock, FileText, User, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui';
 
 async function getEvent(id: string) {
@@ -15,13 +15,33 @@ async function getEvent(id: string) {
       .lean();
     
     if (!event) {
-      notFound();
+      return null;
     }
     
-    return event;
+    // Convert MongoDB document to plain object with serializable dates
+    const serializedEvent: any = {
+      ...event,
+      _id: event._id.toString(),
+      clientId: event.clientId ? {
+        _id: (event.clientId as any)._id.toString(),
+        firstName: (event.clientId as any).firstName,
+        lastName: (event.clientId as any).lastName,
+        email: (event.clientId as any).email,
+        avatar: (event.clientId as any).avatar,
+        phone: (event.clientId as any).phone,
+      } : null,
+      createdAt: event.createdAt?.toString(),
+      updatedAt: event.updatedAt?.toString(),
+      eventDate: {
+        start: event.eventDate.start.toString(),
+        end: event.eventDate.end.toString(),
+      }
+    };
+    
+    return serializedEvent;
   } catch (error) {
     console.error('Failed to fetch event:', error);
-    notFound();
+    return null;
   }
 }
 
@@ -36,6 +56,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 export default async function EventDetailPage({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   const event = await getEvent(params.id);
+
+  if (!event) {
+    notFound();
+  }
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('en-US', {

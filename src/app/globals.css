@@ -4,27 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme CSS Variables (Light / Dark) - Professional Venuly Theme */
+/* Theme CSS Variables (Light / Dark) - Premium SaaS Marketplace */
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  /* Light Theme - Professional & Trustworthy */
-  --bg: #f8fafc;
+  /* Light Theme - Clean & Professional */
+  --bg: #fafbfc;
   --card: #ffffff;
-  --primary: #1e40af;
-  --primary-strong: #1e3a8a;
-  --secondary: #f97316;
+  --primary: #2563eb;
+  --primary-strong: #1d4ed8;
+  --primary-light: #dbeafe;
+  --secondary: #7c3aed;
+  --secondary-light: #ede9fe;
   --accent: #f59e0b;
+  --accent-light: #fef3c7;
   --text: #0f172a;
+  --text-secondary: #475569;
   --muted: #64748b;
   --border: #e2e8f0;
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
-  --glow: 0 10px 45px rgba(30, 64, 175, 0.15);
-  --button-text: #ffffff;
+  --info: #3b82f6;
+  --glow: 0 10px 45px rgba(37, 99, 235, 0.15);
+  --glow-lg: 0 20px 60px rgba(37, 99, 235, 0.25);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
 :root.dark,
@@ -32,17 +40,25 @@ html.dark {
   --bg: #0f172a;
   --card: #1e293b;
   --primary: #3b82f6;
-  --primary-strong: #2563eb;
-  --secondary: #fb923c;
+  --primary-strong: #60a5fa;
+  --primary-light: #1e3a8a;
+  --secondary: #a78bfa;
+  --secondary-light: #4c1d95;
   --accent: #fbbf24;
+  --accent-light: #78350f;
   --text: #f1f5f9;
-  --muted: #cbd5e1;
+  --text-secondary: #cbd5e1;
+  --muted: #94a3b8;
   --border: #334155;
-  --success: #4ade80;
+  --success: #34d399;
   --warning: #fbbf24;
-  --error: #ff6b6b;
-  --glow: 0 10px 45px rgba(59, 130, 246, 0.2);
-  --button-text: #ffffff;
+  --error: #f87171;
+  --info: #60a5fa;
+  --glow: 0 10px 45px rgba(59, 130, 246, 0.25);
+  --glow-lg: 0 20px 60px rgba(59, 130, 246, 0.35);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
 
 @layer base {
