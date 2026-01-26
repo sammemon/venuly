@@ -10,19 +10,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        /* Base Colors */
         bg: 'var(--bg)',
         card: 'var(--card)',
-        primary: 'var(--primary)',
-        'primary-strong': 'var(--primary-strong)',
-        'primary-light': 'var(--primary-light)',
-        secondary: 'var(--secondary)',
-        'secondary-light': 'var(--secondary-light)',
-        accent: 'var(--accent)',
-        'accent-light': 'var(--accent-light)',
+        surface: 'var(--surface)',
+        border: 'var(--border)',
+        /* Text Colors */
         text: 'var(--text)',
         'text-secondary': 'var(--text-secondary)',
-        muted: 'var(--muted)',
-        border: 'var(--border)',
+        'text-muted': 'var(--text-muted)',
+        /* Brand Colors */
+        primary: 'var(--primary)',
+        'primary-hover': 'var(--primary-hover)',
+        'primary-press': 'var(--primary-press)',
+        secondary: 'var(--secondary)',
+        'secondary-hover': 'var(--secondary-hover)',
+        accent: 'var(--accent)',
+        'accent-hover': 'var(--accent-hover)',
+        highlight: 'var(--highlight)',
+        'highlight-hover': 'var(--highlight-hover)',
+        /* Semantic Colors */
         success: 'var(--success)',
         warning: 'var(--warning)',
         error: 'var(--error)',

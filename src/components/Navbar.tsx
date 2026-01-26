@@ -63,12 +63,12 @@ export default function Navbar() {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent rounded-xl blur-md opacity-70 group-hover:opacity-100 transition-opacity" />
-                <div className="relative bg-gradient-to-br from-primary via-secondary to-accent p-2 rounded-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-cyan-500 to-amber-500 rounded-xl blur-md opacity-70 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-gradient-to-br from-indigo-600 via-cyan-500 to-amber-500 p-2 rounded-xl">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
               </motion.div>
-              <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              <span className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-600 via-cyan-500 to-amber-500 bg-clip-text text-transparent">
                 Venuly
               </span>
             </Link>
@@ -79,11 +79,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all relative group ${
-                    pathname === link.href
-                      ? 'text-primary'
-                      : 'text-muted hover:text-primary'
-                  }`}
+                      className={`px-4 py-2 rounded-lg font-medium transition-all relative group ${
+                        pathname === link.href
+                          ? 'text-primary'
+                          : 'text-text-muted hover:text-primary'
+                      }`}
                 >
                   {link.label}
                   {pathname === link.href && (
@@ -102,7 +102,7 @@ export default function Navbar() {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button className="px-4 py-2 rounded-lg font-medium text-muted hover:text-primary transition-all flex items-center gap-1">
+                  <button className="px-4 py-2 rounded-lg font-medium text-text-muted hover:text-primary transition-all flex items-center gap-1">
                   Services
                   <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -121,12 +121,12 @@ export default function Navbar() {
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="flex items-center gap-3 px-4 py-3 hover:bg-primary/5 transition-colors group"
+                            className="flex items-center gap-3 px-4 py-3 hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors group"
                           >
-                            <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                              <Icon className="w-4 h-4 text-primary" />
+                            <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/40 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
+                              <Icon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                             </div>
-                            <span className="font-medium text-gray-700 group-hover:text-primary">{link.label}</span>
+                            <span className="font-medium text-slate-700 dark:text-purple-100 group-hover:text-purple-700 dark:group-hover:text-purple-300">{link.label}</span>
                           </Link>
                         );
                       })}
@@ -142,7 +142,7 @@ export default function Navbar() {
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
                     pathname === link.href
                       ? 'text-primary'
-                      : 'text-muted hover:text-primary'
+                      : 'text-text-muted hover:text-primary'
                   }`}
                 >
                   {link.label}
@@ -157,7 +157,7 @@ export default function Navbar() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-5 py-2.5 rounded-lg font-semibold text-muted hover:text-primary transition-colors"
+                  className="px-5 py-2.5 rounded-lg font-semibold text-text-muted hover:text-primary transition-colors"
                 >
                   Sign In
                 </motion.button>

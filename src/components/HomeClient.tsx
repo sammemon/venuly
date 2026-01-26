@@ -11,22 +11,22 @@ export default function HomeClient() {
       icon: <Calendar className="w-8 h-8" />,
       title: 'Post Your Event',
       description: 'Describe your event requirements, budget, and timeline. It\'s free and takes just a few minutes.',
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
+      color: 'bg-indigo-100 dark:bg-indigo-900/30',
+      iconColor: 'text-indigo-600 dark:text-indigo-400',
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: 'Receive Proposals',
       description: 'Professional organizers submit detailed proposals. Compare prices, portfolios, and reviews.',
-      color: 'bg-secondary/10',
-      iconColor: 'text-secondary',
+      color: 'bg-cyan-100 dark:bg-cyan-900/30',
+      iconColor: 'text-cyan-600 dark:text-cyan-400',
     },
     {
       icon: <Star className="w-8 h-8" />,
       title: 'Create Magic',
       description: 'Work with your chosen organizer through our secure platform. Make your event unforgettable.',
-      color: 'bg-accent/10',
-      iconColor: 'text-accent',
+      color: 'bg-amber-100 dark:bg-amber-900/30',
+      iconColor: 'text-amber-600 dark:text-amber-400',
     },
   ];
 
@@ -58,11 +58,11 @@ export default function HomeClient() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary via-blue-600 to-secondary py-24 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-indigo-600 via-cyan-500 to-amber-500 dark:from-indigo-900 dark:via-cyan-800 dark:to-amber-900 py-24 relative overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl"
+            className="absolute -top-40 -right-40 w-80 h-80 bg-amber-300/20 dark:bg-amber-400/20 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.5, 0.3],
@@ -70,7 +70,7 @@ export default function HomeClient() {
             transition={{ duration: 5, repeat: Infinity }}
           />
           <motion.div
-            className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl"
+            className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-300/20 dark:bg-cyan-400/20 rounded-full blur-3xl"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.5, 0.3, 0.5],
@@ -93,10 +93,10 @@ export default function HomeClient() {
               className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight"
             >
               Plan Your{' '}
-              <span className="text-accent relative">
+              <span className="text-amber-300 dark:text-amber-300 relative">
                 Perfect Event
                 <motion.span
-                  className="absolute bottom-0 left-0 w-full h-1 bg-accent"
+                  className="absolute bottom-0 left-0 w-full h-1 bg-amber-300 dark:bg-amber-300"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
