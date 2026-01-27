@@ -10,14 +10,15 @@ const team = [
     name: 'Raza Khan',
     role: 'AI Engineer',
     avatar: (
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <circle cx="32" cy="32" r="32" fill="#FA8112" />
-        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
-        <circle cx="32" cy="28" r="10" fill="#F5E7C6" />
-        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#222" />
-        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <rect x="28" y="34" width="8" height="2" rx="1" fill="#222" />
+      <svg viewBox="0 0 80 80" className="w-20 h-20 animate-fade-in-up" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" fill="#FA8112" stroke="#fff" strokeWidth="2" />
+        <ellipse cx="40" cy="56" rx="18" ry="12" fill="#fff" />
+        <ellipse cx="40" cy="38" rx="12" ry="14" fill="#F5E7C6" />
+        <ellipse cx="40" cy="38" rx="7" ry="8" fill="#222" />
+        <ellipse cx="36" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="44" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <rect x="36" y="46" width="8" height="3" rx="1.5" fill="#222" />
+        <ellipse cx="40" cy="30" rx="4" ry="2" fill="#fff" opacity=".2" />
       </svg>
     ),
     bio: 'Student of Computer System Engineering at MUET',
@@ -26,14 +27,15 @@ const team = [
     name: 'Sohail Ahmed',
     role: 'Full Stack Developer',
     avatar: (
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <circle cx="32" cy="32" r="32" fill="#222" />
-        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
-        <circle cx="32" cy="28" r="10" fill="#F5E7C6" />
-        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#FA8112" />
-        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <rect x="28" y="34" width="8" height="2" rx="1" fill="#FA8112" />
+      <svg viewBox="0 0 80 80" className="w-20 h-20 animate-fade-in-up" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" fill="#222" stroke="#fff" strokeWidth="2" />
+        <ellipse cx="40" cy="56" rx="18" ry="12" fill="#fff" />
+        <ellipse cx="40" cy="38" rx="12" ry="14" fill="#F5E7C6" />
+        <ellipse cx="40" cy="38" rx="7" ry="8" fill="#FA8112" />
+        <ellipse cx="36" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="44" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <rect x="36" y="46" width="8" height="3" rx="1.5" fill="#FA8112" />
+        <ellipse cx="40" cy="30" rx="4" ry="2" fill="#fff" opacity=".2" />
       </svg>
     ),
     bio: 'Student of Computer System Engineering at MUET',
@@ -42,14 +44,15 @@ const team = [
     name: 'Muhammad Hammad',
     role: 'AI Engineer',
     avatar: (
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <circle cx="32" cy="32" r="32" fill="#F5E7C6" />
-        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
-        <circle cx="32" cy="28" r="10" fill="#FA8112" />
-        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#222" />
-        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
-        <rect x="28" y="34" width="8" height="2" rx="1" fill="#222" />
+      <svg viewBox="0 0 80 80" className="w-20 h-20 animate-fade-in-up" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" fill="#F5E7C6" stroke="#fff" strokeWidth="2" />
+        <ellipse cx="40" cy="56" rx="18" ry="12" fill="#fff" />
+        <ellipse cx="40" cy="38" rx="12" ry="14" fill="#FA8112" />
+        <ellipse cx="40" cy="38" rx="7" ry="8" fill="#222" />
+        <ellipse cx="36" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="44" cy="37" rx="1.5" ry="2" fill="#fff" />
+        <rect x="36" y="46" width="8" height="3" rx="1.5" fill="#222" />
+        <ellipse cx="40" cy="30" rx="4" ry="2" fill="#fff" opacity=".2" />
       </svg>
     ),
     bio: 'Student of Computer System Engineering at MUET',
