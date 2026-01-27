@@ -5,8 +5,11 @@ import { motion } from 'framer-motion';
 import { Check, Sparkles, HelpCircle } from 'lucide-react';
 import { AnimatedButton } from '@/components/ui';
 import { containerVariants, itemVariants } from '@/lib/animations';
+import { useSession } from 'next-auth/react';
 
 export default function PricingPage() {
+  const { data: session } = useSession();
+  const isSignedIn = !!session;
   const plans = [
     {
       name: 'Starter',
@@ -219,19 +222,28 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Link href="/auth/signup?role=client" className="w-full">
+                {isSignedIn ? (
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 ${
-                      plan.highlight
-                        ? 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/20'
-                        : 'bg-[var(--bg)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--primary)]/30'
-                    }`}
+                    disabled
+                    className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 bg-[var(--bg-secondary)] text-[var(--muted)] border border-[var(--border)] cursor-not-allowed`}
                   >
-                    {plan.cta}
+                    Your Current Plan
                   </motion.button>
-                </Link>
+                ) : (
+                  <Link href="/auth/signup?role=client" className="w-full">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 ${
+                        plan.highlight
+                          ? 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/20'
+                          : 'bg-[var(--bg)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--primary)]/30'
+                      }`}
+                    >
+                      {plan.cta}
+                    </motion.button>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>
@@ -298,19 +310,28 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Link href="/auth/signup?role=organizer" className="w-full">
+                {isSignedIn ? (
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 ${
-                      plan.highlight
-                        ? 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/20'
-                        : 'bg-[var(--bg)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--primary)]/30'
-                    }`}
+                    disabled
+                    className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 bg-[var(--bg-secondary)] text-[var(--muted)] border border-[var(--border)] cursor-not-allowed`}
                   >
-                    {plan.cta}
+                    Your Current Plan
                   </motion.button>
-                </Link>
+                ) : (
+                  <Link href="/auth/signup?role=organizer" className="w-full">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full py-3.5 px-6 rounded-xl font-semibold transition-all duration-200 ${
+                        plan.highlight
+                          ? 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/20'
+                          : 'bg-[var(--bg)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--primary)]/30'
+                      }`}
+                    >
+                      {plan.cta}
+                    </motion.button>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>

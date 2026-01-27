@@ -4,15 +4,19 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Menu, X, ChevronDown, Sparkles, BookOpen, Users } from 'lucide-react';
+import { Calendar, Menu, X, ChevronDown, Sparkles, BookOpen, Users, User as UserIcon, LogOut } from 'lucide-react';
 import { AnimatedButton } from '@/components/ui';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const isSignedIn = !!session;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +26,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isDashboard = pathname?.startsWith('/dashboard');
-  if (isDashboard) return null;
+  // Remove dashboard check so Navbar always shows
 
   const navLinks = [
     { href: '/browse-events', label: 'Browse Events' },
@@ -154,23 +157,67 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons or User Menu */}
             <div className="hidden lg:flex items-center gap-3">
               <ThemeToggle />
-              <Link href="/auth/signin">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-5 py-2.5 rounded-xl font-medium text-[var(--text)] hover:bg-[var(--primary-muted)] transition-colors"
-                >
-                  Sign In
-                </motion.button>
-              </Link>
-              <Link href="/auth/signup">
-                <AnimatedButton variant="primary" className="shadow-soft">
-                  Get Started
-                </AnimatedButton>
-              </Link>
+              {isSignedIn ? (
+                <div className="relative">
+                  <button
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-[var(--text)] hover:bg-[var(--primary-muted)] transition-colors"
+                    onClick={() => setUserMenuOpen((v) => !v)}
+                  >
+                    {session.user.avatar ? (
+                      <img src={session.user.avatar} alt="avatar" className="w-7 h-7 rounded-full object-cover" />
+                    ) : (
+                      <UserIcon className="w-6 h-6 text-[var(--primary)]" />
+                    )}
+                    <span>{session.user.firstName}</span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {userMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-56 bg-[var(--card)] rounded-2xl shadow-soft-lg border border-[var(--border)] overflow-hidden z-50"
+                      >
+                        <div className="p-2">
+                          <Link href={`/profile/${session.user.id}`} className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[var(--primary-muted)] transition-colors">
+                            <UserIcon className="w-5 h-5 text-[var(--primary)]" />
+                            <span className="font-medium text-[var(--text)]">Profile</span>
+                          </Link>
+                          <button
+                            onClick={() => signOut({ callbackUrl: '/' })}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text)] hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
+                          >
+                            <LogOut className="w-5 h-5" />
+                            <span className="font-medium">Sign Out</span>
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <>
+                  <Link href="/auth/signin">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-5 py-2.5 rounded-xl font-medium text-[var(--text)] hover:bg-[var(--primary-muted)] transition-colors"
+                    >
+                      Sign In
+                    </motion.button>
+                  </Link>
+                  <Link href="/auth/signup">
+                    <AnimatedButton variant="primary" className="shadow-soft">
+                      Get Started
+                    </AnimatedButton>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -256,16 +303,34 @@ export default function Navbar() {
                   <div className="px-4 flex justify-start">
                     <ThemeToggle />
                   </div>
-                  <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
-                    <button className="w-full px-4 py-3 rounded-xl font-semibold text-[var(--text)] border-2 border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--primary-muted)] transition-all">
-                      Sign In
-                    </button>
-                  </Link>
-                  <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
-                    <AnimatedButton variant="primary" fullWidth className="mt-2">
-                      Get Started
-                    </AnimatedButton>
-                  </Link>
+                  {isSignedIn ? (
+                    <>
+                      <Link href={`/profile/${session.user.id}`} onClick={() => setMobileMenuOpen(false)}>
+                        <button className="w-full px-4 py-3 rounded-xl font-semibold text-[var(--text)] border-2 border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--primary-muted)] transition-all">
+                          Profile
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => { setMobileMenuOpen(false); signOut({ callbackUrl: '/' }); }}
+                        className="w-full px-4 py-3 rounded-xl font-semibold text-[var(--text)] border-2 border-[var(--border)] hover:text-red-400 hover:bg-red-500/10 transition-all"
+                      >
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
+                        <button className="w-full px-4 py-3 rounded-xl font-semibold text-[var(--text)] border-2 border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--primary-muted)] transition-all">
+                          Sign In
+                        </button>
+                      </Link>
+                      <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
+                        <AnimatedButton variant="primary" fullWidth className="mt-2">
+                          Get Started
+                        </AnimatedButton>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

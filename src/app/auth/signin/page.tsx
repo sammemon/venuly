@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -15,6 +15,15 @@ export const dynamic = 'force-dynamic';
 function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session, status } = require('next-auth/react').useSession();
+
+  // If already signed in, redirect to dashboard
+  React.useEffect(() => {
+    if (status === 'authenticated') {
+      const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+      router.replace(callbackUrl);
+    }
+  }, [status, searchParams, router]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({

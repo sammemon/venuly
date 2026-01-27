@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, DollarSign, Users, Search, Filter, ArrowRight, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, DollarSign, Users, Search, Filter, ArrowRight, Sparkles, User } from 'lucide-react';
 import { containerVariants, itemVariants } from '@/lib/animations';
 import { useToast } from '@/components/ui/Toast';
 
@@ -30,7 +30,13 @@ interface EventData {
   };
   status: string;
   eventType: string;
-  clientId?: any;
+  clientId?: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    avatar?: string;
+    email?: string;
+  };
 }
 
 const eventTypes = [
@@ -324,6 +330,23 @@ export default function BrowseEventsPage() {
                                 </span>
                               </div>
                             </div>
+                            {/* Event Poster (Client/Organizer) */}
+                            {event.clientId && (
+                              <div className="flex items-center gap-2 mt-4">
+                                <Link href={`/profile/${event.clientId._id}`} className="flex items-center gap-2 group/profile">
+                                  {event.clientId.avatar ? (
+                                    <img src={event.clientId.avatar} alt={event.clientId.firstName} className="w-8 h-8 rounded-full object-cover border border-[var(--primary)]" />
+                                  ) : (
+                                    <div className="w-8 h-8 rounded-full bg-[var(--primary)] text-white flex items-center justify-center font-semibold">
+                                      {event.clientId.firstName?.[0]}{event.clientId.lastName?.[0]}
+                                    </div>
+                                  )}
+                                  <span className="text-[var(--primary)] font-medium group-hover/profile:underline">
+                                    {event.clientId.firstName} {event.clientId.lastName}
+                                  </span>
+                                </Link>
+                              </div>
+                            )}
                           </div>
                           <div className="flex items-center">
                             <span className="flex items-center gap-2 text-[var(--primary)] font-semibold group-hover:gap-3 transition-all">
