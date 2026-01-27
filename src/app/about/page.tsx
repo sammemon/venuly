@@ -9,19 +9,49 @@ const team = [
   {
     name: 'Raza Khan',
     role: 'AI Engineer',
-    image: 'https://i.pravatar.cc/300?img=11',
+    avatar: (
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <circle cx="32" cy="32" r="32" fill="#FA8112" />
+        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
+        <circle cx="32" cy="28" r="10" fill="#F5E7C6" />
+        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#222" />
+        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <rect x="28" y="34" width="8" height="2" rx="1" fill="#222" />
+      </svg>
+    ),
     bio: 'Student of Computer System Engineering at MUET',
   },
   {
     name: 'Sohail Ahmed',
     role: 'Full Stack Developer',
-    image: 'https://i.pravatar.cc/300?img=12',
+    avatar: (
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <circle cx="32" cy="32" r="32" fill="#222" />
+        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
+        <circle cx="32" cy="28" r="10" fill="#F5E7C6" />
+        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#FA8112" />
+        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <rect x="28" y="34" width="8" height="2" rx="1" fill="#FA8112" />
+      </svg>
+    ),
     bio: 'Student of Computer System Engineering at MUET',
   },
   {
     name: 'Muhammad Hammad',
     role: 'AI Engineer',
-    image: 'https://i.pravatar.cc/300?img=13',
+    avatar: (
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <circle cx="32" cy="32" r="32" fill="#F5E7C6" />
+        <ellipse cx="32" cy="40" rx="16" ry="12" fill="#fff" />
+        <circle cx="32" cy="28" r="10" fill="#FA8112" />
+        <ellipse cx="32" cy="28" rx="6" ry="7" fill="#222" />
+        <ellipse cx="28" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <ellipse cx="36" cy="27" rx="1.5" ry="2" fill="#fff" />
+        <rect x="28" y="34" width="8" height="2" rx="1" fill="#222" />
+      </svg>
+    ),
     bio: 'Student of Computer System Engineering at MUET',
   },
 ];
@@ -267,12 +297,8 @@ export default function AboutPage() {
                 {/* Animated glow effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--primary)] rounded-2xl opacity-0 group-hover:opacity-75 blur-lg transition-all duration-500 group-hover:duration-200 animate-glow -z-10" />
                 <div className="relative bg-white dark:bg-[var(--card)] rounded-2xl overflow-hidden">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
+                  <div className="aspect-square flex items-center justify-center overflow-hidden">
+                    {member.avatar}
                     {/* Gradient overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
