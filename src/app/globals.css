@@ -882,3 +882,42 @@ input[type='datetime-local']::-webkit-calendar-picker-indicator:hover {
    className="... text-[var(--text)] dark:text-white ..."
 */
 
+/* Dashboard sidebar dark mode professional look */
+.dark .dashboard-sidebar {
+  background: #18181c !important;
+  color: #fff !important;
+  border-right: 1px solid #23232a !important;
+}
+.dark .dashboard-sidebar .dashboard-menu,
+.dark .dashboard-sidebar .dashboard-user-info {
+  color: #fff !important;
+}
+.dark .dashboard-sidebar .dashboard-menu .active,
+.dark .dashboard-sidebar .dashboard-menu .active:focus {
+  background: linear-gradient(90deg, #ff9100 0%, #ffb347 100%) !important;
+  color: #18181c !important;
+  font-weight: bold;
+  box-shadow: 0 2px 8px 0 #ff910033;
+}
+.dark .dashboard-sidebar .dashboard-menu .dashboard-icon {
+  color: #fff !important;
+}
+.dark .dashboard-sidebar .dashboard-menu button,
+.dark .dashboard-sidebar .dashboard-menu a {
+  color: #fff !important;
+  background: transparent !important;
+}
+.dark .dashboard-sidebar .dashboard-menu a:hover,
+.dark .dashboard-sidebar .dashboard-menu button:hover {
+  background: #23232a !important;
+  color: #ffb347 !important;
+}
+
+/* Remove any light backgrounds in dark mode */
+.dark .dashboard-card,
+.dark .dashboard-profile,
+.dark .dashboard-user-info {
+  background: #23232a !important;
+  color: #fff !important;
+}
+
