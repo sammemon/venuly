@@ -96,7 +96,7 @@ export default function HowItWorksPage() {
             <div className="bg-card rounded-lg p-8 border border-border">
               <Heart className="w-8 h-8 text-accent mb-4" />
               <h3 className="text-xl font-semibold text-text mb-3">Secure Payments</h3>
-              <p className="text-text-secondary">>
+              <p className="text-text-secondary">
                 Milestone-based escrow system protects your investment until deliverables are met.
               </p>
             </div>
