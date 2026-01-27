@@ -9,7 +9,9 @@ import {
   Bell, 
   Plus,
   TrendingUp,
-  Eye
+  Eye,
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 import { connectDB } from '@/lib/db/connect';
 import Event from '@/models/Event';
@@ -33,125 +35,136 @@ export default async function ClientDashboard() {
   const totalViews = allEvents.reduce((sum, event) => sum + (event.views || 0), 0);
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-[#222222] mb-2">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-sm font-medium text-[var(--primary)]">Dashboard</span>
+        </div>
+        <h1 className="text-3xl lg:text-4xl font-bold text-[var(--text)] mb-2">
           Welcome back, {session.user.firstName}!
         </h1>
-        <p className="text-lg text-gray-600">Here is what is happening with your events today.</p>
+        <p className="text-[var(--muted)]">Here&apos;s what&apos;s happening with your events today.</p>
       </div>
 
       {/* Quick Actions */}
       <div className="mb-8">
         <Link
           href="/events/create"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#1E93AB] to-[#0E7A82] text-white px-8 py-3 rounded-lg hover:shadow-lg transition-all shadow-md font-semibold"
+          className="inline-flex items-center gap-2.5 bg-[var(--primary)] text-white px-6 py-3.5 rounded-2xl hover:bg-[var(--primary-hover)] transition-all shadow-lg shadow-[var(--primary)]/20 font-semibold"
         >
           <Plus className="w-5 h-5" />
           Post New Event
         </Link>
       </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Active Events</p>
-                <p className="text-3xl font-bold text-[#222222]">{activeEvents}</p>
-                <p className="text-xs text-gray-500 mt-2">Currently active</p>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-[#1E93AB]" />
-              </div>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Active Events</p>
+              <p className="text-3xl font-bold text-[var(--text)]">{activeEvents}</p>
+              <p className="text-xs text-[var(--muted)] mt-2 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-green-500" />
+                Currently live
+              </p>
             </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Proposals</p>
-                <p className="text-3xl font-bold text-[#222222]">{totalProposals}</p>
-                <p className="text-xs text-gray-500 mt-2">Pending responses</p>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center">
-                <FileText className="w-6 h-6 text-[#1E93AB]" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Messages</p>
-                <p className="text-3xl font-bold text-[#222222]">0</p>
-                <p className="text-xs text-gray-500 mt-2">Unread: 0</p>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-[#1E93AB]" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Total Views</p>
-                <p className="text-3xl font-bold text-[#222222]">{totalViews}</p>
-                <p className="text-xs text-gray-500 mt-2">This month</p>
-              </div>
-              <div className="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center">
-                <Eye className="w-6 h-6 text-[#1E93AB]" />
-              </div>
+            <div className="w-14 h-14 rounded-2xl bg-[var(--primary)]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Calendar className="w-6 h-6 text-[var(--primary)]" />
             </div>
           </div>
         </div>
 
-        {/* Recent Events */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] mb-8">
-          <div className="p-6 border-b border-[#DCDCDC]">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#222222]">Your Events</h2>
-              <Link href="/events/create" className="text-sm text-[#1E93AB] hover:text-[#197A8F] font-medium">
-                + New Event
-              </Link>
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Total Proposals</p>
+              <p className="text-3xl font-bold text-[var(--text)]">{totalProposals}</p>
+              <p className="text-xs text-[var(--muted)] mt-2">From organizers</p>
             </div>
-          </div>
-          <div className="p-12">
-            <div className="text-center max-w-sm mx-auto">
-              <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-12 h-12 text-[#1E93AB]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#222222] mb-2">No events posted</h3>
-              <p className="text-gray-600 mb-6">Create your first event to find the perfect organizer for your needs</p>
-              <Link
-                href="/events/create"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#1E93AB] to-[#0E7A82] text-white px-8 py-3 rounded-lg hover:shadow-lg transition-all shadow-md font-semibold"
-              >
-                <Plus className="w-5 h-5" />
-                Post Your First Event
-              </Link>
+            <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <FileText className="w-6 h-6 text-purple-500" />
             </div>
           </div>
         </div>
 
-        {/* Recent Proposals */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC]">
-          <div className="p-6 border-b border-[#DCDCDC]">
-            <h2 className="text-2xl font-bold text-[#222222]">Recent Proposals</h2>
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Messages</p>
+              <p className="text-3xl font-bold text-[var(--text)]">0</p>
+              <p className="text-xs text-[var(--muted)] mt-2">Unread: 0</p>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <MessageSquare className="w-6 h-6 text-green-500" />
+            </div>
           </div>
-          <div className="p-12">
-            <div className="text-center max-w-sm mx-auto">
-              <div className="w-24 h-24 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
-                <FileText className="w-12 h-12 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-bold text-[#222222] mb-2">No proposals yet</h3>
-              <p className="text-gray-600 mb-2">Organizers will submit proposals once you post an event</p>
-              <p className="text-sm text-gray-500">Get started by creating your first event above</p>
+        </div>
+
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Total Views</p>
+              <p className="text-3xl font-bold text-[var(--text)]">{totalViews}</p>
+              <p className="text-xs text-[var(--muted)] mt-2 flex items-center gap-1">
+                <TrendingUp className="w-3 h-3 text-[var(--primary)]" />
+                Event impressions
+              </p>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Eye className="w-6 h-6 text-amber-500" />
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+
+      {/* Recent Events */}
+      <div className="bg-[var(--surface)] rounded-2xl border border-[var(--border)] mb-8 overflow-hidden">
+        <div className="p-6 border-b border-[var(--border)] flex items-center justify-between">
+          <h2 className="text-xl font-bold text-[var(--text)]">Your Events</h2>
+          <Link 
+            href="/events/create" 
+            className="text-sm text-[var(--primary)] hover:text-[var(--primary-hover)] font-medium flex items-center gap-1 group"
+          >
+            New Event
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+        <div className="p-12">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-2xl bg-[var(--primary)]/10 flex items-center justify-center mx-auto mb-5">
+              <Sparkles className="w-10 h-10 text-[var(--primary)]" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--text)] mb-2">No events posted yet</h3>
+            <p className="text-[var(--muted)] mb-6">Create your first event to find the perfect organizer for your needs.</p>
+            <Link
+              href="/events/create"
+              className="inline-flex items-center gap-2 bg-[var(--primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--primary-hover)] transition-all shadow-lg shadow-[var(--primary)]/20 font-semibold"
+            >
+              <Plus className="w-5 h-5" />
+              Post Your First Event
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Proposals */}
+      <div className="bg-[var(--surface)] rounded-2xl border border-[var(--border)] overflow-hidden">
+        <div className="p-6 border-b border-[var(--border)]">
+          <h2 className="text-xl font-bold text-[var(--text)]">Recent Proposals</h2>
+        </div>
+        <div className="p-12">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-2xl bg-purple-500/10 flex items-center justify-center mx-auto mb-5">
+              <FileText className="w-10 h-10 text-purple-500" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--text)] mb-2">No proposals yet</h3>
+            <p className="text-[var(--muted)] mb-2">Organizers will submit proposals once you post an event.</p>
+            <p className="text-sm text-[var(--muted)]">Get started by creating your first event above.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

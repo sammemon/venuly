@@ -50,12 +50,12 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-5xl font-display font-bold text-dark mb-4">About Venuly</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-5xl font-display font-bold text-text mb-4">About Venuly</h1>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             We\'re on a mission to connect event clients with the best professional organizers.
           </p>
         </div>
@@ -66,20 +66,20 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-display font-bold text-dark mb-6">Our Story</h2>
-              <p className="text-gray-600 mb-4">
+              <h2 className="text-3xl font-display font-bold text-text mb-6">Our Story</h2>
+              <p className="text-text-secondary mb-4">
                 Venuly was founded in 2023 by a group of event industry veterans who saw a problem: finding and hiring professional event organizers was complicated, risky, and inefficient.
               </p>
-              <p className="text-gray-600 mb-4">
+              <p className="text-text-secondary mb-4">
                 We spent years dealing with:
               </p>
-              <ul className="space-y-2 text-gray-600 mb-6">
+              <ul className="space-y-2 text-text-secondary mb-6">
                 <li>• Unreliable freelancers and contractors</li>
                 <li>• Hidden fees and surprise costs</li>
                 <li>• Difficulty comparing proposals and prices</li>
                 <li>• Poor communication and project tracking</li>
               </ul>
-              <p className="text-gray-600">
+              <p className="text-text-secondary">
                 So we decided to build the platform we wished existed. Today, Venuly connects thousands of clients with verified event professionals every month.
               </p>
             </div>
@@ -94,17 +94,17 @@ export default function AboutPage() {
 
         {/* Mission & Vision */}
         <section className="grid md:grid-cols-2 gap-8 mb-16">
-          <AnimatedCard delay={0} className="p-8 bg-gradient-to-br from-blue-50 to-transparent border border-blue-200">
+          <AnimatedCard delay={0} className="p-8 bg-card border border-border">
             <Target className="w-8 h-8 text-accent mb-4" />
-            <h3 className="text-2xl font-bold text-dark mb-3">Our Mission</h3>
-            <p className="text-gray-600">
+            <h3 className="text-2xl font-bold text-text mb-3">Our Mission</h3>
+            <p className="text-text-secondary">
               To simplify event planning by connecting clients with trusted, professional organizers and providing a transparent, secure platform for collaboration.
             </p>
           </AnimatedCard>
-          <AnimatedCard delay={0.1} className="p-8 bg-gradient-to-br from-green-50 to-transparent border border-green-200">
+          <AnimatedCard delay={0.1} className="p-8 bg-card border border-border">
             <Globe className="w-8 h-8 text-accent mb-4" />
-            <h3 className="text-2xl font-bold text-dark mb-3">Our Vision</h3>
-            <p className="text-gray-600">
+            <h3 className="text-2xl font-bold text-text mb-3">Our Vision</h3>
+            <p className="text-text-secondary">
               To become the go-to platform for event planning, recognized worldwide for excellence, reliability, and innovation in connecting clients with event professionals.
             </p>
           </AnimatedCard>
@@ -112,13 +112,13 @@ export default function AboutPage() {
 
         {/* Values */}
         <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-12 text-center">Our Values</h2>
+          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">Our Values</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <AnimatedCard key={index} delay={index * 0.1} className="p-8">
                 <div className="text-accent mb-4">{value.icon}</div>
-                <h3 className="text-xl font-semibold text-dark mb-3">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="text-xl font-semibold text-text mb-3">{value.title}</h3>
+                <p className="text-text-secondary">{value.description}</p>
               </AnimatedCard>
             ))}
           </div>
@@ -126,46 +126,46 @@ export default function AboutPage() {
 
         {/* Team */}
         <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-12 text-center">Our Team</h2>
+          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">Our Team</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, index) => (
               <AnimatedCard key={index} delay={index * 0.1} className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary-dark rounded-full mx-auto mb-4"></div>
-                <h3 className="text-lg font-bold text-dark mb-1">{member.name}</h3>
+                <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full mx-auto mb-4"></div>
+                <h3 className="text-lg font-bold text-text mb-1">{member.name}</h3>
                 <p className="text-accent font-semibold mb-3">{member.role}</p>
-                <p className="text-sm text-gray-600">{member.bio}</p>
+                <p className="text-sm text-text-secondary">{member.bio}</p>
               </AnimatedCard>
             ))}
           </div>
         </section>
 
         {/* Stats */}
-        <section className="bg-white rounded-lg border border-gray-200 p-12 mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-12 text-center">By The Numbers</h2>
+        <section className="bg-card rounded-lg border border-border p-12 mb-16">
+          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">By The Numbers</h2>
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
               <p className="text-4xl font-bold text-accent mb-2">5000+</p>
-              <p className="text-gray-600">Events Organized</p>
+              <p className="text-text-secondary">Events Organized</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-accent mb-2">2000+</p>
-              <p className="text-gray-600">Verified Organizers</p>
+              <p className="text-text-secondary">Verified Organizers</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-accent mb-2">8000+</p>
-              <p className="text-gray-600">Happy Clients</p>
+              <p className="text-text-secondary">Happy Clients</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-accent mb-2">$50M+</p>
-              <p className="text-gray-600">Projects Completed</p>
+              <p className="text-text-secondary">Projects Completed</p>
             </div>
           </div>
         </section>
 
         {/* Contact CTA */}
         <section className="text-center">
-          <h2 className="text-3xl font-display font-bold text-dark mb-4">Questions? We\'d Love to Hear From You</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-display font-bold text-text mb-4">Questions? We'd Love to Hear From You</h2>
+          <p className="text-text-secondary mb-8 max-w-2xl mx-auto">
             Our team is here to help with any questions about Venuly, partnerships, or anything else.
           </p>
           <Link href="/contact" className="inline-block">

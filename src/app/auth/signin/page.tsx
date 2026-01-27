@@ -5,8 +5,9 @@ import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button, Input } from '@/components/ui';
-import { Calendar, Mail, Lock } from 'lucide-react';
+import { Calendar, Mail, Lock, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export const dynamic = 'force-dynamic';
@@ -49,39 +50,47 @@ function SignInContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-blue-700 to-blue-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/15 rounded-full blur-3xl animate-pulse" />
-      </div>
+    <div className="min-h-screen bg-[var(--bg)] flex">
+      {/* Left Side - Form */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-24 py-12">
+        <div className="max-w-md w-full mx-auto">
+          {/* Back Link */}
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] mb-8 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
+          </Link>
 
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <Calendar className="w-10 h-10 text-accent" />
-            <span className="font-display text-3xl font-bold text-white">
+          {/* Logo */}
+          <Link href="/" className="inline-flex items-center gap-3 mb-8">
+            <div className="bg-[var(--primary)] p-2.5 rounded-xl">
+              <Calendar className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display text-2xl font-bold text-[var(--text)]">
               Venuly
             </span>
           </Link>
 
-          <h1 className="text-3xl font-display font-bold text-white mb-2">
-            Welcome Back
-          </h1>
-          <p className="text-white/80">
-            Sign in to your account to continue
-          </p>
-        </div>
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-display font-semibold text-[var(--text)] mb-2">
+              Welcome back
+            </h1>
+            <p className="text-[var(--muted)]">
+              Sign in to your account to continue managing your events
+            </p>
+          </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-secondary to-primary opacity-15 rounded-2xl blur-xl" />
-          <div className="relative bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-accent/40 glow-pulse p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Form */}
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
             <Input
               label="Email Address"
               type="email"
@@ -97,7 +106,7 @@ function SignInContent() {
             <Input
               label="Password"
               type="password"
-              placeholder="••••••••"
+              placeholder="Enter your password"
               icon={<Lock className="w-5 h-5" />}
               value={formData.password}
               onChange={(e) =>
@@ -107,19 +116,19 @@ function SignInContent() {
             />
 
             <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center">
+              <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-accent focus:ring-accent"
+                  className="w-4 h-4 rounded border-[var(--border)] text-[var(--primary)] focus:ring-[var(--primary)]"
                 />
-                <span className="ml-2 text-gray-600">
+                <span className="ml-2 text-[var(--muted)]">
                   Remember me
                 </span>
               </label>
 
               <Link
                 href="/auth/reset"
-                className="text-accent hover:underline"
+                className="text-[var(--primary)] hover:underline font-medium"
               >
                 Forgot password?
               </Link>
@@ -133,19 +142,54 @@ function SignInContent() {
             >
               Sign In
             </Button>
-          </form>
+          </motion.form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            Do not have an account?{' '}
+          <p className="mt-8 text-center text-[var(--muted)]">
+            Don&apos;t have an account?{' '}
             <Link
               href="/auth/signup"
-              className="text-secondary hover:text-accent transition-colors font-medium"
+              className="text-[var(--primary)] hover:underline font-medium"
             >
-              Sign up
+              Sign up for free
             </Link>
-          </div>
-          </div>
-        </motion.div>
+          </p>
+        </div>
+      </div>
+
+      {/* Right Side - Image */}
+      <div className="hidden lg:block lg:w-1/2 relative bg-[var(--bg-secondary)]">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=1600&fit=crop"
+            alt="Elegant event setting"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        </div>
+        
+        {/* Overlay Content */}
+        <div className="absolute bottom-12 left-12 right-12">
+          <blockquote className="text-white">
+            <p className="text-2xl font-display font-medium leading-relaxed mb-4">
+              &ldquo;Venuly transformed how we plan corporate events. The platform is intuitive and the organizers are exceptional.&rdquo;
+            </p>
+            <footer className="flex items-center gap-4">
+              <Image
+                src="https://i.pravatar.cc/48?img=8"
+                alt="Michael Chen"
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+              <div>
+                <p className="font-semibold">Michael Chen</p>
+                <p className="text-white/70 text-sm">Director of Operations, TechCorp</p>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
       </div>
     </div>
   );
@@ -155,8 +199,8 @@ export default function SignInPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          Loading…
+        <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
+          <div className="animate-spin w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full" />
         </div>
       }
     >

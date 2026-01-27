@@ -6,20 +6,21 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   error?: string;
   helperText?: string;
   icon?: React.ReactNode;
+  iconRight?: React.ReactNode;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, helperText, icon, type, ...props }, ref) => {
+  ({ className, label, error, helperText, icon, iconRight, type, ...props }, ref) => {
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-dark mb-2">
+          <label className="block text-sm font-medium text-[var(--text)] mb-2">
             {label}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted)]">
               {icon}
             </div>
           )}
@@ -27,21 +28,30 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             type={type}
             className={cn(
               'w-full px-4 py-3 rounded-xl border transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
-              'placeholder:text-gray-400',
-              error ? 'border-red-500' : 'border-gray-300 hover:border-gray-400',
-              icon && 'pl-10',
+              'bg-[var(--card)] text-[var(--text)]',
+              'focus:outline-none focus:ring-2 focus:ring-[var(--primary-muted)] focus:border-[var(--primary)]',
+              'placeholder:text-[var(--muted)]',
+              error 
+                ? 'border-[var(--error)] focus:ring-[var(--error-light)]' 
+                : 'border-[var(--border)] hover:border-[var(--border-strong)]',
+              icon && 'pl-11',
+              iconRight && 'pr-11',
               className
             )}
             ref={ref}
             {...props}
           />
+          {iconRight && (
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)]">
+              {iconRight}
+            </div>
+          )}
         </div>
         {error && (
-          <p className="mt-1 text-sm text-red-600">{error}</p>
+          <p className="mt-1.5 text-sm text-[var(--error)]">{error}</p>
         )}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+          <p className="mt-1.5 text-sm text-[var(--muted)]">{helperText}</p>
         )}
       </div>
     );

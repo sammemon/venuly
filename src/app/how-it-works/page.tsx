@@ -42,12 +42,12 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-5xl font-display font-bold text-dark mb-4">How Venuly Works</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-5xl font-display font-bold text-text mb-4">How Venuly Works</h1>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Simple, transparent, and designed for success. From posting your event to hiring the perfect organizer.
           </p>
         </div>
@@ -63,9 +63,9 @@ export default function HowItWorksPage() {
                 <div className={`${step.bgColor} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <div className={step.color}>{step.icon}</div>
                 </div>
-                <div className="bg-white rounded-lg p-4 border border-gray-200">
-                  <h3 className="font-semibold text-dark mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-600">{step.description}</p>
+                <div className="bg-card rounded-lg p-4 border border-border">
+                  <h3 className="font-semibold text-text mb-2">{step.title}</h3>
+                  <p className="text-sm text-text-secondary">{step.description}</p>
                 </div>
               </div>
               {index < steps.length - 1 && (
@@ -77,26 +77,26 @@ export default function HowItWorksPage() {
 
         {/* Features */}
         <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-8 text-center">Why Choose Venuly?</h2>
+          <h2 className="text-3xl font-display font-bold text-text mb-8 text-center">Why Choose Venuly?</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-8 border border-gray-200">
+            <div className="bg-card rounded-lg p-8 border border-border">
               <Zap className="w-8 h-8 text-accent mb-4" />
-              <h3 className="text-xl font-semibold text-dark mb-3">Fast & Easy</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-text mb-3">Fast & Easy</h3>
+              <p className="text-text-secondary">
                 Post your event in minutes and start receiving proposals from qualified professionals.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-8 border border-gray-200">
+            <div className="bg-card rounded-lg p-8 border border-border">
               <CheckCircle className="w-8 h-8 text-accent mb-4" />
-              <h3 className="text-xl font-semibold text-dark mb-3">Verified Professionals</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-text mb-3">Verified Professionals</h3>
+              <p className="text-text-secondary">
                 All organizers are verified and reviewed by real clients. Hire with confidence.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-8 border border-gray-200">
+            <div className="bg-card rounded-lg p-8 border border-border">
               <Heart className="w-8 h-8 text-accent mb-4" />
-              <h3 className="text-xl font-semibold text-dark mb-3">Secure Payments</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-text mb-3">Secure Payments</h3>
+              <p className="text-text-secondary">>
                 Milestone-based escrow system protects your investment until deliverables are met.
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
         </section>
 
         {/* CTA */}
-        <section className="bg-gradient-to-r from-accent to-primary-dark rounded-lg p-12 text-white text-center">
+        <section className="bg-gradient-to-r from-accent to-primary rounded-lg p-12 text-white text-center">
           <h2 className="text-3xl font-display font-bold mb-4">Ready to Plan Your Event?</h2>
           <p className="text-xl mb-8 opacity-90">
             Get started in minutes and connect with event professionals today.

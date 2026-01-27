@@ -6,7 +6,7 @@ import { cn } from '@/utils/helpers';
 import { Loader2 } from 'lucide-react';
 
 export interface AnimatedButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'accent';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   isLoading?: boolean;
   icon?: React.ReactNode;
@@ -30,15 +30,45 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     glow,
     ...props 
   }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group';
+    const baseStyles = cn(
+      'inline-flex items-center justify-center font-semibold rounded-xl',
+      'transition-all duration-200 ease-out',
+      'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+      'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+      'relative overflow-hidden group'
+    );
     
     const variants = {
-      primary: 'bg-primary text-white hover:bg-primary-strong focus:ring-primary shadow-elegant',
-      secondary: 'bg-secondary text-white hover:opacity-90 focus:ring-secondary shadow-md',
-      outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary',
-      ghost: 'text-primary hover:bg-primary/10 focus:ring-primary/50',
-      danger: 'bg-error text-white hover:opacity-90 focus:ring-error shadow-md',
-      success: 'bg-success text-white hover:opacity-90 focus:ring-success shadow-md',
+      primary: cn(
+        'bg-[var(--primary)] text-white',
+        'hover:bg-[var(--primary-hover)] focus-visible:ring-[var(--primary)]',
+        'shadow-soft'
+      ),
+      secondary: cn(
+        'bg-[var(--secondary)] text-[var(--text-inverse)]',
+        'hover:bg-[var(--secondary-hover)] focus-visible:ring-[var(--secondary)]'
+      ),
+      accent: cn(
+        'bg-[var(--accent)] text-white',
+        'hover:bg-[var(--accent-hover)] focus-visible:ring-[var(--accent)]'
+      ),
+      outline: cn(
+        'border-2 border-[var(--primary)] text-[var(--primary)] bg-transparent',
+        'hover:bg-[var(--primary)] hover:text-white focus-visible:ring-[var(--primary)]'
+      ),
+      ghost: cn(
+        'text-[var(--text)] bg-transparent',
+        'hover:bg-[var(--primary-muted)] hover:text-[var(--primary)]',
+        'focus-visible:ring-[var(--primary)]'
+      ),
+      danger: cn(
+        'bg-[var(--error)] text-white',
+        'hover:brightness-110 focus-visible:ring-[var(--error)]'
+      ),
+      success: cn(
+        'bg-[var(--success)] text-white',
+        'hover:brightness-110 focus-visible:ring-[var(--success)]'
+      ),
     };
     
     const sizes = {
@@ -62,13 +92,13 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           className
         )}
         disabled={disabled || isLoading}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileHover={{ scale: disabled || isLoading ? 1 : 1.02, y: disabled || isLoading ? 0 : -2 }}
+        whileTap={{ scale: disabled || isLoading ? 1 : 0.98 }}
         transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         {...props}
       >
         {/* Shimmer effect on hover */}
-        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out" />
         
         {isLoading ? (
           <>
@@ -78,11 +108,11 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         ) : (
           <>
             {icon && iconPosition === 'left' && (
-              <span className="relative z-10">{icon}</span>
+              <span className="relative z-10 shrink-0">{icon}</span>
             )}
             <span className="relative z-10">{children}</span>
             {icon && iconPosition === 'right' && (
-              <span className="relative z-10">{icon}</span>
+              <span className="relative z-10 shrink-0">{icon}</span>
             )}
           </>
         )}

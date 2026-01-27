@@ -4,8 +4,9 @@ import { Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button, Input, Select } from '@/components/ui';
-import { Calendar, Mail, Lock, User } from 'lucide-react';
+import { Calendar, Mail, Lock, User, ArrowLeft, CheckCircle } from 'lucide-react';
 import { UserRole } from '@/types';
 import toast from 'react-hot-toast';
 
@@ -74,40 +75,96 @@ function SignUpContent() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-blue-700 to-blue-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/15 rounded-full blur-3xl animate-pulse" />
-      </div>
+  const passwordStrength = formData.password.length >= 8;
 
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <Calendar className="w-10 h-10 text-accent" />
-            <span className="font-display text-3xl font-bold text-white">
+  return (
+    <div className="min-h-screen bg-[var(--bg)] flex">
+      {/* Left Side - Image */}
+      <div className="hidden lg:block lg:w-1/2 relative bg-[var(--bg-secondary)]">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1200&h=1600&fit=crop"
+            alt="Beautiful wedding celebration"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        </div>
+        
+        {/* Overlay Content */}
+        <div className="absolute top-12 left-12">
+          <Link href="/" className="inline-flex items-center gap-3">
+            <div className="bg-white/20 backdrop-blur-sm p-2.5 rounded-xl">
+              <Calendar className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display text-2xl font-bold text-white">
               Venuly
             </span>
           </Link>
-
-          <h1 className="text-3xl font-display font-bold text-white mb-2">
-            Create Account
-          </h1>
-          <p className="text-white/80">
-            Join the Venuly community today
-          </p>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-secondary to-primary opacity-15 rounded-2xl blur-xl" />
-          <div className="relative bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-accent/40 glow-pulse p-8 max-h-[90vh] overflow-y-auto">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="absolute bottom-12 left-12 right-12 max-w-md">
+          <h2 className="text-3xl font-display font-semibold text-white mb-4">
+            Join thousands of successful event planners
+          </h2>
+          <ul className="space-y-3">
+            {[
+              'Access to verified professionals',
+              'Secure milestone payments',
+              'Dedicated support team',
+            ].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 text-white/90">
+                <CheckCircle className="w-5 h-5 text-[var(--primary)]" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Right Side - Form */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-24 py-8 overflow-y-auto">
+        <div className="max-w-md w-full mx-auto">
+          {/* Mobile Logo */}
+          <div className="lg:hidden mb-6">
+            <Link href="/" className="inline-flex items-center gap-3">
+              <div className="bg-[var(--primary)] p-2.5 rounded-xl">
+                <Calendar className="w-5 h-5 text-white" />
+              </div>
+              <span className="font-display text-2xl font-bold text-[var(--text)]">
+                Venuly
+              </span>
+            </Link>
+          </div>
+
+          {/* Back Link */}
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] mb-6 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
+          </Link>
+
+          {/* Header */}
+          <div className="mb-6">
+            <h1 className="text-3xl font-display font-semibold text-[var(--text)] mb-2">
+              Create your account
+            </h1>
+            <p className="text-[var(--muted)]">
+              Start planning unforgettable events today
+            </p>
+          </div>
+
+          {/* Form */}
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
             <div className="grid grid-cols-2 gap-4">
               <Input
                 label="First Name"
@@ -175,26 +232,50 @@ function SignUpContent() {
               }
             />
 
-            <Input
-              label="Password"
-              type="password"
-              placeholder="••••••••"
-              icon={<Lock className="w-5 h-5" />}
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  password: e.target.value,
-                })
-              }
-              helperText="Minimum 8 characters"
-              required
-            />
+            <div>
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Create a password"
+                icon={<Lock className="w-5 h-5" />}
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    password: e.target.value,
+                  })
+                }
+                required
+              />
+              {/* Password Strength Indicator */}
+              <div className="mt-2 flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
+                  <div 
+                    className={`h-full transition-all duration-300 ${
+                      formData.password.length === 0 
+                        ? 'w-0' 
+                        : formData.password.length < 6 
+                        ? 'w-1/4 bg-[var(--error)]' 
+                        : formData.password.length < 8 
+                        ? 'w-2/4 bg-[var(--warning)]' 
+                        : 'w-full bg-[var(--success)]'
+                    }`}
+                  />
+                </div>
+                <span className={`text-xs font-medium ${passwordStrength ? 'text-[var(--success)]' : 'text-[var(--muted)]'}`}>
+                  {formData.password.length === 0 
+                    ? '' 
+                    : passwordStrength 
+                    ? 'Strong' 
+                    : 'Min 8 chars'}
+                </span>
+              </div>
+            </div>
 
             <Input
               label="Confirm Password"
               type="password"
-              placeholder="••••••••"
+              placeholder="Confirm your password"
               icon={<Lock className="w-5 h-5" />}
               value={formData.confirmPassword}
               onChange={(e) =>
@@ -203,25 +284,30 @@ function SignUpContent() {
                   confirmPassword: e.target.value,
                 })
               }
+              error={
+                formData.confirmPassword && formData.password !== formData.confirmPassword 
+                  ? 'Passwords do not match' 
+                  : undefined
+              }
               required
             />
 
-            <div className="text-sm text-gray-600">
+            <p className="text-sm text-[var(--muted)]">
               By signing up, you agree to our{' '}
               <Link
                 href="/terms"
-                className="text-accent hover:underline"
+                className="text-[var(--primary)] hover:underline"
               >
                 Terms of Service
               </Link>{' '}
               and{' '}
               <Link
                 href="/privacy"
-                className="text-accent hover:underline"
+                className="text-[var(--primary)] hover:underline"
               >
                 Privacy Policy
               </Link>
-            </div>
+            </p>
 
             <Button
               type="submit"
@@ -231,19 +317,18 @@ function SignUpContent() {
             >
               Create Account
             </Button>
-          </form>
+          </motion.form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
+          <p className="mt-6 text-center text-[var(--muted)]">
             Already have an account?{' '}
             <Link
               href="/auth/signin"
-              className="text-secondary hover:text-accent transition-colors font-medium"
+              className="text-[var(--primary)] hover:underline font-medium"
             >
               Sign in
             </Link>
-          </div>
-          </div>
-        </motion.div>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -253,8 +338,8 @@ export default function SignUpPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          Loading…
+        <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
+          <div className="animate-spin w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full" />
         </div>
       }
     >

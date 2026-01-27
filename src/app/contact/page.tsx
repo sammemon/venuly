@@ -48,12 +48,12 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-5xl font-display font-bold text-dark mb-4">Contact Us</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-5xl font-display font-bold text-text mb-4">Contact Us</h1>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
           </p>
         </div>
@@ -69,10 +69,10 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-dark">Email</h3>
+                  <h3 className="text-lg font-semibold text-text">Email</h3>
                 </div>
-                <p className="text-gray-600">support@venuly.com</p>
-                <p className="text-sm text-gray-500">We\'ll respond within 24 hours</p>
+                <p className="text-text-secondary">support@venuly.com</p>
+                <p className="text-sm text-text-muted">We'll respond within 24 hours</p>
               </div>
 
               <div>
@@ -80,10 +80,10 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-dark">Phone</h3>
+                  <h3 className="text-lg font-semibold text-text">Phone</h3>
                 </div>
-                <p className="text-gray-600">1-800-VENULY-1</p>
-                <p className="text-sm text-gray-500">Monday - Friday, 9am - 6pm EST</p>
+                <p className="text-text-secondary">1-800-VENULY-1</p>
+                <p className="text-sm text-text-muted">Monday - Friday, 9am - 6pm EST</p>
               </div>
 
               <div>
@@ -91,20 +91,20 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-dark">Address</h3>
+                  <h3 className="text-lg font-semibold text-text">Address</h3>
                 </div>
-                <p className="text-gray-600">123 Event Street</p>
-                <p className="text-gray-600">New York, NY 10001</p>
+                <p className="text-text-secondary">123 Event Street</p>
+                <p className="text-text-secondary">New York, NY 10001</p>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="md:col-span-2 bg-white rounded-lg border border-gray-200 p-8">
+          <div className="md:col-span-2 bg-card rounded-lg border border-border p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-dark mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-text mb-2">
                     Your Name
                   </label>
                   <AnimatedInput
@@ -118,7 +118,7 @@ export default function ContactPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-dark mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-text mb-2">
                     Email Address
                   </label>
                   <AnimatedInput
@@ -134,7 +134,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-dark mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-text mb-2">
                   Subject
                 </label>
                 <AnimatedInput
@@ -149,7 +149,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-text mb-2">
                   Message
                 </label>
                 <Textarea
@@ -159,7 +159,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   placeholder="Tell us more about your inquiry..."
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text resize-none"
                   required
                 />
               </div>
@@ -178,24 +178,24 @@ export default function ContactPage() {
         </div>
 
         {/* FAQ */}
-        <section className="mt-16 bg-white rounded-lg border border-gray-200 p-8">
-          <h2 className="text-2xl font-display font-bold text-dark mb-8">Quick Answers</h2>
+        <section className="mt-16 bg-card rounded-lg border border-border p-8">
+          <h2 className="text-2xl font-display font-bold text-text mb-8">Quick Answers</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="font-semibold text-dark mb-2">How long does verification take?</h3>
-              <p className="text-gray-600">Most applications are verified within 24-48 hours.</p>
+              <h3 className="font-semibold text-text mb-2">How long does verification take?</h3>
+              <p className="text-text-secondary">Most applications are verified within 24-48 hours.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">What payment methods do you accept?</h3>
-              <p className="text-gray-600">We accept all major credit cards, PayPal, and bank transfers.</p>
+              <h3 className="font-semibold text-text mb-2">What payment methods do you accept?</h3>
+              <p className="text-text-secondary">We accept all major credit cards, PayPal, and bank transfers.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">Is there a refund policy?</h3>
-              <p className="text-gray-600">Yes, we offer refunds for cancelled projects within 7 days.</p>
+              <h3 className="font-semibold text-text mb-2">Is there a refund policy?</h3>
+              <p className="text-text-secondary">Yes, we offer refunds for cancelled projects within 7 days.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">How do I report a problem?</h3>
-              <p className="text-gray-600">Use the contact form above or email us at support@venuly.com directly.</p>
+              <h3 className="font-semibold text-text mb-2">How do I report a problem?</h3>
+              <p className="text-text-secondary">Use the contact form above or email us at support@venuly.com directly.</p>
             </div>
           </div>
         </section>

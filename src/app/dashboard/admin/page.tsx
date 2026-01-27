@@ -11,7 +11,10 @@ import {
   DollarSign, 
   TrendingUp,
   Shield,
-  AlertCircle
+  AlertCircle,
+  ArrowRight,
+  Settings,
+  Activity
 } from 'lucide-react';
 
 export default async function AdminDashboard() {
@@ -30,108 +33,141 @@ export default async function AdminDashboard() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#F3F2EC]">
+    <div className="p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Header */}
-      <header className="bg-white border-b border-[#DCDCDC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-3">
-            <Shield className="w-8 h-8 text-[#1E93AB]" />
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-2">
+          <Shield className="w-5 h-5 text-[var(--primary)]" />
+          <span className="text-sm font-medium text-[var(--primary)]">Admin Panel</span>
+        </div>
+        <h1 className="text-3xl lg:text-4xl font-bold text-[var(--text)] mb-2">
+          Platform Overview
+        </h1>
+        <p className="text-[var(--muted)]">Monitor and manage all platform activity.</p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-[#222222]">Admin Dashboard</h1>
-              <p className="text-sm text-gray-600">Platform Management</p>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Total Users</p>
+              <p className="text-3xl font-bold text-[var(--text)]">{totalUsers}</p>
+              <p className="text-xs text-[var(--muted)] mt-2 flex items-center gap-1">
+                <TrendingUp className="w-3 h-3 text-green-500" />
+                Active accounts
+              </p>
             </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC]">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">{totalUsers}</p>
-              </div>
-              <Users className="w-10 h-10 text-[#1E93AB]" />
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC]">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Total Events</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">{totalEvents}</p>
-              </div>
-              <Calendar className="w-10 h-10 text-[#1E93AB]" />
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC]">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Platform Revenue</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">$0</p>
-              </div>
-              <DollarSign className="w-10 h-10 text-[#1E93AB]" />
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC]">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Growth</p>
-                <p className="text-3xl font-bold text-[#222222] mt-1">-</p>
-              </div>
-              <TrendingUp className="w-10 h-10 text-[#1E93AB]" />
+            <div className="w-14 h-14 rounded-2xl bg-[var(--primary)]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Users className="w-6 h-6 text-[var(--primary)]" />
             </div>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Link href="/dashboard/admin/users" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <Users className="w-12 h-12 text-[#1E93AB] mb-4" />
-            <h3 className="text-lg font-semibold text-[#222222] mb-2">Manage Users</h3>
-            <p className="text-sm text-gray-600 mb-4">View, edit, and manage user accounts</p>
-            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
-              View Users →
-            </span>
-          </Link>
-
-          <Link href="/dashboard/admin/events" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <Calendar className="w-12 h-12 text-[#1E93AB] mb-4" />
-            <h3 className="text-lg font-semibold text-[#222222] mb-2">Manage Events</h3>
-            <p className="text-sm text-gray-600 mb-4">Monitor and moderate event listings</p>
-            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
-              View Events →
-            </span>
-          </Link>
-
-          <Link href="/dashboard/admin/settings" className="bg-white p-6 rounded-lg shadow-sm border border-[#DCDCDC] hover:shadow-md transition-shadow">
-            <AlertCircle className="w-12 h-12 text-[#1E93AB] mb-4" />
-            <h3 className="text-lg font-semibold text-[#222222] mb-2">Settings</h3>
-            <p className="text-sm text-gray-600 mb-4">Manage platform configuration</p>
-            <span className="text-[#1E93AB] hover:text-[#197A8F] font-medium">
-              View Settings →
-            </span>
-          </Link>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow-sm border border-[#DCDCDC]">
-          <div className="p-6 border-b border-[#DCDCDC]">
-            <h2 className="text-xl font-semibold text-[#222222]">Recent Platform Activity</h2>
-          </div>
-          <div className="p-6">
-            <div className="text-center py-12">
-              <TrendingUp className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-600">No recent activity</p>
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Total Events</p>
+              <p className="text-3xl font-bold text-[var(--text)]">{totalEvents}</p>
+              <p className="text-xs text-[var(--muted)] mt-2">All listings</p>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Calendar className="w-6 h-6 text-purple-500" />
             </div>
           </div>
         </div>
-      </main>
+
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Platform Revenue</p>
+              <p className="text-3xl font-bold text-[var(--text)]">$0</p>
+              <p className="text-xs text-[var(--muted)] mt-2">This month</p>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <DollarSign className="w-6 h-6 text-green-500" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft transition-all group">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-[var(--muted)] mb-1">Growth</p>
+              <p className="text-3xl font-bold text-[var(--text)]">-</p>
+              <p className="text-xs text-[var(--muted)] mt-2">vs last month</p>
+            </div>
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <TrendingUp className="w-6 h-6 text-amber-500" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <h2 className="text-xl font-bold text-[var(--text)] mb-4">Quick Actions</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+        <Link 
+          href="/dashboard/admin/users" 
+          className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft hover:border-[var(--primary)]/30 transition-all group"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-[var(--primary)]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <Users className="w-7 h-7 text-[var(--primary)]" />
+          </div>
+          <h3 className="text-lg font-bold text-[var(--text)] mb-2">Manage Users</h3>
+          <p className="text-sm text-[var(--muted)] mb-4">View, edit, and manage user accounts</p>
+          <span className="text-[var(--primary)] font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+            View Users
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link 
+          href="/dashboard/admin/events" 
+          className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft hover:border-[var(--primary)]/30 transition-all group"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <Calendar className="w-7 h-7 text-purple-500" />
+          </div>
+          <h3 className="text-lg font-bold text-[var(--text)] mb-2">Manage Events</h3>
+          <p className="text-sm text-[var(--muted)] mb-4">Monitor and moderate event listings</p>
+          <span className="text-[var(--primary)] font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+            View Events
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link 
+          href="/dashboard/admin/settings" 
+          className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--border)] hover:shadow-soft hover:border-[var(--primary)]/30 transition-all group"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <Settings className="w-7 h-7 text-amber-500" />
+          </div>
+          <h3 className="text-lg font-bold text-[var(--text)] mb-2">Settings</h3>
+          <p className="text-sm text-[var(--muted)] mb-4">Manage platform configuration</p>
+          <span className="text-[var(--primary)] font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+            View Settings
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-[var(--surface)] rounded-2xl border border-[var(--border)] overflow-hidden">
+        <div className="p-6 border-b border-[var(--border)]">
+          <h2 className="text-xl font-bold text-[var(--text)]">Recent Platform Activity</h2>
+        </div>
+        <div className="p-12">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-2xl bg-[var(--primary)]/10 flex items-center justify-center mx-auto mb-5">
+              <Activity className="w-10 h-10 text-[var(--primary)]" />
+            </div>
+            <h3 className="text-xl font-bold text-[var(--text)] mb-2">No recent activity</h3>
+            <p className="text-[var(--muted)]">Platform activity will appear here as users interact with the system.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

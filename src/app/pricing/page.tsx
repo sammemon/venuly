@@ -105,12 +105,12 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-5xl font-display font-bold text-dark mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-5xl font-display font-bold text-text mb-4">Simple, Transparent Pricing</h1>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Choose the perfect plan for your event planning or organizing needs. No hidden fees.
           </p>
         </div>
@@ -119,8 +119,8 @@ export default function PricingPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Client Plans */}
         <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-4 text-center">For Event Clients</h2>
-          <p className="text-center text-gray-600 mb-12">
+          <h2 className="text-3xl font-display font-bold text-text mb-4 text-center">For Event Clients</h2>
+          <p className="text-center text-text-secondary mb-12">
             Find and hire professional event organizers at prices that fit your budget
           </p>
 
@@ -130,7 +130,7 @@ export default function PricingPage() {
                 key={index}
                 delay={index * 0.1}
                 className={`p-8 flex flex-col h-full ${
-                  plan.highlight ? 'border-2 border-accent transform md:scale-105' : 'border border-gray-200'
+                  plan.highlight ? 'border-2 border-accent transform md:scale-105' : 'border border-border'
                 }`}
               >
                 {plan.highlight && (
@@ -138,19 +138,19 @@ export default function PricingPage() {
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-2xl font-bold text-dark mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
+                <p className="text-text-secondary mb-6">{plan.description}</p>
 
                 <div className="mb-8">
                   <span className="text-4xl font-bold text-accent">{plan.price}</span>
-                  {plan.period && <span className="text-gray-600">{plan.period}</span>}
+                  {plan.period && <span className="text-text-secondary">{plan.period}</span>}
                 </div>
 
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="w-5 h-5 text-success flex-shrink-0" />
+                      <span className="text-text">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -171,8 +171,8 @@ export default function PricingPage() {
 
         {/* Organizer Plans */}
         <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-dark mb-4 text-center">For Event Organizers</h2>
-          <p className="text-center text-gray-600 mb-12">
+          <h2 className="text-3xl font-display font-bold text-text mb-4 text-center">For Event Organizers</h2>
+          <p className="text-center text-text-secondary mb-12">
             Build your event business and reach more clients on Venuly
           </p>
 
@@ -182,7 +182,7 @@ export default function PricingPage() {
                 key={index}
                 delay={index * 0.1}
                 className={`p-8 flex flex-col h-full ${
-                  plan.highlight ? 'border-2 border-accent transform md:scale-105' : 'border border-gray-200'
+                  plan.highlight ? 'border-2 border-accent transform md:scale-105' : 'border border-border'
                 }`}
               >
                 {plan.highlight && (
@@ -190,19 +190,19 @@ export default function PricingPage() {
                     Best Value
                   </div>
                 )}
-                <h3 className="text-2xl font-bold text-dark mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
+                <p className="text-text-secondary mb-6">{plan.description}</p>
 
                 <div className="mb-8">
                   <span className="text-4xl font-bold text-accent">{plan.price}</span>
-                  {plan.period && <span className="text-gray-600">{plan.period}</span>}
+                  {plan.period && <span className="text-text-secondary">{plan.period}</span>}
                 </div>
 
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="w-5 h-5 text-success flex-shrink-0" />
+                      <span className="text-text">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -222,25 +222,25 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="bg-white rounded-lg border border-gray-200 p-12">
-          <h2 className="text-3xl font-display font-bold text-dark mb-8 text-center">Frequently Asked Questions</h2>
+        <section className="bg-card rounded-lg border border-border p-12">
+          <h2 className="text-3xl font-display font-bold text-text mb-8 text-center">Frequently Asked Questions</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="font-semibold text-dark mb-2">Can I cancel anytime?</h3>
-              <p className="text-gray-600">Yes, cancel your subscription anytime without penalties. No questions asked.</p>
+              <h3 className="font-semibold text-text mb-2">Can I cancel anytime?</h3>
+              <p className="text-text-secondary">Yes, cancel your subscription anytime without penalties. No questions asked.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">Do you charge service fees?</h3>
-              <p className="text-gray-600">We charge a 5% service fee on successful projects to maintain our platform.</p>
+              <h3 className="font-semibold text-text mb-2">Do you charge service fees?</h3>
+              <p className="text-text-secondary">We charge a 5% service fee on successful projects to maintain our platform.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">Is there a free trial?</h3>
-              <p className="text-gray-600">Yes! Professional plans include a 14-day free trial with full features.</p>
+              <h3 className="font-semibold text-text mb-2">Is there a free trial?</h3>
+              <p className="text-text-secondary">Yes! Professional plans include a 14-day free trial with full features.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-dark mb-2">How do payments work?</h3>
-              <p className="text-gray-600">Payments are held in escrow until project completion, ensuring both parties are safe.</p>
+              <h3 className="font-semibold text-text mb-2">How do payments work?</h3>
+              <p className="text-text-secondary">Payments are held in escrow until project completion, ensuring both parties are safe.</p>
             </div>
           </div>
         </section>

@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
   Calendar, 
@@ -13,7 +14,8 @@ import {
   Settings,
   LogOut,
   Menu,
-  X
+  X,
+  Sparkles
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -61,56 +63,80 @@ export default function DashboardLayout({
     : adminNav;
 
   return (
-    <div className="min-h-screen bg-[#F3F2EC]">
+    <div className="min-h-screen bg-[var(--bg)]">
       {/* Mobile sidebar */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl">
-            <div className="flex items-center justify-between p-4 border-b border-[#DCDCDC]">
-              <Link href="/" className="flex items-center gap-2">
-                <Calendar className="w-6 h-6 text-[#1E93AB]" />
-                <span className="text-xl font-bold text-[#222222]">Venuly</span>
-              </Link>
-              <button onClick={() => setSidebarOpen(false)}>
-                <X className="w-6 h-6 text-gray-600" />
-              </button>
-            </div>
-            <nav className="p-4">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-colors ${
-                      isActive
-                        ? 'bg-[#1E93AB] text-white'
-                        : 'text-gray-700 hover:bg-[#DCDCDC]'
-                    }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span className="font-medium">{item.name}</span>
-                  </Link>
-                );
-              })}
-            </nav>
+      <AnimatePresence>
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm" 
+              onClick={() => setSidebarOpen(false)} 
+            />
+            <motion.div 
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 left-0 w-72 bg-[var(--secondary)] shadow-2xl"
+            >
+              <div className="flex items-center justify-between p-5 border-b border-white/10">
+                <Link href="/" className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-[var(--primary)] flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xl font-bold text-white">Venuly</span>
+                </Link>
+                <button 
+                  onClick={() => setSidebarOpen(false)}
+                  className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <nav className="p-4">
+                {navigation.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-1 transition-all ${
+                        isActive
+                          ? 'bg-[var(--primary)] text-white shadow-md'
+                          : 'text-white/70 hover:text-white hover:bg-white/10'
+                      }`}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="font-medium">{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col bg-white border-r border-[#DCDCDC]">
-        <div className="flex items-center gap-2 p-6 border-b border-[#DCDCDC]">
-          <Link href="/" className="flex items-center gap-2">
-            <Calendar className="w-8 h-8 text-[#1E93AB]" />
-            <span className="text-2xl font-bold text-[#222222]">Venuly</span>
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col bg-[var(--secondary)]">
+        <div className="flex items-center gap-2.5 p-6 border-b border-white/10">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-xl bg-[var(--primary)] flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold text-white">Venuly</span>
           </Link>
         </div>
         
         <nav className="flex-1 p-4 overflow-y-auto">
+          <p className="px-4 mb-3 text-xs font-semibold text-white/40 uppercase tracking-wider">
+            Menu
+          </p>
           {navigation.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -118,22 +144,25 @@ export default function DashboardLayout({
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-colors ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-1 transition-all ${
                   isActive
-                    ? 'bg-[#1E93AB] text-white'
-                    : 'text-gray-700 hover:bg-[#DCDCDC]'
+                    ? 'bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Icon className="w-5 h-5" />
                 <span className="font-medium">{item.name}</span>
+                {isActive && (
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-[#DCDCDC]">
-          <div className="flex items-center gap-3 px-4 py-3 mb-2">
-            <div className="w-10 h-10 rounded-full bg-[#1E93AB] flex items-center justify-center text-white font-bold overflow-hidden">
+        <div className="p-4 border-t border-white/10">
+          <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-white/5">
+            <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-semibold overflow-hidden ring-2 ring-white/20">
               {session?.user.avatar ? (
                 <img src={session.user.avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
@@ -144,15 +173,15 @@ export default function DashboardLayout({
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-white truncate">
                 {session?.user.firstName} {session?.user.lastName}
               </p>
-              <p className="text-xs text-gray-500 truncate">{session?.user.email}</p>
+              <p className="text-xs text-white/50 truncate">{session?.user.email}</p>
             </div>
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/' })}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 w-full transition-colors"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
           >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Sign Out</span>
@@ -161,17 +190,22 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="lg:pl-72">
         {/* Mobile header */}
-        <div className="lg:hidden sticky top-0 z-40 bg-white border-b border-[#DCDCDC] px-4 py-3 flex items-center justify-between">
-          <button onClick={() => setSidebarOpen(true)}>
-            <Menu className="w-6 h-6 text-gray-600" />
+        <div className="lg:hidden sticky top-0 z-40 bg-[var(--surface)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 py-3 flex items-center justify-between">
+          <button 
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 -ml-2 rounded-lg hover:bg-[var(--surface)] transition-colors"
+          >
+            <Menu className="w-6 h-6 text-[var(--text)]" />
           </button>
           <Link href="/" className="flex items-center gap-2">
-            <Calendar className="w-6 h-6 text-[#1E93AB]" />
-            <span className="text-xl font-bold text-[#222222]">Venuly</span>
+            <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-xl font-bold text-[var(--text)]">Venuly</span>
           </Link>
-          <div className="w-6" /> {/* Spacer for alignment */}
+          <div className="w-10" />
         </div>
 
         {/* Page content */}

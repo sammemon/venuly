@@ -92,12 +92,12 @@ export default function BrowseEventsPage() {
   }, [searchQuery, filters, events]);
 
   return (
-    <div className="min-h-screen bg-primary-bg">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-display font-bold text-dark mb-2">Browse Events</h1>
-          <p className="text-gray-600">Discover opportunities and submit your best proposals</p>
+          <h1 className="text-4xl font-display font-bold text-text mb-2">Browse Events</h1>
+          <p className="text-text-secondary">Discover opportunities and submit your best proposals</p>
         </div>
       </header>
 
@@ -106,34 +106,34 @@ export default function BrowseEventsPage() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg p-6 border border-gray-200 sticky top-4">
-              <h3 className="text-lg font-semibold mb-4 text-dark flex items-center gap-2">
+            <div className="bg-card rounded-lg p-6 border border-border sticky top-4">
+              <h3 className="text-lg font-semibold mb-4 text-text flex items-center gap-2">
                 <Filter className="w-5 h-5 text-accent" />
                 Filters
               </h3>
 
               {/* Search */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-dark mb-2 block">Search</label>
+                <label className="text-sm font-medium text-text mb-2 block">Search</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-3 w-4 h-4 text-text-muted" />
                   <input
                     type="text"
                     placeholder="Search events..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
                   />
                 </div>
               </div>
 
               {/* Event Type */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-dark mb-2 block">Event Type</label>
+                <label className="text-sm font-medium text-text mb-2 block">Event Type</label>
                 <select
                   value={filters.eventType}
                   onChange={(e) => setFilters({ ...filters, eventType: e.target.value })}
-                  className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full p-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
                 >
                   <option value="">All Types</option>
                   <option value="wedding">Wedding</option>
@@ -146,10 +146,10 @@ export default function BrowseEventsPage() {
 
               {/* Budget Range */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-dark mb-2 block">Budget Range</label>
+                <label className="text-sm font-medium text-text mb-2 block">Budget Range</label>
                 <div className="space-y-2">
                   <div>
-                    <span className="text-xs text-gray-600">Min: ${filters.minBudget.toLocaleString()}</span>
+                    <span className="text-xs text-text-secondary">Min: ${filters.minBudget.toLocaleString()}</span>
                     <input
                       type="range"
                       min="0"
@@ -161,7 +161,7 @@ export default function BrowseEventsPage() {
                     />
                   </div>
                   <div>
-                    <span className="text-xs text-gray-600">Max: ${filters.maxBudget.toLocaleString()}</span>
+                    <span className="text-xs text-text-secondary">Max: ${filters.maxBudget.toLocaleString()}</span>
                     <input
                       type="range"
                       min="0"
@@ -177,13 +177,13 @@ export default function BrowseEventsPage() {
 
               {/* City */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-dark mb-2 block">City</label>
+                <label className="text-sm font-medium text-text mb-2 block">City</label>
                 <input
                   type="text"
                   placeholder="Enter city..."
                   value={filters.city}
                   onChange={(e) => setFilters({ ...filters, city: e.target.value })}
-                  className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full p-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
                 />
               </div>
 
@@ -215,9 +215,9 @@ export default function BrowseEventsPage() {
                     <AnimatedCard delay={index * 0.1} hoverable>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-dark mb-2">{event.title}</h3>
-                          <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
-                          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                          <h3 className="text-xl font-semibold text-text mb-2">{event.title}</h3>
+                          <p className="text-text-secondary mb-4 line-clamp-2">{event.description}</p>
+                          <div className="flex flex-wrap gap-4 text-sm text-text-secondary">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4 text-accent" />
                               {new Date(event.eventDate.start).toLocaleDateString()}
@@ -237,7 +237,7 @@ export default function BrowseEventsPage() {
                           </div>
                         </div>
                         <div className="flex items-center justify-between md:flex-col md:items-end gap-4">
-                          <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                          <span className="px-3 py-1 bg-success/20 text-success rounded-full text-sm font-medium">
                             Accepting
                           </span>
                           <span className="text-accent font-semibold">View Details →</span>
@@ -249,9 +249,9 @@ export default function BrowseEventsPage() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-600 mb-2">No events found</h3>
-                <p className="text-gray-500">Try adjusting your filters or check back later</p>
+                <Calendar className="w-16 h-16 text-border mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-text-secondary mb-2">No events found</h3>
+                <p className="text-text-muted">Try adjusting your filters or check back later</p>
               </div>
             )}
           </div>
