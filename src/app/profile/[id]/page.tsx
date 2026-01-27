@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth/options';
 import { connectDB } from '@/lib/db/connect';
 import User from '@/models/User';
 import Link from 'next/link';
-import { Mail, User, MessageSquare } from 'lucide-react';
+import { Mail, User as UserIcon, MessageSquare } from 'lucide-react';
 
 async function getUser(id: string) {
   try {
