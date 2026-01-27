@@ -14,6 +14,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  // Close user menu on outside click
+  useEffect(() => {
+    if (!userMenuOpen) return;
+    function handleClick(e) {
+      const menu = document.getElementById('user-menu');
+      if (menu && !menu.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [userMenuOpen]);
   const pathname = usePathname();
   const { data: session } = useSession();
   const isSignedIn = !!session;
@@ -177,6 +189,7 @@ export default function Navbar() {
                   <AnimatePresence>
                     {userMenuOpen && (
                       <motion.div
+                        id="user-menu"
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -184,12 +197,29 @@ export default function Navbar() {
                         className="absolute right-0 mt-2 w-56 bg-[var(--card)] rounded-2xl shadow-soft-lg border border-[var(--border)] overflow-hidden z-50"
                       >
                         <div className="p-2">
-                          <Link href={`/profile/${session.user.id}`} className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[var(--primary-muted)] transition-colors">
+                          <Link href={session.user.role === 'CLIENT' ? '/dashboard/client/profile' : session.user.role === 'ORGANIZER' ? '/dashboard/organizer/profile' : '/dashboard/admin/profile'}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[var(--primary-muted)] transition-colors"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
                             <UserIcon className="w-5 h-5 text-[var(--primary)]" />
                             <span className="font-medium text-[var(--text)]">Profile</span>
                           </Link>
+                          <Link href={session.user.role === 'CLIENT' ? '/dashboard/client' : session.user.role === 'ORGANIZER' ? '/dashboard/organizer' : '/dashboard/admin'}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[var(--primary-muted)] transition-colors"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
+                            <Calendar className="w-5 h-5 text-[var(--primary)]" />
+                            <span className="font-medium text-[var(--text)]">Dashboard</span>
+                          </Link>
+                          <Link href={session.user.role === 'CLIENT' ? '/dashboard/client/settings' : session.user.role === 'ORGANIZER' ? '/dashboard/organizer/settings' : '/dashboard/admin/settings'}
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[var(--primary-muted)] transition-colors"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
+                            <LogOut className="w-5 h-5 text-[var(--primary)]" />
+                            <span className="font-medium text-[var(--text)]">Settings</span>
+                          </Link>
                           <button
-                            onClick={() => signOut({ callbackUrl: '/' })}
+                            onClick={() => { setUserMenuOpen(false); signOut({ callbackUrl: '/'}); }}
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text)] hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
                           >
                             <LogOut className="w-5 h-5" />
@@ -246,26 +276,36 @@ export default function Navbar() {
               className="lg:hidden border-t border-[var(--border)] bg-[var(--card)]"
             >
               <div className="px-4 py-6 space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
+                {navLinks.map((link) => {
+                  // Special handling for Post Event and Join as Organizer
+                  let href = link.href;
+                  if (isSignedIn) {
+                    if (link.label === 'Browse Events') href = '/browse-events';
+                    if (link.label === 'Pricing') href = '/pricing';
+                    if (link.label === 'Post Your Event') href = session.user.role === 'CLIENT' ? '/dashboard/client/events/create' : '/dashboard/organizer/jobs';
+                    if (link.label === 'Join as Organizer') href = session.user.role === 'ORGANIZER' ? '/dashboard/organizer/profile' : '/dashboard/client/profile';
+                  }
+                  return (
+                    <Link
+                      key={link.href}
+                      href={href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`block px-4 py-3 rounded-xl font-medium transition-all ${
                       pathname === link.href
                         ? 'bg-[var(--primary-muted)] text-[var(--primary)]'
                         : 'text-[var(--text)] hover:bg-[var(--primary-muted)]'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-                
-                <div className="pt-4 pb-2">
-                  <p className="px-4 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider mb-2">
-                    Services
-                  </p>
-                  {servicesLinks.map((link) => {
+                    >
+                      {link.label}
+                      {pathname === link.href && (
+                        <motion.div
+                          layoutId="navbar-indicator"
+                          className="absolute bottom-0 left-2 right-2 h-0.5 bg-[var(--primary)] rounded-full"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
                     const Icon = link.icon;
                     return (
                       <Link
