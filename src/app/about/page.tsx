@@ -52,7 +52,7 @@ const team = [
       <img
         src="/team/muhammad.jpg"
         alt="Muhammad Hammad profile"
-        className="w-20 h-20 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-28 h-28 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
