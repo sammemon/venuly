@@ -698,6 +698,15 @@ html.dark {
   }
 }
 
+@keyframes glow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 /* Animation Classes */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
@@ -717,6 +726,11 @@ html.dark {
 
 .animate-slide-in-right {
   animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-glow {
+  background-size: 200% 200%;
+  animation: glow 3s ease-in-out infinite;
 }
 
 .animate-scale-in {

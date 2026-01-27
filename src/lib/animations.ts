@@ -1,19 +1,20 @@
 // Animation presets for Framer Motion
 // Use these consistently across the app for cohesive animations
+// Duration: 150-300ms for subtle, premium feel
 
 export const pageVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.5,
-      ease: 'easeOut',
+      duration: 0.3,
+      ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
   exit: {
     opacity: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: 'easeIn',
     },
   },
@@ -24,9 +25,9 @@ export const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-      duration: 0.5,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+      duration: 0.3,
     },
   },
 };
@@ -34,15 +35,14 @@ export const containerVariants = {
 export const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 20,
+    y: 16,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 12,
+      duration: 0.25,
+      ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
 };
@@ -50,63 +50,64 @@ export const itemVariants = {
 export const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 40,
-    scale: 0.95,
+    y: 24,
   },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 15,
+      duration: 0.3,
+      ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
   hover: {
-    y: -5,
-    scale: 1.02,
+    y: -4,
+    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.1)',
     transition: {
-      type: 'spring',
-      stiffness: 400,
-      damping: 25,
+      duration: 0.2,
+      ease: 'easeOut',
     },
   },
 };
 
 export const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
-  transition: { duration: 0.4, ease: 'easeOut' },
+  exit: { opacity: 0, y: -16 },
+  transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] },
 };
 
 export const fadeInDown = {
-  initial: { opacity: 0, y: -20 },
+  initial: { opacity: 0, y: -16 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 20 },
-  transition: { duration: 0.4, ease: 'easeOut' },
+  exit: { opacity: 0, y: 16 },
+  transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] },
 };
 
 export const slideInLeft = {
-  initial: { opacity: 0, x: -40 },
+  initial: { opacity: 0, x: -24 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -40 },
-  transition: { duration: 0.4, ease: 'easeOut' },
+  exit: { opacity: 0, x: -24 },
+  transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] },
 };
 
 export const slideInRight = {
-  initial: { opacity: 0, x: 40 },
+  initial: { opacity: 0, x: 24 },
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: 40 },
   transition: { duration: 0.4, ease: 'easeOut' },
 };
 
 export const scaleIn = {
-  initial: { opacity: 0, scale: 0.9 },
-  animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.9 },
-  transition: { duration: 0.3, ease: 'easeOut' },
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.25,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
 };
 
 export const rotateIn = {
@@ -175,17 +176,6 @@ export const rotatingVariant = {
       duration: 20,
       repeat: Infinity,
       ease: 'linear',
-    },
-  },
-};
-
-export const staggerContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
     },
   },
 };

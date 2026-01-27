@@ -1,179 +1,322 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Heart, Target, Users, Globe } from 'lucide-react';
-import { AnimatedCard } from '@/components/ui';
+import { containerVariants, itemVariants, cardVariants } from '@/lib/animations';
+import { Heart, Target, Users, Globe, Sparkles, Lightbulb, Shield } from 'lucide-react';
+
+const team = [
+  {
+    name: 'Raza Khan',
+    role: 'AI Engineer',
+    image: 'https://i.pravatar.cc/300?img=11',
+    bio: 'Student of Computer System Engineering at MUET',
+  },
+  {
+    name: 'Sohail Ahmed',
+    role: 'Full Stack Developer',
+    image: 'https://i.pravatar.cc/300?img=12',
+    bio: 'Student of Computer System Engineering at MUET',
+  },
+  {
+    name: 'Muhammad Hammad',
+    role: 'AI Engineer',
+    image: 'https://i.pravatar.cc/300?img=13',
+    bio: 'Student of Computer System Engineering at MUET',
+  },
+];
+
+const values = [
+  {
+    icon: Heart,
+    title: 'People First',
+    description: 'We prioritize the needs and success of both clients and event organizers.',
+  },
+  {
+    icon: Shield,
+    title: 'Transparency',
+    description: 'No hidden fees, no surprises. We believe in honest, straightforward business.',
+  },
+  {
+    icon: Users,
+    title: 'Community',
+    description: "We're building a community where professionals can grow and thrive together.",
+  },
+  {
+    icon: Lightbulb,
+    title: 'Innovation',
+    description: 'Constantly improving our platform to serve the event industry better.',
+  },
+];
+
+const stats = [
+  { value: '5,000+', label: 'Events Organized' },
+  { value: '2,000+', label: 'Verified Organizers' },
+  { value: '8,000+', label: 'Happy Clients' },
+  { value: '$50M+', label: 'Projects Completed' },
+];
 
 export default function AboutPage() {
-  const team = [
-    {
-      name: 'Sarah Johnson',
-      role: 'Co-Founder & CEO',
-      bio: '15+ years in event planning and hospitality management',
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Co-Founder & CTO',
-      bio: 'Tech entrepreneur with experience building B2B platforms',
-    },
-    {
-      name: 'Jessica Martinez',
-      role: 'Head of Operations',
-      bio: 'Operations expert who scaled two startups to profitability',
-    },
-    {
-      name: 'David Thompson',
-      role: 'Head of Partnerships',
-      bio: 'Business development leader with strong industry connections',
-    },
-  ];
-
-  const values = [
-    {
-      icon: <Heart className="w-8 h-8" />,
-      title: 'People First',
-      description: 'We prioritize the needs and success of both clients and event organizers.',
-    },
-    {
-      icon: <Target className="w-8 h-8" />,
-      title: 'Transparency',
-      description: 'No hidden fees, no surprises. We believe in honest, straightforward business.',
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: 'Community',
-      description: 'We\'re building a community where professionals can grow and thrive together.',
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: 'Innovation',
-      description: 'Constantly improving our platform to serve the event industry better.',
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-bg">
-      {/* Header */}
-      <header className="bg-card border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-5xl font-display font-bold text-text mb-4">About Venuly</h1>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            We\'re on a mission to connect event clients with the best professional organizers.
-          </p>
+    <div className="min-h-screen bg-[var(--bg)]">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--primary)] opacity-5 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[var(--accent)] opacity-5 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              Our Story
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[var(--text)] mb-6 leading-tight">
+              Transforming How Events{' '}
+              <span className="text-[var(--primary)]">Come to Life</span>
+            </h1>
+            <p className="text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto">
+              We're on a mission to connect event clients with the best professional organizers.
+            </p>
+          </motion.div>
         </div>
-      </header>
+      </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="container mx-auto px-6 pb-24">
         {/* Our Story */}
-        <section className="mb-16">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-display font-bold text-text mb-6">Our Story</h2>
-              <p className="text-text-secondary mb-4">
-                Venuly was founded in 2023 by a group of event industry veterans who saw a problem: finding and hiring professional event organizers was complicated, risky, and inefficient.
-              </p>
-              <p className="text-text-secondary mb-4">
-                We spent years dealing with:
-              </p>
-              <ul className="space-y-2 text-text-secondary mb-6">
-                <li>• Unreliable freelancers and contractors</li>
-                <li>• Hidden fees and surprise costs</li>
-                <li>• Difficulty comparing proposals and prices</li>
-                <li>• Poor communication and project tracking</li>
-              </ul>
-              <p className="text-text-secondary">
-                So we decided to build the platform we wished existed. Today, Venuly connects thousands of clients with verified event professionals every month.
-              </p>
-            </div>
-            <div className="bg-gradient-to-br from-accent to-primary-dark rounded-lg h-96 flex items-center justify-center text-white">
-              <div className="text-center">
-                <p className="text-6xl font-bold mb-2">5000+</p>
-                <p className="text-xl">Events Organized</p>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="mb-24"
+        >
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div variants={itemVariants}>
+              <span className="text-[var(--primary)] font-semibold text-sm uppercase tracking-wider mb-4 block">
+                The Beginning
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-[var(--text)] mb-6">
+                Born From a Simple Frustration
+              </h2>
+              <div className="space-y-4 text-[var(--muted)] leading-relaxed">
+                <p>
+                  Venuly was founded in 2023 by a group of event industry veterans who saw a problem: 
+                  finding and hiring professional event organizers was complicated, risky, and inefficient.
+                </p>
+                <p className="font-medium text-[var(--text)]">We spent years dealing with:</p>
+                <ul className="space-y-2 pl-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--primary)] mt-1.5">•</span>
+                    Unreliable freelancers and contractors
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--primary)] mt-1.5">•</span>
+                    Hidden fees and surprise costs
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--primary)] mt-1.5">•</span>
+                    Difficulty comparing proposals and prices
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[var(--primary)] mt-1.5">•</span>
+                    Poor communication and project tracking
+                  </li>
+                </ul>
+                <p>
+                  So we decided to build the platform we wished existed. Today, Venuly connects 
+                  thousands of clients with verified event professionals every month.
+                </p>
               </div>
-            </div>
+            </motion.div>
+            <motion.div 
+              variants={itemVariants}
+              className="relative"
+            >
+              <div className="bg-[var(--bg-secondary)] rounded-2xl p-8 border border-[var(--border)]">
+                <div className="grid grid-cols-2 gap-6">
+                  {stats.map((stat, index) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                      className="text-center p-4"
+                    >
+                      <p className="text-3xl md:text-4xl font-bold text-[var(--primary)] mb-2">{stat.value}</p>
+                      <p className="text-sm text-[var(--muted)]">{stat.label}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Mission & Vision */}
-        <section className="grid md:grid-cols-2 gap-8 mb-16">
-          <AnimatedCard delay={0} className="p-8 bg-card border border-border">
-            <Target className="w-8 h-8 text-accent mb-4" />
-            <h3 className="text-2xl font-bold text-text mb-3">Our Mission</h3>
-            <p className="text-text-secondary">
-              To simplify event planning by connecting clients with trusted, professional organizers and providing a transparent, secure platform for collaboration.
-            </p>
-          </AnimatedCard>
-          <AnimatedCard delay={0.1} className="p-8 bg-card border border-border">
-            <Globe className="w-8 h-8 text-accent mb-4" />
-            <h3 className="text-2xl font-bold text-text mb-3">Our Vision</h3>
-            <p className="text-text-secondary">
-              To become the go-to platform for event planning, recognized worldwide for excellence, reliability, and innovation in connecting clients with event professionals.
-            </p>
-          </AnimatedCard>
-        </section>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="mb-24"
+        >
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="bg-white dark:bg-[var(--card)] rounded-2xl p-8 border border-[var(--border)] shadow-soft"
+            >
+              <div className="w-14 h-14 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center mb-6">
+                <Target className="w-7 h-7 text-[var(--primary)]" />
+              </div>
+              <h3 className="text-2xl font-display font-bold text-[var(--text)] mb-4">Our Mission</h3>
+              <p className="text-[var(--muted)] leading-relaxed">
+                To simplify event planning by connecting clients with trusted, professional organizers 
+                and providing a transparent, secure platform for collaboration.
+              </p>
+            </motion.div>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="bg-white dark:bg-[var(--card)] rounded-2xl p-8 border border-[var(--border)] shadow-soft"
+            >
+              <div className="w-14 h-14 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center mb-6">
+                <Globe className="w-7 h-7 text-[var(--accent)]" />
+              </div>
+              <h3 className="text-2xl font-display font-bold text-[var(--text)] mb-4">Our Vision</h3>
+              <p className="text-[var(--muted)] leading-relaxed">
+                To become the go-to platform for event planning, recognized worldwide for excellence, 
+                reliability, and innovation in connecting clients with event professionals.
+              </p>
+            </motion.div>
+          </div>
+        </motion.section>
 
         {/* Values */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">Our Values</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <AnimatedCard key={index} delay={index * 0.1} className="p-8">
-                <div className="text-accent mb-4">{value.icon}</div>
-                <h3 className="text-xl font-semibold text-text mb-3">{value.title}</h3>
-                <p className="text-text-secondary">{value.description}</p>
-              </AnimatedCard>
-            ))}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="mb-24"
+        >
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <span className="text-[var(--primary)] font-semibold text-sm uppercase tracking-wider mb-4 block">
+              What Drives Us
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-[var(--text)]">
+              Our Core Values
+            </h2>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value) => {
+              const Icon = value.icon;
+              return (
+                <motion.div
+                  key={value.title}
+                  variants={itemVariants}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] shadow-soft text-center group"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-[var(--bg-secondary)] flex items-center justify-center mx-auto mb-4 group-hover:bg-[var(--primary)]/10 transition-colors duration-300">
+                    <Icon className="w-7 h-7 text-[var(--muted)] group-hover:text-[var(--primary)] transition-colors duration-300" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-[var(--text)] mb-2">{value.title}</h3>
+                  <p className="text-sm text-[var(--muted)] leading-relaxed">{value.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
-        </section>
+        </motion.section>
 
         {/* Team */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">Our Team</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="mb-24"
+        >
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <span className="text-[var(--primary)] font-semibold text-sm uppercase tracking-wider mb-4 block">
+              The People Behind Venuly
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-[var(--text)]">
+              Meet Our Team
+            </h2>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {team.map((member, index) => (
-              <AnimatedCard key={index} delay={index * 0.1} className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full mx-auto mb-4"></div>
-                <h3 className="text-lg font-bold text-text mb-1">{member.name}</h3>
-                <p className="text-accent font-semibold mb-3">{member.role}</p>
-                <p className="text-sm text-text-secondary">{member.bio}</p>
-              </AnimatedCard>
+              <motion.div
+                key={member.name}
+                variants={itemVariants}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.02,
+                  transition: { duration: 0.3 } 
+                }}
+                className="relative bg-white dark:bg-[var(--card)] rounded-2xl overflow-hidden border border-[var(--border)] shadow-soft group"
+              >
+                {/* Animated glow effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--primary)] rounded-2xl opacity-0 group-hover:opacity-75 blur-lg transition-all duration-500 group-hover:duration-200 animate-glow -z-10" />
+                <div className="relative bg-white dark:bg-[var(--card)] rounded-2xl overflow-hidden">
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-bold text-[var(--text)] mb-1 group-hover:text-[var(--primary)] transition-colors duration-300">{member.name}</h3>
+                    <p className="text-sm text-[var(--primary)] font-semibold mb-3">{member.role}</p>
+                    <p className="text-sm text-[var(--muted)] leading-relaxed">{member.bio}</p>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        {/* Stats */}
-        <section className="bg-card rounded-lg border border-border p-12 mb-16">
-          <h2 className="text-3xl font-display font-bold text-text mb-12 text-center">By The Numbers</h2>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="text-4xl font-bold text-accent mb-2">5000+</p>
-              <p className="text-text-secondary">Events Organized</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-accent mb-2">2000+</p>
-              <p className="text-text-secondary">Verified Organizers</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-accent mb-2">8000+</p>
-              <p className="text-text-secondary">Happy Clients</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-accent mb-2">$50M+</p>
-              <p className="text-text-secondary">Projects Completed</p>
-            </div>
+        {/* CTA Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-[#2D2926] dark:bg-[#1A1715] rounded-3xl p-12 md:p-16 text-center overflow-hidden"
+        >
+          {/* Decorative elements */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--primary)] opacity-10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--accent)] opacity-10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+          
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+              Questions? We'd Love to Hear From You
+            </h2>
+            <p className="text-white/70 mb-8 max-w-2xl mx-auto text-lg">
+              Our team is here to help with any questions about Venuly, partnerships, or anything else.
+            </p>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-4 bg-[var(--primary)] text-white rounded-xl font-semibold shadow-glow hover:shadow-glow-lg transition-all duration-300"
+              >
+                Get in Touch
+              </motion.button>
+            </Link>
           </div>
-        </section>
-
-        {/* Contact CTA */}
-        <section className="text-center">
-          <h2 className="text-3xl font-display font-bold text-text mb-4">Questions? We'd Love to Hear From You</h2>
-          <p className="text-text-secondary mb-8 max-w-2xl mx-auto">
-            Our team is here to help with any questions about Venuly, partnerships, or anything else.
-          </p>
-          <Link href="/contact" className="inline-block">
-            <button className="px-8 py-3 bg-accent text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors">
-              Get in Touch
-            </button>
-          </Link>
-        </section>
+        </motion.section>
       </main>
     </div>
   );

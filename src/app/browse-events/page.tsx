@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, MapPin, DollarSign, Users, Search, Filter, Calendar as CalendarIcon } from 'lucide-react';
-import { AnimatedCard, AnimatedButton, Skeleton } from '@/components/ui';
+import { motion } from 'framer-motion';
+import { Calendar, MapPin, DollarSign, Users, Search, Filter, ArrowRight, Sparkles } from 'lucide-react';
+import { containerVariants, itemVariants } from '@/lib/animations';
 import { useToast } from '@/components/ui/Toast';
 
 interface EventData {
@@ -32,6 +33,15 @@ interface EventData {
   clientId?: any;
 }
 
+const eventTypes = [
+  { value: '', label: 'All Types' },
+  { value: 'wedding', label: 'Wedding' },
+  { value: 'corporate', label: 'Corporate' },
+  { value: 'birthday', label: 'Birthday' },
+  { value: 'conference', label: 'Conference' },
+  { value: 'other', label: 'Other' },
+];
+
 export default function BrowseEventsPage() {
   const [events, setEvents] = useState<EventData[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<EventData[]>([]);
@@ -43,7 +53,7 @@ export default function BrowseEventsPage() {
     maxBudget: 100000,
     city: '',
   });
-  const { success, error } = useToast();
+  const { error } = useToast();
 
   useEffect(() => {
     fetchEvents();
@@ -91,65 +101,99 @@ export default function BrowseEventsPage() {
     setFilteredEvents(filtered);
   }, [searchQuery, filters, events]);
 
+  const resetFilters = () => {
+    setSearchQuery('');
+    setFilters({ eventType: '', minBudget: 0, maxBudget: 100000, city: '' });
+  };
+
   return (
-    <div className="min-h-screen bg-bg">
-      {/* Header */}
-      <header className="bg-card border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-display font-bold text-text mb-2">Browse Events</h1>
-          <p className="text-text-secondary">Discover opportunities and submit your best proposals</p>
+    <div className="min-h-screen bg-[var(--bg)]">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-16 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--primary)] opacity-5 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[var(--accent)] opacity-5 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              Find Your Next Project
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[var(--text)] mb-6 leading-tight">
+              Browse{' '}
+              <span className="text-[var(--primary)]">Open Events</span>
+            </h1>
+            <p className="text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto">
+              Discover opportunities and submit your best proposals to clients looking for talented event organizers.
+            </p>
+          </motion.div>
         </div>
-      </header>
+      </section>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="container mx-auto px-6 pb-24">
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-card rounded-lg p-6 border border-border sticky top-4">
-              <h3 className="text-lg font-semibold mb-4 text-text flex items-center gap-2">
-                <Filter className="w-5 h-5 text-accent" />
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-1"
+          >
+            <div className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] shadow-soft sticky top-24">
+              <h3 className="text-lg font-semibold mb-6 text-[var(--text)] flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[var(--primary)]/10 flex items-center justify-center">
+                  <Filter className="w-4 h-4 text-[var(--primary)]" />
+                </div>
                 Filters
               </h3>
 
               {/* Search */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-text mb-2 block">Search</label>
+                <label className="text-sm font-medium text-[var(--text)] mb-2 block">Search</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-3 w-4 h-4 text-text-muted" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
                   <input
                     type="text"
                     placeholder="Search events..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
+                    className="w-full pl-10 pr-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all duration-200"
                   />
                 </div>
               </div>
 
               {/* Event Type */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-text mb-2 block">Event Type</label>
+                <label className="text-sm font-medium text-[var(--text)] mb-2 block">Event Type</label>
                 <select
                   value={filters.eventType}
                   onChange={(e) => setFilters({ ...filters, eventType: e.target.value })}
-                  className="w-full p-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
+                  className="w-full p-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all duration-200"
                 >
-                  <option value="">All Types</option>
-                  <option value="wedding">Wedding</option>
-                  <option value="corporate">Corporate</option>
-                  <option value="birthday">Birthday</option>
-                  <option value="conference">Conference</option>
-                  <option value="other">Other</option>
+                  {eventTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               {/* Budget Range */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-text mb-2 block">Budget Range</label>
-                <div className="space-y-2">
+                <label className="text-sm font-medium text-[var(--text)] mb-4 block">Budget Range</label>
+                <div className="space-y-4">
                   <div>
-                    <span className="text-xs text-text-secondary">Min: ${filters.minBudget.toLocaleString()}</span>
+                    <div className="flex justify-between text-xs text-[var(--muted)] mb-2">
+                      <span>Min</span>
+                      <span className="font-medium text-[var(--primary)]">${filters.minBudget.toLocaleString()}</span>
+                    </div>
                     <input
                       type="range"
                       min="0"
@@ -157,11 +201,14 @@ export default function BrowseEventsPage() {
                       step="1000"
                       value={filters.minBudget}
                       onChange={(e) => setFilters({ ...filters, minBudget: parseInt(e.target.value) })}
-                      className="w-full"
+                      className="w-full h-2 bg-[var(--bg-secondary)] rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
                     />
                   </div>
                   <div>
-                    <span className="text-xs text-text-secondary">Max: ${filters.maxBudget.toLocaleString()}</span>
+                    <div className="flex justify-between text-xs text-[var(--muted)] mb-2">
+                      <span>Max</span>
+                      <span className="font-medium text-[var(--primary)]">${filters.maxBudget.toLocaleString()}</span>
+                    </div>
                     <input
                       type="range"
                       min="0"
@@ -169,7 +216,7 @@ export default function BrowseEventsPage() {
                       step="1000"
                       value={filters.maxBudget}
                       onChange={(e) => setFilters({ ...filters, maxBudget: parseInt(e.target.value) })}
-                      className="w-full"
+                      className="w-full h-2 bg-[var(--bg-secondary)] rounded-lg appearance-none cursor-pointer accent-[var(--primary)]"
                     />
                   </div>
                 </div>
@@ -177,82 +224,140 @@ export default function BrowseEventsPage() {
 
               {/* City */}
               <div className="mb-6">
-                <label className="text-sm font-medium text-text mb-2 block">City</label>
+                <label className="text-sm font-medium text-[var(--text)] mb-2 block">City</label>
                 <input
                   type="text"
                   placeholder="Enter city..."
                   value={filters.city}
                   onChange={(e) => setFilters({ ...filters, city: e.target.value })}
-                  className="w-full p-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface text-text"
+                  className="w-full p-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all duration-200"
                 />
               </div>
 
-              <AnimatedButton
-                variant="outline"
-                fullWidth
-                onClick={() => {
-                  setSearchQuery('');
-                  setFilters({ eventType: '', minBudget: 0, maxBudget: 100000, city: '' });
-                }}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={resetFilters}
+                className="w-full px-4 py-3 border border-[var(--border)] rounded-xl text-[var(--text)] font-medium hover:bg-[var(--bg-secondary)] transition-all duration-200"
               >
                 Reset Filters
-              </AnimatedButton>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Events List */}
           <div className="lg:col-span-3">
             {loading ? (
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} variant="rectangular" height={200} />
+                  <div 
+                    key={i} 
+                    className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] animate-pulse"
+                  >
+                    <div className="h-6 bg-[var(--bg-secondary)] rounded-lg w-3/4 mb-4" />
+                    <div className="h-4 bg-[var(--bg-secondary)] rounded w-full mb-2" />
+                    <div className="h-4 bg-[var(--bg-secondary)] rounded w-2/3 mb-4" />
+                    <div className="flex gap-4">
+                      <div className="h-4 bg-[var(--bg-secondary)] rounded w-24" />
+                      <div className="h-4 bg-[var(--bg-secondary)] rounded w-32" />
+                      <div className="h-4 bg-[var(--bg-secondary)] rounded w-28" />
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : filteredEvents.length > 0 ? (
-              <div className="space-y-4">
-                {filteredEvents.map((event, index) => (
-                  <Link key={event._id} href={`/events/${event._id}`}>
-                    <AnimatedCard delay={index * 0.1} hoverable>
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-text mb-2">{event.title}</h3>
-                          <p className="text-text-secondary mb-4 line-clamp-2">{event.description}</p>
-                          <div className="flex flex-wrap gap-4 text-sm text-text-secondary">
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4 text-accent" />
-                              {new Date(event.eventDate.start).toLocaleDateString()}
+              <motion.div 
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
+                className="space-y-4"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <p className="text-[var(--muted)]">
+                    Showing <span className="font-medium text-[var(--text)]">{filteredEvents.length}</span> events
+                  </p>
+                </div>
+                
+                {filteredEvents.map((event) => (
+                  <motion.div key={event._id} variants={itemVariants}>
+                    <Link href={`/events/${event._id}`}>
+                      <motion.div
+                        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                        className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] shadow-soft hover:shadow-soft-lg transition-all duration-300 group"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="text-xl font-semibold text-[var(--text)] group-hover:text-[var(--primary)] transition-colors">
+                                {event.title}
+                              </h3>
+                              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-medium">
+                                Accepting
+                              </span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <MapPin className="w-4 h-4 text-accent" />
-                              {event.location.city}, {event.location.state}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Users className="w-4 h-4 text-accent" />
-                              {event.guestCount.min}-{event.guestCount.max} guests
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <DollarSign className="w-4 h-4 text-accent" />
-                              ${event.budget.min.toLocaleString()}-${event.budget.max.toLocaleString()}
+                            <p className="text-[var(--muted)] mb-4 line-clamp-2">{event.description}</p>
+                            <div className="flex flex-wrap gap-4 text-sm">
+                              <div className="flex items-center gap-2 text-[var(--muted)]">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center">
+                                  <Calendar className="w-3.5 h-3.5 text-[var(--primary)]" />
+                                </div>
+                                <span>{new Date(event.eventDate.start).toLocaleDateString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-[var(--muted)]">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center">
+                                  <MapPin className="w-3.5 h-3.5 text-[var(--primary)]" />
+                                </div>
+                                <span>{event.location.city}, {event.location.state}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-[var(--muted)]">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center">
+                                  <Users className="w-3.5 h-3.5 text-[var(--primary)]" />
+                                </div>
+                                <span>{event.guestCount.min}-{event.guestCount.max} guests</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-[var(--muted)]">
+                                <div className="w-7 h-7 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center">
+                                  <DollarSign className="w-3.5 h-3.5 text-[var(--primary)]" />
+                                </div>
+                                <span className="font-medium text-[var(--text)]">
+                                  ${event.budget.min.toLocaleString()}-${event.budget.max.toLocaleString()}
+                                </span>
+                              </div>
                             </div>
                           </div>
+                          <div className="flex items-center">
+                            <span className="flex items-center gap-2 text-[var(--primary)] font-semibold group-hover:gap-3 transition-all">
+                              View Details
+                              <ArrowRight className="w-4 h-4" />
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex items-center justify-between md:flex-col md:items-end gap-4">
-                          <span className="px-3 py-1 bg-success/20 text-success rounded-full text-sm font-medium">
-                            Accepting
-                          </span>
-                          <span className="text-accent font-semibold">View Details →</span>
-                        </div>
-                      </div>
-                    </AnimatedCard>
-                  </Link>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             ) : (
-              <div className="text-center py-12">
-                <Calendar className="w-16 h-16 text-border mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-text-secondary mb-2">No events found</h3>
-                <p className="text-text-muted">Try adjusting your filters or check back later</p>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-center py-16 bg-white dark:bg-[var(--card)] rounded-2xl border border-[var(--border)]"
+              >
+                <div className="w-20 h-20 rounded-2xl bg-[var(--bg-secondary)] flex items-center justify-center mx-auto mb-6">
+                  <Calendar className="w-10 h-10 text-[var(--muted)]" />
+                </div>
+                <h3 className="text-xl font-semibold text-[var(--text)] mb-2">No events found</h3>
+                <p className="text-[var(--muted)] mb-6">Try adjusting your filters or check back later</p>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={resetFilters}
+                  className="px-6 py-3 bg-[var(--primary)] text-white rounded-xl font-medium shadow-glow hover:shadow-glow-lg transition-all duration-300"
+                >
+                  Reset Filters
+                </motion.button>
+              </motion.div>
             )}
           </div>
         </div>
