@@ -873,3 +873,12 @@ input[type='datetime-local']::-webkit-calendar-picker-indicator:hover {
   }
 }
 
+/* Dashboard sidebar and card text color fix for dark mode */
+.dark .dashboard-sidebar, .dark .dashboard-card, .dark .dashboard-profile, .dark .dashboard-menu, .dark .dashboard-user-info {
+  color: #fff !important;
+}
+
+/* If using Tailwind, you can also add these classes to your sidebar/card elements:
+   className="... text-[var(--text)] dark:text-white ..."
+*/
+
