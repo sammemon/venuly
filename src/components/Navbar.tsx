@@ -17,9 +17,9 @@ export default function Navbar() {
   // Close user menu on outside click
   useEffect(() => {
     if (!userMenuOpen) return;
-    function handleClick(e) {
+    function handleClick(e: MouseEvent) {
       const menu = document.getElementById('user-menu');
-      if (menu && !menu.contains(e.target)) {
+      if (menu && !menu.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
     }
@@ -277,7 +277,6 @@ export default function Navbar() {
             >
               <div className="px-4 py-6 space-y-3">
                 {navLinks.map((link) => {
-                  // Special handling for Post Event and Join as Organizer
                   let href = link.href;
                   if (isSignedIn) {
                     if (link.label === 'Browse Events') href = '/browse-events';
@@ -289,11 +288,12 @@ export default function Navbar() {
                     <Link
                       key={link.href}
                       href={href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-3 rounded-xl font-medium transition-all ${
-                      pathname === link.href
-                        ? 'bg-[var(--primary-muted)] text-[var(--primary)]'
-                        : 'text-[var(--text)] hover:bg-[var(--primary-muted)]'
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block px-4 py-3 rounded-xl font-medium transition-all ${
+                        pathname === link.href
+                          ? 'bg-[var(--primary-muted)] text-[var(--primary)]'
+                          : 'text-[var(--text)] hover:bg-[var(--primary-muted)]'
+                      }`}
                     >
                       {link.label}
                       {pathname === link.href && (
@@ -306,6 +306,12 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
+                {/* Services Section */}
+                <div className="pt-4 pb-2">
+                  <p className="px-4 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider mb-2">
+                    Services
+                  </p>
+                  {servicesLinks.map((link) => {
                     const Icon = link.icon;
                     return (
                       <Link
@@ -345,7 +351,9 @@ export default function Navbar() {
                   </div>
                   {isSignedIn ? (
                     <>
-                      <Link href={`/profile/${session.user.id}`} onClick={() => setMobileMenuOpen(false)}>
+                      <Link href={session.user.role === 'CLIENT' ? '/dashboard/client/profile' : session.user.role === 'ORGANIZER' ? '/dashboard/organizer/profile' : '/dashboard/admin/profile'}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         <button className="w-full px-4 py-3 rounded-xl font-semibold text-[var(--text)] border-2 border-[var(--border)] hover:border-[var(--primary)] hover:bg-[var(--primary-muted)] transition-all">
                           Profile
                         </button>
