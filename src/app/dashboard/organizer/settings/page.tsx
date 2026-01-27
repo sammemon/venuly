@@ -27,15 +27,15 @@ export default function OrganizerSettingsPage() {
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#222222] mb-2">Settings</h1>
-        <p className="text-gray-600">Manage your account preferences</p>
+        <h1 className="text-3xl font-bold text-[var(--text)] mb-2">Settings</h1>
+        <p className="text-[var(--muted)]">Manage your account preferences</p>
       </div>
 
       <div className="space-y-6">
         {/* Profile Display */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6">
+        <div className="bg-[var(--card)] rounded-xl shadow-sm border border-[var(--border)] p-6">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-[#1E93AB] overflow-hidden flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-[var(--primary)] overflow-hidden flex items-center justify-center">
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
@@ -45,50 +45,50 @@ export default function OrganizerSettingsPage() {
               )}
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-[#222222]">
+              <h3 className="text-lg font-semibold text-[var(--text)]">
                 {session?.user.firstName} {session?.user.lastName}
               </h3>
-              <p className="text-sm text-gray-600">{session?.user.email}</p>
-              <p className="text-xs text-[#1E93AB] font-medium mt-1">Event Organizer</p>
+              <p className="text-sm text-[var(--muted)]">{session?.user.email}</p>
+              <p className="text-xs text-[var(--primary)] font-medium mt-1">Event Organizer</p>
             </div>
           </div>
         </div>
 
         {/* Account Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+        <div className="bg-[var(--card)] rounded-xl shadow-sm border border-[var(--border)] p-6">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <User className="w-5 h-5 text-[#1E93AB]" />
+            <div className="w-10 h-10 rounded-lg bg-[var(--primary-muted)] flex items-center justify-center">
+              <User className="w-5 h-5 text-[var(--primary)]" />
             </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Account Information</h2>
+            <h2 className="text-xl font-semibold text-[var(--text)]">Account Information</h2>
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Email</label>
               <input
                 type="email"
                 value={session.user.email}
                 disabled
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--surface)] text-[var(--muted)]"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">First Name</label>
                 <input
                   type="text"
                   value={session.user.firstName}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--surface)] text-[var(--muted)]"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Last Name</label>
                 <input
                   type="text"
                   value={session.user.lastName}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--surface)] text-[var(--muted)]"
                 />
               </div>
             </div>
@@ -96,18 +96,18 @@ export default function OrganizerSettingsPage() {
         </div>
 
         {/* Notification Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-[#DCDCDC] p-6\">
+        <div className="bg-[var(--card)] rounded-xl shadow-sm border border-[var(--border)] p-6">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-[#1E93AB]/10 flex items-center justify-center">
-              <Bell className="w-5 h-5 text-[#1E93AB]" />
+            <div className="w-10 h-10 rounded-lg bg-[var(--primary-muted)] flex items-center justify-center">
+              <Bell className="w-5 h-5 text-[var(--primary)]" />
             </div>
-            <h2 className="text-xl font-semibold text-[#222222]">Notification Preferences</h2>
+            <h2 className="text-xl font-semibold text-[var(--text)]">Notification Preferences</h2>
           </div>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">Email - New Proposals</p>
-                <p className="text-sm text-gray-500">Get notified when clients view your proposals</p>
+                <p className="font-medium text-[var(--text)]">Email - New Proposals</p>
+                <p className="text-sm text-[var(--muted)]">Get notified when clients view your proposals</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -116,7 +116,7 @@ export default function OrganizerSettingsPage() {
                   onChange={(e) => setNotifications({ ...notifications, emailProposals: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1E93AB]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1E93AB]"></div>
+                <div className="w-11 h-6 bg-[var(--surface)] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--primary)]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--card)] after:border-[var(--border)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--primary)]"></div>
               </label>
             </div>
             <div className="flex items-center justify-between">

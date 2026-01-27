@@ -111,21 +111,21 @@ export default function OrganizerProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[var(--bg)]">
       {/* Cover Photo Area */}
-      <div className="h-48 bg-gradient-to-r from-[#0E7490] to-[#18A4B8]"></div>
+      <div className="h-48 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]"></div>
 
       {/* Profile Header */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-mt-20 sm:-mt-24 mb-8">
           <div className="flex flex-col sm:flex-row sm:items-end sm:space-x-5">
             <div className="relative group">
-              <div className="h-32 w-32 rounded-full bg-white p-2 shadow-xl">
-                <div className="h-full w-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+              <div className="h-32 w-32 rounded-full bg-[var(--card)] p-2 shadow-xl">
+                <div className="h-full w-full rounded-full overflow-hidden bg-[var(--surface)] flex items-center justify-center">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-3xl font-bold text-gray-400">{initials}</span>
+                    <span className="text-3xl font-bold text-[var(--muted)]">{initials}</span>
                   )}
                 </div>
               </div>
@@ -134,25 +134,25 @@ export default function OrganizerProfilePage() {
             <div className="mt-6 sm:mt-0 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-between sm:pb-6">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3">
-                  <h1 className="text-2xl font-bold text-white truncate">
+                  <h1 className="text-2xl font-bold text-[var(--text)] truncate">
                     {session?.user.firstName} {session?.user.lastName}
                   </h1>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm">
-                    <Star className="w-3 h-3 fill-white" />
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--primary-muted)] text-[var(--primary)] backdrop-blur-sm">
+                    <Star className="w-3 h-3 fill-[var(--primary)]" />
                     New
                   </span>
                 </div>
-               <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/90">
-  <span className="font-medium">Event Organizer</span>
-  <span className="hidden sm:inline">•</span>
-  <span className="break-all">{session?.user.email}</span>
-</div>
+                <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--text-secondary)]">
+                  <span className="font-medium">Event Organizer</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="break-all">{session?.user.email}</span>
+                </div>
 
               </div>
               <div className="mt-5 sm:mt-0">
                 <button
                   onClick={() => setShowProfileModal(true)}
-                  className="inline-flex items-center gap-2 px-4 py-2 border-2 border-white rounded-lg shadow-sm text-sm font-medium text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 border-2 border-[var(--primary)] rounded-lg shadow-sm text-sm font-medium text-[var(--primary)] bg-[var(--primary-muted)] hover:bg-[var(--primary)] hover:text-white transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit profile
@@ -164,64 +164,65 @@ export default function OrganizerProfilePage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+          {/* Card 1 */}
+          <div className="bg-[var(--card)] overflow-hidden border border-[var(--border)] rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Briefcase className="h-6 w-6 text-gray-400" />
+                  <Briefcase className="h-6 w-6 text-[var(--muted)]" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Jobs applied</dt>
-                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                    <dt className="text-sm font-medium text-[var(--muted)] truncate">Jobs applied</dt>
+                    <dd className="text-lg font-semibold text-[var(--text)]">0</dd>
                   </dl>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+          {/* Card 2 */}
+          <div className="bg-[var(--card)] overflow-hidden border border-[var(--border)] rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Award className="h-6 w-6 text-gray-400" />
+                  <Award className="h-6 w-6 text-[var(--muted)]" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Invites received</dt>
-                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                    <dt className="text-sm font-medium text-[var(--muted)] truncate">Invites received</dt>
+                    <dd className="text-lg font-semibold text-[var(--text)]">0</dd>
                   </dl>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+          {/* Card 3 */}
+          <div className="bg-[var(--card)] overflow-hidden border border-[var(--border)] rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Star className="h-6 w-6 text-gray-400" />
+                  <Star className="h-6 w-6 text-[var(--muted)]" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Profile views</dt>
-                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                    <dt className="text-sm font-medium text-[var(--muted)] truncate">Profile views</dt>
+                    <dd className="text-lg font-semibold text-[var(--text)]">0</dd>
                   </dl>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="bg-white overflow-hidden border border-gray-200 rounded-lg">
+          {/* Card 4 */}
+          <div className="bg-[var(--card)] overflow-hidden border border-[var(--border)] rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <User className="h-6 w-6 text-gray-400" />
+                  <User className="h-6 w-6 text-[var(--muted)]" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Connections</dt>
-                    <dd className="text-lg font-semibold text-gray-900">0</dd>
+                    <dt className="text-sm font-medium text-[var(--muted)] truncate">Connections</dt>
+                    <dd className="text-lg font-semibold text-[var(--text)]">0</dd>
                   </dl>
                 </div>
               </div>
@@ -234,9 +235,9 @@ export default function OrganizerProfilePage() {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
             {/* About Section */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">About</h2>
+                <h2 className="text-lg font-semibold text-[var(--text)]">About</h2>
                 <button
                   onClick={() => setShowBioModal(true)}
                   className="text-sm text-[#0E7490] hover:text-[#0b5f74] font-medium flex items-center gap-1"
