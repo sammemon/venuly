@@ -63,13 +63,13 @@ export default function Footer() {
                 <Mail className="w-5 h-5" />
                 <span>support@venuly.dev</span>
               </a>
-              <a href="tel:+15551234567" className="flex items-center gap-3 text-white/70 hover:text-[var(--primary)] transition-colors">
+              <a href="tel:+923213498203" className="flex items-center gap-3 text-white/70 hover:text-[var(--primary)] transition-colors">
                 <Phone className="w-5 h-5" />
-                <span>+1 (555) 123-4567</span>
+                <span>+92 321 3498203</span>
               </a>
               <div className="flex items-center gap-3 text-white/70">
                 <MapPin className="w-5 h-5" />
-                <span>San Francisco, CA</span>
+                <span>MUET Main Campus, Jamshoro, Jamshoro, Postal Code: 76062</span>
               </div>
             </div>
           </div>

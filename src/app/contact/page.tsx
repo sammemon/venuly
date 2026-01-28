@@ -16,14 +16,14 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Call Us',
-    primary: '+1 (646) 555-0199',
-    secondary: 'Mon-Fri, 9am-6pm EST',
+    primary: '+92 321 3498203',
+    secondary: 'Mon-Fri, 9am-6pm PKT',
   },
   {
     icon: MapPin,
     title: 'Visit Us',
-    primary: '99 Hudson St, 5th Floor',
-    secondary: 'New York, NY 10013',
+    primary: 'MUET Main Campus',
+    secondary: 'Jamshoro, Jamshoro, Postal Code: 76062',
   },
 ];
 
