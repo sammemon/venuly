@@ -37,6 +37,7 @@ interface EventData {
     avatar?: string;
     email?: string;
   };
+  image?: string; // Optional event image for card display
 }
 
 const eventTypes = [
@@ -149,8 +150,74 @@ export default function BrowseEventsPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="w-full lg:w-1/4"
           >
-            {/* ...existing filter sidebar code... */}
-            {/* (No change to filter sidebar markup) */}
+            <div className="bg-white dark:bg-[var(--card)] rounded-2xl border border-[var(--border)] p-6 mb-8 shadow-soft">
+              <div className="mb-4">
+                <label htmlFor="search" className="block text-sm font-medium text-[var(--text)] mb-2">Search Events</label>
+                <div className="relative">
+                  <input
+                    id="search"
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="Search by title or description..."
+                    className="w-full px-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] pr-10"
+                  />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--muted)]" />
+                </div>
+              </div>
+              <div className="mb-4">
+                <label htmlFor="eventType" className="block text-sm font-medium text-[var(--text)] mb-2">Event Type</label>
+                <select
+                  id="eventType"
+                  value={filters.eventType}
+                  onChange={e => setFilters(f => ({ ...f, eventType: e.target.value }))}
+                  className="w-full px-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
+                >
+                  {eventTypes.map(type => (
+                    <option key={type.value} value={type.value}>{type.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label htmlFor="city" className="block text-sm font-medium text-[var(--text)] mb-2">City</label>
+                <input
+                  id="city"
+                  type="text"
+                  value={filters.city}
+                  onChange={e => setFilters(f => ({ ...f, city: e.target.value }))}
+                  placeholder="e.g. New York"
+                  className="w-full px-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-[var(--text)] mb-2">Budget Range ($)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    min={0}
+                    value={filters.minBudget}
+                    onChange={e => setFilters(f => ({ ...f, minBudget: Number(e.target.value) }))}
+                    placeholder="Min"
+                    className="w-1/2 px-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    value={filters.maxBudget}
+                    onChange={e => setFilters(f => ({ ...f, maxBudget: Number(e.target.value) }))}
+                    placeholder="Max"
+                    className="w-1/2 px-4 py-3 bg-[var(--bg)] border border-[var(--border)] rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="w-full mt-2 px-4 py-3 bg-[var(--primary)]/10 text-[var(--primary)] rounded-xl font-medium hover:bg-[var(--primary)]/20 transition-all"
+              >
+                Reset Filters
+              </button>
+            </div>
           </motion.div>
 
           {/* Events Card Grid */}
@@ -172,10 +239,21 @@ export default function BrowseEventsPage() {
                   <motion.div key={event._id} variants={itemVariants}>
                     <Link href={`/events/${event._id}`} className="block group h-full">
                       <div className="relative bg-white dark:bg-[var(--card)] rounded-2xl border-2 border-[var(--primary)] shadow-glow hover:shadow-glow-lg transition-all duration-300 h-full overflow-hidden">
-                        {/* Event Image Placeholder */}
-                        <div className="h-40 w-full bg-[var(--bg-secondary)] flex items-center justify-center">
-                          <Calendar className="w-12 h-12 text-[var(--primary)] opacity-30" />
-                        </div>
+                        {/* Event Image or Fallback */}
+                        {event.image ? (
+                          <div className="h-40 w-full overflow-hidden">
+                            <img
+                              src={event.image}
+                              alt={event.title}
+                              className="object-cover w-full h-full"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-40 w-full bg-gradient-to-br from-[var(--primary)]/20 to-[var(--accent)]/20 flex items-center justify-center">
+                            <Calendar className="w-12 h-12 text-[var(--primary)] opacity-30" />
+                          </div>
+                        )}
                         <div className="p-6 flex flex-col h-[calc(100%-10rem)]">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="px-3 py-1 bg-[var(--primary)]/10 text-[var(--primary)] rounded-full text-xs font-semibold">

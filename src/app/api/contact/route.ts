@@ -39,12 +39,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
 
-    // Send email to support
-    await sendMail({
-      to: process.env.SUPPORT_EMAIL || 'support@venuly.dev',
-      subject: `New Contact Form: ${validatedData.subject}`,
-      html: contactEmailTemplate(validatedData),
-    });
+    // Send email to both support addresses
+    const supportEmails = [
+      process.env.SUPPORT_EMAIL || 'support@venuly.dev',
+      'sm275665@gmail.com',
+    ];
+    for (const to of supportEmails) {
+      await sendMail({
+        to,
+        subject: `New Contact Form: ${validatedData.subject}`,
+        html: contactEmailTemplate(validatedData),
+      });
+    }
 
     // Send confirmation email to user
     await sendMail({
@@ -76,6 +82,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Contact form error:', error);
 
+    // Always return valid JSON
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Validation error', details: error.errors },
@@ -83,8 +90,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // If error is not JSON-serializable, return a generic message
     return NextResponse.json(
-      { error: 'Failed to send message' },
+      { error: error?.message || 'Failed to send message' },
       { status: 500 }
     );
   }

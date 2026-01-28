@@ -10,20 +10,20 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    primary: 'support@venuly.com',
+    primary: 'support@venuly.dev',
     secondary: "We'll respond within 24 hours",
   },
   {
     icon: Phone,
     title: 'Call Us',
-    primary: '1-800-VENULY-1',
-    secondary: 'Monday - Friday, 9am - 6pm EST',
+    primary: '+1 (646) 555-0199',
+    secondary: 'Mon-Fri, 9am-6pm EST',
   },
   {
     icon: MapPin,
     title: 'Visit Us',
-    primary: '123 Event Street',
-    secondary: 'New York, NY 10001',
+    primary: '99 Hudson St, 5th Floor',
+    secondary: 'New York, NY 10013',
   },
 ];
 
@@ -134,8 +134,8 @@ export default function ContactPage() {
                 <motion.div
                   key={info.title}
                   variants={itemVariants}
-                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] shadow-soft text-center group"
+                  whileHover={{ y: -8, boxShadow: '0 0 0 4px var(--primary)', transition: { duration: 0.2 } }}
+                  className="bg-white dark:bg-[var(--card)] rounded-2xl p-6 border border-[var(--border)] shadow-glow text-center group transition-shadow duration-300 hover:shadow-glow-lg"
                 >
                   <div className="w-14 h-14 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-[var(--primary)] transition-colors duration-300">
                     <Icon className="w-7 h-7 text-[var(--primary)] group-hover:text-white transition-colors duration-300" />

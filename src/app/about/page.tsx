@@ -13,7 +13,7 @@ const team = [
       <img
         src="/team/raza.jpg"
         alt="Raza Khan profile"
-        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-4 border-[var(--primary)] bg-[var(--card)] shadow-glow transition-shadow duration-300 group-hover:shadow-glow-lg"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
@@ -25,7 +25,7 @@ const team = [
       <img
         src="/team/sohail.jpg"
         alt="Sohail Ahmed profile"
-        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-4 border-[var(--primary)] bg-[var(--card)] shadow-glow transition-shadow duration-300 group-hover:shadow-glow-lg"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
@@ -37,7 +37,7 @@ const team = [
       <img
         src="/team/muhammad.jpg"
         alt="Muhammad Hammad profile"
-        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-4 border-[var(--primary)] bg-[var(--card)] shadow-glow transition-shadow duration-300 group-hover:shadow-glow-lg"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
