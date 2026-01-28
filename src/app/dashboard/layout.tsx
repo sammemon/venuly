@@ -82,16 +82,16 @@ export default function DashboardLayout({
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed inset-y-0 left-0 w-72 bg-[var(--secondary)] shadow-2xl"
             >
-              <div className="flex items-center justify-between p-5 border-b border-white/10">
+              <div className="flex items-center justify-between p-5 border-b border-[var(--divider)]">
                 <Link href="/" className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-[var(--primary)] flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-xl font-bold text-white">Venuly</span>
+                  <span className="text-xl font-bold text-[var(--text)]">Venuly</span>
                 </Link>
                 <button 
                   onClick={() => setSidebarOpen(false)}
-                  className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-lg text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--primary-muted)] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -107,7 +107,7 @@ export default function DashboardLayout({
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-1 transition-all ${
                         isActive
                           ? 'bg-[var(--primary)] text-white shadow-md'
-                          : 'text-white/70 hover:text-white hover:bg-white/10'
+                          : 'text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--primary-muted)]'
                       }`}
                       onClick={() => setSidebarOpen(false)}
                     >
@@ -124,17 +124,17 @@ export default function DashboardLayout({
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col bg-[var(--secondary)]">
-        <div className="flex items-center gap-2.5 p-6 border-b border-white/10">
+        <div className="flex items-center gap-2.5 p-6 border-b border-[var(--divider)]">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-10 h-10 rounded-xl bg-[var(--primary)] flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">Venuly</span>
+            <span className="text-2xl font-bold text-[var(--text)]">Venuly</span>
           </Link>
         </div>
         
         <nav className="flex-1 p-4 overflow-y-auto">
-          <p className="px-4 mb-3 text-xs font-semibold text-white/40 uppercase tracking-wider">
+          <p className="px-4 mb-3 text-xs font-semibold text-[var(--muted)] uppercase tracking-wider">
             Menu
           </p>
           {navigation.map((item) => {
@@ -147,13 +147,13 @@ export default function DashboardLayout({
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-1 transition-all ${
                   isActive
                     ? 'bg-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    : 'text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--primary-muted)]'
                 }`}
               >
                 <Icon className="w-5 h-5" />
                 <span className="font-medium">{item.name}</span>
                 {isActive && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[var(--primary)]" />
                 )}
               </Link>
             );
