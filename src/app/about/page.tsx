@@ -13,7 +13,7 @@ const team = [
       <img
         src="/team/raza.jpg"
         alt="Raza Khan profile"
-        className="w-32 h-32 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
@@ -22,18 +22,11 @@ const team = [
     name: 'Sohail Ahmed',
     role: 'Full Stack Developer',
     avatar: (
-      <svg viewBox="0 0 80 80" className="w-20 h-20 animate-fade-in-up" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="40" cy="40" r="38" fill="#222" stroke="#fff" strokeWidth="2" />
-        <g>
-          <ellipse cx="40" cy="60" rx="20" ry="12" fill="#fff" />
-          <ellipse cx="40" cy="38" rx="15" ry="16" fill="#222" />
-          <ellipse cx="40" cy="34" rx="8" ry="8" fill="#222" />
-          <rect x="32" y="50" width="16" height="10" rx="4" fill="#222" />
-          <rect x="36" y="54" width="8" height="6" rx="2" fill="#fff" />
-          <rect x="36" y="54" width="2" height="6" rx="1" fill="#222" />
-          <rect x="42" y="54" width="2" height="6" rx="1" fill="#222" />
-        </g>
-      </svg>
+      <img
+        src="/team/sohail.jpg"
+        alt="Sohail Ahmed profile"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+      />
     ),
     bio: 'Student of Computer System Engineering at MUET',
   },
@@ -44,7 +37,7 @@ const team = [
       <img
         src="/team/muhammad.jpg"
         alt="Muhammad Hammad profile"
-        className="w-32 h-32 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
+        className="w-40 h-40 rounded-full object-cover animate-fade-in-up border-2 border-[var(--primary)] bg-[var(--card)]"
       />
     ),
     bio: 'Student of Computer System Engineering at MUET',
