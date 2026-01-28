@@ -74,6 +74,7 @@ export default function HomeClient() {
       reviews: 127,
       image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop',
       price: 'From $2,500',
+      profileUrl: '/marketplace', // Replace with real profile URL if available
     },
     {
       name: 'Corporate Events Pro',
@@ -82,6 +83,7 @@ export default function HomeClient() {
       reviews: 89,
       image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
       price: 'From $1,800',
+      profileUrl: '/marketplace', // Replace with real profile URL if available
     },
     {
       name: 'Party Perfection',
@@ -90,6 +92,7 @@ export default function HomeClient() {
       reviews: 156,
       image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop',
       price: 'From $800',
+      profileUrl: '/marketplace', // Replace with real profile URL if available
     },
   ];
 
@@ -395,9 +398,19 @@ export default function HomeClient() {
                         <span className="font-semibold text-[var(--text)]">{organizer.rating}</span>
                         <span className="text-sm text-[var(--muted)]">({organizer.reviews})</span>
                       </div>
-                      <AnimatedButton size="sm" variant="ghost">
-                        View Profile
-                      </AnimatedButton>
+                      {organizer.profileUrl ? (
+                        <Link href={organizer.profileUrl} passHref legacyBehavior>
+                          <a target="_blank" rel="noopener noreferrer">
+                            <AnimatedButton size="sm" variant="ghost">
+                              View Profile
+                            </AnimatedButton>
+                          </a>
+                        </Link>
+                      ) : (
+                        <AnimatedButton size="sm" variant="ghost" disabled>
+                          View Profile
+                        </AnimatedButton>
+                      )}
                     </div>
                   </div>
                 </AnimatedCard>
