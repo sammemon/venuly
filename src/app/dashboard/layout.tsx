@@ -160,9 +160,9 @@ export default function DashboardLayout({
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/10">
-          <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-white/5">
-            <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-semibold overflow-hidden ring-2 ring-white/20">
+        <div className="p-4 border-t border-[var(--divider)]">
+          <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-[var(--primary-muted)]">
+            <div className="w-10 h-10 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-semibold overflow-hidden ring-2 ring-[var(--primary)]/20">
               {session?.user.avatar ? (
                 <img src={session.user.avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
@@ -173,15 +173,15 @@ export default function DashboardLayout({
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">
+              <p className="text-sm font-medium text-[var(--text)] truncate">
                 {session?.user.firstName} {session?.user.lastName}
               </p>
-              <p className="text-xs text-white/50 truncate">{session?.user.email}</p>
+              <p className="text-xs text-[var(--muted)] truncate">{session?.user.email}</p>
             </div>
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/' })}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--muted)] hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
           >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Sign Out</span>
